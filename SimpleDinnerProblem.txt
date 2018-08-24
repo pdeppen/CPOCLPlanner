@@ -1,0 +1,7 @@
+(define (problem eat-food)
+
+	(:init (person Timmy) (person Hank) (person Carla) (food Chicken) (food Soup) (food Steak) (status Timmy Hungry) (status Hank Hungry) (status Carla Hungry))
+
+	(:intentions (intends Hank Hank Full) (intends Timmy Timmy Full) (intends Carla Carla Full))
+
+	(:goal (status Timmy Full) (status Hank Full) (status Carla Full))

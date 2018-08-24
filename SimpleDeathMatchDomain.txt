@@ -1,0 +1,8 @@
+(define (domain deathmatch)
+	(:predicates (status ?person ?status) (intends ?intender ?person ?status) (person ?person))
+
+	(:action kill
+		:parameters ?killer ?victim
+		:precondition (and (person ?killer) (person ?victim) (status ?killer Healthy) (status ?victim Healthy))
+		:effect (and (status ?victim Dead) (not status ?victim Healthy))
+		:agents ?killer

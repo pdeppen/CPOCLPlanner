@@ -1,0 +1,14 @@
+(define (domain hungrybaby)
+	(:predicates (intends ?intender ?person ?diaper) (baby ?person) (adult ?person) (diaper ?person ?dirty) (naked ?person ?diaper) (status ?person ?clean)
+
+	(:action remove
+		:parameters ?adult ?baby
+		:precondition (and (adult ?adult) (baby ?baby) (naked ?baby No) (diaper ?baby Dirty))
+		:effect (and (naked ?baby Yes) (not naked ?baby No)
+		:agents ?adult
+
+	(:action add
+		:parameters ?adult ?baby
+		:precondition (and (adult ?adult) (baby ?baby) (naked ?baby Yes)
+		:effect (and (status ?baby Clean) (not status ?baby Dirty) (diaper ?baby Clean) (not diaper ?baby Dirty))
+		:agents ?adult

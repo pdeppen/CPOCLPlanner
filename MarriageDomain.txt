@@ -1,0 +1,20 @@
+(define (domain marriage)
+	(:predicates (intends ?intender ?person ?status) (male ?man) (female ?woman) (ring ?ring)(propose ?male ?ring ?female) (has ?person ?object))
+
+	(:action steal
+		:parameters ?thief ?victim ?ring
+		:precondition (and (male ?thief) (male ?victim) (ring ?ring) (has ?victim ?ring)
+		:effect (and (has ?thief ?ring) (not has ?victim ?ring)
+		:agents ?thief
+
+	(:action propose
+		:parameters ?male ?ring ?female
+		:precondition (and (male ?male) (female ?female) (ring ?ring) (has ?male ?ring) (status ?male Single) (status ?female Single))
+		:effect (and (has ?female ?ring) (not has ?male ?ring) (status ?male Married) (status ?female Married) (not status ?male Single) (not status ?female Single)
+		:agents ?male
+
+	(:action baby
+		:parameters ?male ?female
+		:precondition (and (male ?male) (female ?female) (status ?female Married) (pregnant ?female False)
+		:effect (and (pregnant ?female True) (not pregnant ?female False))
+		:agents ?male

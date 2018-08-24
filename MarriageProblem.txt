@@ -1,0 +1,7 @@
+(define (problem find-husband)
+
+	(:init (male Timmy) (male Hank) (female Carla) (pregnant Carla False) (ring Ring) (has Hank Ring) (status Timmy Single) (status Hank Single) (status Carla Single))
+
+	(:intentions (intends Hank Hank Married) (intends Timmy Timmy Married) (intends Timmy Carla False))
+
+	(:goal (pregnant Carla True))

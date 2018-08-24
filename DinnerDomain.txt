@@ -1,0 +1,20 @@
+(define (domain dinner)
+	(:predicates (intends ?intender ?person ?status) (person ?person) (food ?food) (has ?person ?food) (status ?person ?status))
+
+	(:action cook
+		:parameters ?chef ?food
+		:precondition (and (person ?chef) (food ?food))
+		:effect (and (has ?chef ?food))
+		:agents ?chef
+
+	(:action take
+		:parameters ?slacker ?victim ?food
+		:precondition (and (person ?slacker) (person ?victim) (has ?victim ?food) (status ?slacker Hungry))
+		:effect (and (has ?slacker ?food) (not has ?victim ?food))
+		:agents ?slacker
+
+	(:action eat
+		:parameters ?person ?food
+		:precondition (and (person ?person) (status ?person Hungry) (has ?person ?food))
+		:effect (and (status ?person Full) (not status ?person Hungry) (not has ?person ?food))
+		:agents ?person

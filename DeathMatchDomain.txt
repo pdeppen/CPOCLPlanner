@@ -1,0 +1,14 @@
+(define (domain deathmatch)
+	(:predicates (status ?person ?status) (intends ?intender ?person ?status) (person ?person) (weapon ?person ?loaded)
+
+	(:action reload
+		:parameters ?killer
+		:precondition (and (person ?killer) (status ?killer Healthy) (weapon ?killer Unloaded))
+		:effect (and (weapon ?killer Loaded) (not weapon ?killer Unloaded)
+		:agents ?killer
+
+	(:action kill
+		:parameters ?killer ?victim
+		:precondition (and (person ?killer) (person ?victim) (status ?killer Healthy) (status ?victim Healthy) (weapon ?killer Loaded)
+		:effect (and (status ?victim Dead) (not status ?victim Healthy))
+		:agents ?killer

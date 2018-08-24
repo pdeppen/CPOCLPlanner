@@ -1,0 +1,8 @@
+(define (domain birthday)
+	(:predicates (intends ?intender ?person ?present) (person ?person) (has ?person ?present))
+
+	(:action give
+		:parameters ?adult ?kid ?present
+		:precondition (and (person ?adult) (person ?kid) (has ?adult ?present))
+		:effect (and (has ?kid ?present) (not has ?adult ?present)
+		:agents ?adult

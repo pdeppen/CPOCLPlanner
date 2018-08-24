@@ -1,0 +1,7 @@
+(define (problem feed-baby)
+
+	(:init (naked Timmy No) (diaper Timmy Dirty) (status Timmy Dirty) (baby Timmy) (adult Hank) (adult Carl) (adult Marie) (adult William)
+
+	(:intentions (intends Hank Timmy Clean) (intends Carl Timmy Clean) (intends Marie Timmy Clean) (intends William Timmy Dirty))
+
+	(:goal (diaper Timmy Clean)

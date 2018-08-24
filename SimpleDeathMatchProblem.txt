@@ -1,0 +1,7 @@
+(define (problem dont-die)
+
+	(:init (status Timmy Healthy) (status Hank Healthy) (status Carl Healthy) (status William Healthy) (person Timmy) (person Hank) (person Carl) (person William))
+
+	(:intentions (intends Timmy Timmy Healthy) (intends Hank Hank Healthy) (intends Carl Carl Healthy) (intends William William Healthy))
+
+	(:goal (status Carl Dead) (status Hank Dead))
