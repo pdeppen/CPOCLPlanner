@@ -19,10 +19,10 @@ public class MainClassCPOCL
 //	static String domainName = "SimpleCryingBabyDomain.txt";
 //	static String problemName = "SimpleCryingBabyProblem.txt";
 
-//	static String domainName = "BirthdayDomain.txt";
-//	static String problemName = "BirthdayProblem.txt";
-	static String domainName = "SimpleBirthdayDomain.txt";
-	static String problemName = "SimpleBirthdayProblem.txt";
+	static String domainName = "BirthdayDomain.txt";
+	static String problemName = "BirthdayProblem.txt";
+//	static String domainName = "SimpleBirthdayDomain.txt";
+//	static String problemName = "SimpleBirthdayProblem.txt";
 
 //	static String domainName = "MarriageDomain.txt";
 //	static String problemName = "MarriageProblem.txt";
@@ -33,6 +33,12 @@ public class MainClassCPOCL
 //	static String problemName = "DinnerProblem.txt";
 //	static String domainName = "SimpleDinnerDomain.txt";
 //	static String problemName = "SimpleDinnerProblem.txt";
+	
+/** 
+ * Domain and Problem added by Philip Deppen
+ */
+//static String domainName = "BriefcaseDomain.txt";
+//static String problemName = "BriefcaseProblem.txt";
 
 
 

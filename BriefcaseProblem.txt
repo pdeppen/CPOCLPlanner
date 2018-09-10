@@ -1,0 +1,7 @@
+(define (problem birthday-gift)
+
+	(:init (kid Timmy) (adult Hank) (adult Carl) (adult Marie) (adult William) (has Hank Car) (has Carl Game) (has Marie Candy) (has William Candy) (party Party) (location Timmy Party) (location Hank Home) (location Carl Home) (location Marie Home) (location William Home) (destination Party) (destination Home)
+
+	(:intentions (intends Hank Timmy Car) (intends Carl Timmy Game) (intends Marie Timmy Candy) (intends William William Candy)
+
+	(:goal (has Timmy Car) (has Timmy Candy)
