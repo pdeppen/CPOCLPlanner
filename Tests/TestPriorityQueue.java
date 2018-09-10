@@ -1,9 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
-
 import org.junit.Test;
-
 public class TestPriorityQueue {
 
 	@Test
@@ -11,10 +9,10 @@ public class TestPriorityQueue {
 	{
 		ConflictParser parser = new ConflictParser();
 
-		String domainName = "DeathMatchDomain.txt";
-		String problemName = "DeathMatchProblem.txt";
-//		String domainName = "SimpleDeathMatchDomain.txt";
-//		String problemName = "SimpleDeathMatchProblem.txt";
+//		String domainName = "DeathMatchDomain.txt";
+//		String problemName = "DeathMatchProblem.txt";
+		String domainName = "SimpleDeathMatchDomain.txt";
+		String problemName = "SimpleDeathMatchProblem.txt";
 
 //		String domainName = "CryingBabyDomain.txt";
 //		String problemName = "CryingBabyProblem.txt";
@@ -45,7 +43,7 @@ public class TestPriorityQueue {
 //			success = false;
 //			while (!success)
 //			{
-				Planner planner = new BagMethod(parser, System.nanoTime());
+				Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
 //				success = planner.search();
 				planner.search();
 //			}

@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author khaledalkathiri
  */
@@ -680,6 +682,7 @@ public class Planner
 							if((newEffect.getLiteralName().equals(effect.getLiteralName())))
 							{
 								System.out.println("no ordering");
+								JOptionPane.showMessageDialog(null, "Need restrictions");
 								binding.bindStepByChangingLetters(s2, newEffect, precondition);
 
 							}

@@ -21,10 +21,10 @@ public class TestQueue {
 //		String domainName = "SimpleCryingBabyDomain.txt";
 //		String problemName = "SimpleCryingBabyProblem.txt";
 
-		String domainName = "BirthdayDomain.txt";
-		String problemName = "BirthdayProblem.txt";
-//		String domainName = "SimpleBirthdayDomain.txt";
-//		String problemName = "SimpleBirthdayProblem.txt";
+//		String domainName = "BirthdayDomain.txt";
+//		String problemName = "BirthdayProblem.txt";
+		String domainName = "SimpleBirthdayDomain.txt";
+		String problemName = "SimpleBirthdayProblem.txt";
 
 //		String domainName = "MarriageDomain.txt";
 //		String problemName = "MarriageProblem.txt";
