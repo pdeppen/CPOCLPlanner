@@ -1,1 +1,2 @@
-bin/TestQueue.class
+bin/
+*.class
