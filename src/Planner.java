@@ -20,11 +20,12 @@ import javax.swing.JOptionPane;
 
 public class Planner
 {
+	/** just testing */
+	Restrictions restrictions = new Restrictions("Planner");
 
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
-
-
+	
 	LinkedList <OpenPrecondition> openPrecon = new LinkedList <OpenPrecondition>();
 
 	Ordering<Step> graph = new Ordering<Step>();
@@ -682,13 +683,14 @@ public class Planner
 							if((newEffect.getLiteralName().equals(effect.getLiteralName())))
 							{
 								System.out.println("no ordering");
-								JOptionPane.showMessageDialog(null, "Need restrictions");
 								binding.bindStepByChangingLetters(s2, newEffect, precondition);
-
+								
 							}
 						}
 						else
 						{
+							System.out.println("/********** in hasNoOrdering(); -> Planner class **********/");
+
 							if(this.isPreconditionNegate(s1,effect))
 							{
 
@@ -712,7 +714,6 @@ public class Planner
 
 								//graph.add(s1, s2);    //this was changed to from s1 to s2
 								//graph.add(s2, s1);
-
 								graph.updateOrdering(graph, s2, s1);
 								return true;
 
@@ -814,33 +815,35 @@ public class Planner
 	public boolean CheckThreats()
 	{
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
-
+		
+//		System.out.println("/**********In CheckThreats() -> Planner class**********");
 		threats = this.getThreatenCausalLinks();
 
-
 		//When there is no threats
-		if(threats.isEmpty())
+		if(threats.isEmpty()) {
 			return true;
-
+		}
 		//if there is no ordering between the threatened steps then we order the step
 		if(this.hasNoOrdering(threats))
 		{
 			System.out.println(threats.toString());
 			System.out.println("The threat has been resolved by reording the steps" );
+			System.out.println("/**********In first conditional in CheckThreats() -> Planner**********"); 
 			return true;
 		}
-
 
 		//if there is an ordering between the threatened steps we add a new step
 		if(this.hasOrdering(threats))
 		{
 			System.out.println("The threat has been resolved by adding a new step");
+			System.out.println("/**********In second conditional in CheckThreats() -> Planner**********"); 
 			return true;
 		}
 
 		else
 		{
 			System.out.println("The threat can not be resolved");
+			System.out.println("/**********In third conditional in CheckThreats() -> Planner**********"); 
 			return false;
 
 		}
@@ -870,6 +873,7 @@ public class Planner
 						Step s = Actions.get(stepid);
 						if((isPreconditionNegate(s,thisEffect)))
 						{
+//							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
 							threats.add(Links.get(i));
 							threats.add(Links.get(x));
 						}

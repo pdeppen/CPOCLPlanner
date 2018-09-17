@@ -2,6 +2,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
 public class PriorityQueueMethod extends Planner
 {
 	public PriorityQueueMethod(ConflictParser p, long startTime) throws FileNotFoundException
@@ -80,7 +82,7 @@ public class PriorityQueueMethod extends Planner
 			}
 			if(!(this.resolveOpenPrecondition()))
 			{
-				System.out.println("No Plan Found");
+				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
 				return false;
 			}
@@ -90,7 +92,7 @@ public class PriorityQueueMethod extends Planner
 
 			if(!(this.CheckThreats()))
 			{
-				System.out.println("No Plan Found");
+				System.out.println("No Plan Found -> !(this.CheckThreats()");
 				//				break;
 				return false;
 			}
@@ -174,7 +176,7 @@ public class PriorityQueueMethod extends Planner
 					boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
 					if(!(isFoundinActionDomain))
 					{
-						System.out.println("No Plan found");
+						System.out.println("No Plan found -> resolveOpenPreconditions() in PQM class");
 						return false;
 					}
 					System.out.println("Action is ");

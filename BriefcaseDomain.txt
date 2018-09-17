@@ -1,14 +1,14 @@
-(define (domain birthday)
-	(:predicates (intends ?intender ?person ?present) (adult ?person) (kid ?kid) (has ?person ?present) (party ?kid ?adult ?location) (location ?person ?location) (destination ?to))
+(define (domain briefcase)
+	(:predicates (briefcase ?briefcase) (location ?briefcase ?location) (in ?item ?briefcase) (object ?item)
 
-	(:action go
-		:parameters ?adult ?from ?to
-		:precondition (and (adult ?adult) (location ?adult ?from) (destination ?to) (destination ?from)
-		:effect (and (location ?adult ?to) (not location ?adult ?from)
-		:agents ?adult
+	(:action move
+		:parameters 
+		:precondition 
+		:effect 
+		:agents 
 
-	(:action give
-		:parameters ?location ?kid ?adult ?present
-		:precondition (and (party ?location) (kid ?kid) (adult ?adult) (has ?adult ?present) (location ?kid ?location) (location ?adult ?location)
-		:effect (and (has ?kid ?present) (not has ?adult ?present)
-		:agents ?adult
+	(:action takeout
+		:parameters ?x ?b
+		:precondition (and (paycheck ?paycheck) 
+		:effect 
+		:agents 

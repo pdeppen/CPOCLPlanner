@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Literal
 {
-
+	/** just testing */
+	Restrictions restrictions = new Restrictions("Literal");
 
 	private String name;
 	private ArrayList <String> parameters = new ArrayList <String>();

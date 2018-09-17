@@ -17,7 +17,9 @@ import java.util.regex.Pattern;
 
 public class ConflictParser
 {
-
+	/** just testing */
+	Restrictions restrictions = new Restrictions("Conflict Parser");
+	
 	// instance variables for parsing the domain
 	private String predicates = ":predicates ";
 	private String action = ":action ";

@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Binding
 {
+	/** just testing */
+	Restrictions restrictions = new Restrictions("Binding");
+	
 	private Step variable;
 	private Literal precondition;
 //	Parser parser;
@@ -175,7 +180,6 @@ public class Binding
 	 */
 	public Step bindStepByChangingLetters(Step step, Literal newPrecondition, Literal precondition)
 	{
-
 		int x = parser.countParaInPredicate(precondition);
 
 		String GroundArry[] = new String[x];

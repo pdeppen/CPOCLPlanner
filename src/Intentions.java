@@ -6,6 +6,9 @@ public class Intentions
 	private String detail;
 	private Literal literal;
 
+	/** just testing */
+	Restrictions restrictions = new Restrictions("Intentions");
+	
 	public Intentions (Literal literal)
 	{
 		this.literal = literal;

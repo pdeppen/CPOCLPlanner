@@ -3,7 +3,9 @@ import java.util.Map;
 
 public class CausalLink
 {
-
+	/** just testing */
+	Restrictions restrictions = new Restrictions("CausalLink");
+	
 	private Step newStep;
 	private OpenPrecondition preconditionObj;
 	private boolean excuted;
@@ -13,6 +15,7 @@ public class CausalLink
 
 	public CausalLink(OpenPrecondition preconditionObj, Step newStep, Literal effect)
 	{
+//		System.out.println("/**********In Constructor**********");
 		this.newStep = newStep;
 		this.preconditionObj = preconditionObj;
 		this.effect=effect;
@@ -56,6 +59,7 @@ public class CausalLink
 	 */
 	public Literal searchExcutedPreocon(Step step)
 	{
+//		System.out.println("/**********In searchExecutedPreocon**********");
 		int sizePrecon = step.getPreconditionSize();
 		for(int i=0;i<sizePrecon;i++)
 		{
@@ -74,33 +78,38 @@ public class CausalLink
 
 	public void addStep(Step newStep)
 	{
+//		System.out.println("/**********In addStep()**********");
 		this.newStep = newStep; 
 	}
 
 	public void addPrecondition(OpenPrecondition literal)
 	{
+//		System.out.println("/**********In addPrecondition**********");
 		this.preconditionObj = literal;
 	}
 
 	public Step getStepName()
 	{
+//		System.out.println("/**********In getStepName()**********");
 		return this.newStep;
 	}
 
 	public OpenPrecondition getPrecondition()
 	{
+//		System.out.println("/**********In getPrecondition()**********");
 		return this.preconditionObj;
 	}
 	
 	public Literal getEffect()
 	{
+//		System.out.println("/**********In getEffect() -> CausalLink class**********");
 		return this.effect;
 	}
 
 
 	public String toString()
 	{
-
+//		System.out.println("/**********In toString()**********");
 		return this.getPrecondition().getOpenPrecondtion() + " -->" + this.getStepName().getStepName() +"-->"+ this.getEffect().toString();
 	}
 

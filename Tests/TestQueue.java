@@ -45,7 +45,7 @@ public class TestQueue {
 //			success = false;
 //			while (!success)
 //			{
-				Planner planner = new BagMethod(parser, System.nanoTime());
+				Planner planner = new QueueMethod(parser, System.nanoTime());
 //				success = planner.search();
 				planner.search();
 //			}

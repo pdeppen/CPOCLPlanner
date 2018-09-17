@@ -9,8 +9,8 @@ public class TestPriorityQueue {
 	{
 		ConflictParser parser = new ConflictParser();
 
-//		String domainName = "DeathMatchDomain.txt";
-//		String problemName = "DeathMatchProblem.txt";
+		String domainName = "DeathMatchDomain.txt";
+		String problemName = "DeathMatchProblem.txt";
 //		String domainName = "SimpleDeathMatchDomain.txt";
 //		String problemName = "SimpleDeathMatchProblem.txt";
 
@@ -31,8 +31,8 @@ public class TestPriorityQueue {
 
 //		String domainName = "DinnerDomain.txt";
 //		String problemName = "DinnerProblem.txt";
-		String domainName = "SimpleDinnerDomain.txt";
-		String problemName = "SimpleDinnerProblem.txt";
+//		String domainName = "SimpleDinnerDomain.txt";
+//		String problemName = "SimpleDinnerProblem.txt";
 
 		parser.parseDomain(domainName);
 		parser.parseProblem(problemName);
