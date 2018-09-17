@@ -285,8 +285,10 @@ public class Binding
 		int size = literal.sizeLiteralParameters();
 		for(int i =0; i< size;i++)
 		{
-			if(literal.getLiteralParameters(i).contains("?"))
+			if(literal.getLiteralParameters(i).contains("?")) {
+				System.out.println("/********** RETURNING FALSE -> IN isBounded() Binding class");
 				return false;
+			}
 		}
 		return true;
 	}

@@ -80,6 +80,7 @@ public class PriorityQueueMethod extends Planner
 				System.out.println("*****\n*****\n*****\n*****\n*****\n");
 				return false;
 			}
+			
 			if(!(this.resolveOpenPrecondition()))
 			{
 				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
@@ -89,7 +90,8 @@ public class PriorityQueueMethod extends Planner
 
 			this.updateCausalLinks();
 			System.out.println("\n\n");
-
+			
+			/** this never gets reached */
 			if(!(this.CheckThreats()))
 			{
 				System.out.println("No Plan Found -> !(this.CheckThreats()");
@@ -151,9 +153,9 @@ public class PriorityQueueMethod extends Planner
 			if((isFoundSimilarInInitialStat))
 			{
 				System.out.println(precondition.getOpenPrecondtion());
-
 				Step currentStep = Actions.get(precondition.getStepID());
 				printStepDetails(currentStep);
+				System.out.println("/********** RETURNING TRUE -> IN resolveOpenPreconditions() 1st condition in the else PQM class");
 
 				return true;
 
@@ -162,10 +164,12 @@ public class PriorityQueueMethod extends Planner
 
 			else
 			{
+				/** never gets reached */
 				if((this.searchSimilarInEffects(precondition)))
 				{
 //					Step currentStep = Actions.get(precondition.getStepID());
 //					printStepDetails(currentStep);
+					System.out.println("/********** RETURNING TRUE -> IN resolveOpenPreconditions() 2nd condition in the else PQM class");
 
 					return true;
 				}
@@ -179,6 +183,7 @@ public class PriorityQueueMethod extends Planner
 						System.out.println("No Plan found -> resolveOpenPreconditions() in PQM class");
 						return false;
 					}
+					System.out.println("/*********** isFoundInActionDomain = true");
 					System.out.println("Action is ");
 				}
 			}

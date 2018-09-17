@@ -211,6 +211,8 @@ public class Planner
 				}
 			}
 		}
+		/** add restrictions here ?*/
+		System.out.println("/********** RETURNING FALSE -> IN searchEffectsInActionDomain() at bottom Planner class");
 		return false;
 	}
 
@@ -416,6 +418,8 @@ public class Planner
 				{
 					return true;
 				}
+				/** add restrictions here ? */
+				System.out.println("/********** RETURNING FALSE -> IN searchSimilarInInitialState() 1st conditional Planner class");
 				return false;
 			}
 
@@ -452,6 +456,8 @@ public class Planner
 				return true;
 			}
 		}
+		/** don't think this ever gets hit */
+		System.out.println("/********** RETURNING FALSE -> IN searchSimilarInInitialState() bottom of method Planner class");
 		return false;
 	}
 
@@ -689,7 +695,7 @@ public class Planner
 						}
 						else
 						{
-							System.out.println("/********** in hasNoOrdering(); -> Planner class **********/");
+//							System.out.println("/********** in hasNoOrdering(); -> Planner class **********/");
 
 							if(this.isPreconditionNegate(s1,effect))
 							{
@@ -828,7 +834,7 @@ public class Planner
 		{
 			System.out.println(threats.toString());
 			System.out.println("The threat has been resolved by reording the steps" );
-			System.out.println("/**********In first conditional in CheckThreats() -> Planner**********"); 
+//			System.out.println("/**********In first conditional in CheckThreats() -> Planner**********"); 
 			return true;
 		}
 
@@ -836,14 +842,14 @@ public class Planner
 		if(this.hasOrdering(threats))
 		{
 			System.out.println("The threat has been resolved by adding a new step");
-			System.out.println("/**********In second conditional in CheckThreats() -> Planner**********"); 
+//			System.out.println("/**********In second conditional in CheckThreats() -> Planner**********"); 
 			return true;
 		}
 
 		else
 		{
 			System.out.println("The threat can not be resolved");
-			System.out.println("/**********In third conditional in CheckThreats() -> Planner**********"); 
+//			System.out.println("/**********In third conditional in CheckThreats() -> Planner**********"); 
 			return false;
 
 		}
