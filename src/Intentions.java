@@ -5,9 +5,6 @@ public class Intentions
 	private String victim;
 	private String detail;
 	private Literal literal;
-
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Intentions");
 	
 	public Intentions (Literal literal)
 	{

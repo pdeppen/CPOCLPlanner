@@ -9,24 +9,11 @@ import javax.swing.JOptionPane;
  */
 public class Restrictions {
 
-	private FileWriter fileWriter;
-	private PrintWriter printWriter;
 
-	public void setUpWriters() throws IOException {
-		 fileWriter = new FileWriter("printingOrderOfClassNames.txt");
-		 printWriter = new PrintWriter(fileWriter);
+	public Restrictions() {
+		System.out.println("*******************\n"
+						 + "IN RESTRICTIONS CLASS\n"
+						 + "*******************\n");
 	}
 	
-	public Restrictions(String s) {
-		printClassNamesInOrder(s);
-	}
-	
-	/**
-	 * getting ordering of classes called
-	 * not crucial to restrictions class
-	 */
-	public void printClassNamesInOrder(String s) {
-//		System.out.println("/**********" + s + "**********/");
-	}
-
 }

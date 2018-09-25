@@ -7,8 +7,6 @@
  */
 public class OpenPrecondition
 {
-	/** just testing */
-	Restrictions restrictions = new Restrictions("OpenPrecondition");
 	
 	private int stepID;
 	private Literal openPrecondition;

@@ -3,10 +3,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Binding
-{
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Binding");
-	
+{	
 	private Step variable;
 	private Literal precondition;
 //	Parser parser;

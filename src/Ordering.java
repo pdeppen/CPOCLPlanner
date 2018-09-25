@@ -17,9 +17,6 @@ import java.util.Stack;
 public class Ordering<T>
 {
     Map<T,List<T>> neighbors = new HashMap<T,List<T>>();
-
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Ordering");
     
     public int getSize()
     {

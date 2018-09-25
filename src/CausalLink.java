@@ -3,8 +3,7 @@ import java.util.Map;
 
 public class CausalLink
 {
-	/** just testing */
-	Restrictions restrictions = new Restrictions("CausalLink");
+
 	
 	private Step newStep;
 	private OpenPrecondition preconditionObj;

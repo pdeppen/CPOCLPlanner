@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 
 public class Planner
 {
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Planner");
 
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
@@ -90,15 +88,16 @@ public class Planner
 	 */
 	public void addGoalOpenPrecondition() throws FileNotFoundException
 	{
-
+		System.out.println("/*****In addGoalOpenPrecondition() --> Planner class*****/");
+		
 		//to get how many preconditions in the goal state
 		for(int i = 0; i < parser.getProblemDomainPreconditionSize(); i++)
 		{
 			OpenPrecondition object = new OpenPrecondition(0,null);
 			object.addOpenPrcondition(parser.getGoalPreconditions(i));
 			object.addStep(0);
+			System.out.println(object.getOpenPrecondtion());
 			openPrecon.addLast(object);
-
 
 		}
 
@@ -212,6 +211,9 @@ public class Planner
 			}
 		}
 		/** add restrictions here ?*/
+		Restrictions restriction = new Restrictions();
+		
+		
 		System.out.println("/********** RETURNING FALSE -> IN searchEffectsInActionDomain() at bottom Planner class");
 		return false;
 	}

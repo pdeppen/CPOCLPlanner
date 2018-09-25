@@ -111,11 +111,9 @@ public class PriorityQueueMethod extends Planner
 		return true;
 	}
 
-
+	/** conditions that must be met for an action to take place */
 	public boolean resolveOpenPrecondition() throws FileNotFoundException
 	{
-
-
 
 		OpenPrecondition precondition;
 
@@ -178,6 +176,7 @@ public class PriorityQueueMethod extends Planner
 					//search for an action in the action domain to satisfy the open precondition
 					//add the action to the plan
 					boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
+					/** here for last check before plan finally fails */
 					if(!(isFoundinActionDomain))
 					{
 						System.out.println("No Plan found -> resolveOpenPreconditions() in PQM class");

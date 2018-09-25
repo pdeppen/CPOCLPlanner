@@ -17,8 +17,6 @@ import java.util.regex.Pattern;
 
 public class ConflictParser
 {
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Conflict Parser");
 	
 	// instance variables for parsing the domain
 	private String predicates = ":predicates ";
@@ -210,8 +208,11 @@ public class ConflictParser
 				}
 
 				//adding the step to the arrayList of steps
+				
+				/** hard code here */
 				ActionsDomain.add(step);
 					//System.out.println("\n");
+			
 			}
 		}
 		scan.close();
@@ -539,4 +540,226 @@ public class ConflictParser
 
 		return null;
 	}
+	
+/**______________________________________________________________________________________________________________*/
+	
+	/**
+	 * Added by Philip Deppen
+	 */
+	
+	/** 
+	 * this method is for debugging
+	 */
+//	public void parseDomain(String fileName) throws FileNotFoundException
+//	{
+//
+//		File text = new File(fileName);
+//		Scanner scan = new Scanner(text);
+//
+//		while(scan.hasNextLine())
+//		{
+//			step = new Step(null, null, null, null, null, -1);
+//
+//			String line = scan.nextLine();
+//
+//			if(line.startsWith(";;;"))
+//				line = scan.nextLine();
+//
+//			else if(line.contains(predicates))
+//			{
+//				DomainPredicates = line.split(predicates);
+//
+//				Matcher predicate = Pattern.compile("\\(([^)]+)\\)").matcher(DomainPredicates[1]);
+//				while(predicate.find())
+//				{
+//					//adding the preconditions to the step
+//					literal = new Literal(null, null);
+//					Literal s = literal.parseStringToLiteral(predicate.group(1));
+//
+//					PredicatesArray.add(s);
+//						System.out.println(s.getLiteralParameters(0));
+//						System.out.print("  \t");
+//				}
+//			}
+////			System.out.print("  \n");
+//
+//			else if(line.contains(action))
+//			{
+//				ActionName = line.split(action);
+//					System.out.print(ActionName[1] +"  ");
+//				name = ActionName[1];
+//
+//				//adding the action name to the step
+//				step.addStepName(name);
+//
+//				//Action parameters
+//				String ActionLine = scan.nextLine();
+//				if(ActionLine.contains(parameters))
+//				{
+//					ParameterStyle = ActionLine.split(parameters);
+//					step.addParameter(parseParameters(ParameterStyle[1]));
+//					ActionLine = scan.nextLine();
+//				}
+//
+//				//Action preconditions
+//				if(ActionLine.contains(precondition))
+//				{
+//					ActionPrecondition = ActionLine.split(delims);
+//						System.out.println("Preconditions:  ");
+//
+//					Matcher pre = Pattern.compile("\\(([^)]+)\\)").matcher(ActionPrecondition[1]);
+//					while(pre.find())
+//					{
+//						//adding the preconditions to the step
+//						System.out.print(pre.group(1));
+//						//literal = new Literal(null,null);
+//
+//						Literal s = literal.parseStringToLiteral(pre.group(1));
+//							System.out.println(pre.group(1));
+//						step.addPreconditions(s);
+//							System.out.print(s.getLiteralName());
+//							System.out.println(s.getLiteralParameters(0));
+//
+//							System.out.print("  \t	");
+//
+//					}
+//					ActionLine = scan.nextLine();
+//				}
+//				System.out.println("");
+//
+//				//Action Effects
+//				if(ActionLine.contains(effect))
+//				{
+//					ActionEffect = ActionLine.split(delims);
+//						System.out.println("Effects:  ");
+//
+//					Matcher ef = Pattern.compile("\\(([^)]+)\\)").matcher(ActionEffect[1]);
+//					while(ef.find())
+//					{
+//						//literal = new Literal(null,null);
+//						System.out.println(ef.group(1));
+//						//adding the effects to the step
+//						Literal s = literal.parseStringToLiteral(ef.group(1));
+//						step.addEffects(s);
+//							System.out.print(s.getLiteralParameters(1));
+//							System.out.print("  \t");
+//					}
+//					ActionLine = scan.nextLine();
+//				}
+//
+//				//Action parameters
+//				if(ActionLine.contains(agents))
+//				{
+//					ActionAgents = ActionLine.split(agents);
+//					step.addAgent(parseAgents(ActionAgents[1]));
+////					ActionLine = scan.nextLine();
+//				}
+//
+//				//adding the step to the arrayList of steps
+//				
+//				/** hard code here */
+//				ActionsDomain.add(step);
+//				
+//				System.out.println("\n");
+//			
+//			}
+//		}
+//		scan.close();
+//	}
+//	
+//	/** 
+//	 * this method is for debugging
+//	 */
+//	public void parseProblem(String fileName) throws FileNotFoundException
+//	{
+//		//fileName = problemName;
+//
+//		File text = new File(fileName);
+//		Scanner scan = new Scanner(text);
+//
+//		while(scan.hasNextLine())
+//		{
+//			String line = scan.nextLine();
+//
+//			// new need to test
+//			if(line.startsWith(";;;"))
+//				line = scan.nextLine();
+//			// end new
+//
+//			else if(line.contains(initialState))
+//			{
+//				step = new Step(null, null, null, null, null, -1);
+//				literal = new Literal(null,null);
+//
+//				System.out.println("Initial State: ");
+//
+//				initialStateLiterals = line.split(initialState);
+//
+//				step.addStepName(initialState);
+//				Matcher literals = Pattern.compile("\\(([^)]+)\\)").matcher(initialStateLiterals[1]);
+//				while(literals.find())
+//				{
+//					//step.addEffects(litrals.group(1));
+//						//int numOfPara =literal.searchInPredicateArray(this,litrals.group(1));
+//						Literal s = literal.parseStringToLiteral(literals.group(1));
+//						System.out.println(s.getLiteralParameters(0));
+//						step.addEffects(s);
+//
+//				}
+//				line = scan.nextLine();
+//				ProblemDomain.add(0, step);
+//			}
+//
+//// add intentions here
+//			else if(line.contains(intention))
+//			{
+//				step = new Step(null, null, null, null, null, -1);
+//				Intentions intent;
+//				literal = new Literal(null,null);
+//
+//				System.out.println("Intentions: ");
+//
+//				intentionLiterals = line.split(intention);
+//
+//				step.addStepName(intention);
+//				Matcher literals = Pattern.compile("\\(([^)]+)\\)").matcher(intentionLiterals[1]);
+//				while(literals.find())
+//				{
+////					//step.addEffects(litrals.group(1));
+////						//int numOfPara =literal.searchInPredicateArray(this,litrals.group(1));
+//						Literal s = literal.parseStringToLiteral(literals.group(1));
+//						System.out.println(s.getLiteralParameters(0));
+//						step.addEffects(s);
+////
+//						intent = new Intentions(s);
+//						IntentionsArray.add(s);
+//				}
+//				line = scan.nextLine();
+//
+//				IntentionDomain.add(0, step);
+//			}
+//
+//			else if(line.contains(goalState))
+//			{
+//				step = new Step(null, null, null, null, null, 0);
+//
+////				goalStateLiterals = line.split(delims);
+//				goalStateLiterals = line.split(goalState);
+//				System.out.println("\nGoal: ");
+//				step.addStepName(goalState);
+//				Matcher literals = Pattern.compile("\\(([^)]+)\\)").matcher(goalStateLiterals[1]);
+//				while(literals.find())
+//				{
+//					Literal s = literal.parseStringToLiteral(literals.group(1));
+//					step.addPreconditions(s);
+//					//step.addPreconditions(litrals.group(1));
+//						System.out.println(literals.group(1));
+//				}
+//				ProblemDomain.add(1, step);
+//
+//			}
+//
+//		}
+//		scan.close();
+//	}
 }

@@ -12,8 +12,6 @@ import java.util.Collection;
 
 public class Step
 {
-	/** just testing */
-	Restrictions restrictions = new Restrictions("Step");
 
 	//private  int index;
 	//private  boolean executed;

@@ -34,7 +34,9 @@ public class TestPriorityQueue {
 //		String domainName = "SimpleDinnerDomain.txt";
 //		String problemName = "SimpleDinnerProblem.txt";
 
+		System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
 		parser.parseDomain(domainName);
+		System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
 		parser.parseProblem(problemName);
 
 //		boolean success;
