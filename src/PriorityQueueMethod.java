@@ -231,15 +231,6 @@ public class PriorityQueueMethod extends Planner
 
 
 
-
-
-
-
-
-
-
-
-
 	public void notused()
 	{
 
@@ -262,5 +253,89 @@ public class PriorityQueueMethod extends Planner
 			}
 			System.out.println("\n");
 		}
+	}
+	
+/**______________________________________________________________________________________________________________*/
+
+	/**
+	 * added by Philip Deppen to test getOpenPreconditions()
+	 * @throws FileNotFoundException 
+	 */
+	public void debugGetOpenPreconditions() throws FileNotFoundException {
+		
+		while(!(openPrecon.isEmpty()))
+		{
+			if (!(this.printOpenPreconditions())) {
+				OpenPrecondition precondition = this.getOpenPrecondition();
+				
+				System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
+			}
+			//to print out the solution if it exists
+			if(openPrecon.isEmpty())
+			{
+				System.out.println("The Following plan has been found:");
+				//			this.notused();
+				this.printOutSolution();
+			}
+		}
+	}
+	
+	public boolean printOpenPreconditions() {
+		OpenPrecondition precondition;
+
+		precondition = this.getOpenPrecondition();
+		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
+		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
+				"	ActionID is "+precondition.getStepID());
+
+
+		//search for an effect in the initial state to satisfy it (if there is)
+		if(binding.isBounded(precondition.getOpenPrecondtion()))
+		{
+			boolean isFoundInIntialState = this.searchEffectInInitialState(precondition);
+
+			if(!(isFoundInIntialState))
+			{
+				if(!( this.searchInEffects(precondition)))
+				{
+					boolean isFoundinActionDomain = this.searchEffectsInActionDomain(precondition);
+					if(!(isFoundinActionDomain))
+					{
+						return false;
+					}
+
+				}
+			}
+		}
+
+		else
+		{
+			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
+			if((isFoundSimilarInInitialStat))
+			{
+				System.out.println(precondition.getOpenPrecondtion());
+				Step currentStep = Actions.get(precondition.getStepID());
+				printStepDetails(currentStep);
+
+				return true;
+
+
+			}
+
+			else
+			{
+				//search for an action in the action domain to satisfy the open precondition
+				//add the action to the plan
+				boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
+				/** here for last check before plan finally fails */
+				if(!(isFoundinActionDomain))
+				{
+					return false;
+				}
+			}
+			
+		}
+
+		return true;
 	}
 }

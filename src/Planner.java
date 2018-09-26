@@ -96,10 +96,7 @@ public class Planner
 			OpenPrecondition object = new OpenPrecondition(0,null);
 			object.addOpenPrcondition(parser.getGoalPreconditions(i));
 			object.addStep(0);
-			
-			System.out.println("Step: " + object.getStepID());
-			System.out.println("Open precondition: " + object.getOpenPrecondtion());
-			
+						
 			openPrecon.addLast(object);
 
 		}

@@ -13,15 +13,15 @@ class TestLiteralSelectionByParser {
 	
 	/**
 	 * Testing to find actions selected for PQmethod by conflict parser
-	 * @throws FileNotFoundException 
+	 * NEED TO UNCOMMENT METHODS AT BOTTOM OF PARSER TO TEST 
 	 */
 	@Test
 	void testParser() throws FileNotFoundException {
 		
-		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
-		parser.parseDomain(domainName);
-		//System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
-		parser.parseProblem(problemName);
+//		System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
+//		parser.parseDomain(domainName);
+//		System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
+//		parser.parseProblem(problemName);
 	}
 	
 	/**
@@ -43,25 +43,38 @@ class TestLiteralSelectionByParser {
 	
 	/**
 	 * Testing searchEffectInInitialState()
+	 * DEBUG THROUGH TESTPRIORITYQUEUE INSTEAD
 	 */
 	@Test
 	void testSearchEffecetInInitialState() throws FileNotFoundException {
 		
-		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
+//		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
+//		parser.parseDomain(domainName);
+//		//System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
+//		parser.parseProblem(problemName);
+//		
+//		Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
+//		
+//		//get the first open precondition in the queue
+//		System.out.println("/********** DEBUGGING searchEffectInInitialState() **********/");
+//		
+//		//get the first open precondition in the queue
+//		OpenPrecondition precondition = planner.getOpenPrecondition();
+//
+//		planner.searchEffectInInitialState(precondition);
+	}
+	
+	@Test
+	void testGetOpenPrecondition() throws FileNotFoundException {
 		parser.parseDomain(domainName);
-		//System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
 		parser.parseProblem(problemName);
 		
-		Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
+		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
-		//get the first open precondition in the queue
-		System.out.println("/********** DEBUGGING searchEffectInInitialState() **********/");
+		planner.debugGetOpenPreconditions();
 		
-		//get the first open precondition in the queue
-		OpenPrecondition precondition = planner.getOpenPrecondition();
-
-		planner.searchEffectInInitialState(precondition);
 	}
+	
 
 	
 
