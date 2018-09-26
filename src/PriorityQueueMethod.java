@@ -21,7 +21,7 @@ public class PriorityQueueMethod extends Planner
 		goalState.setStepId(0);
 		//ordering.addStep(goalState);
 		//order.put(0, ordering);
-
+				
 		Actions.add(0, parser.getGoalState());
 		//openPrecondition= new OpenPrecondition(0,null);
 		this.addGoalOpenPrecondition();
@@ -118,6 +118,10 @@ public class PriorityQueueMethod extends Planner
 		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
+		
+		/**
+		 * This is where preconditions differ each time 
+		 */
 		precondition = this.getOpenPrecondition();
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+

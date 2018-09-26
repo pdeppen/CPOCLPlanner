@@ -96,7 +96,10 @@ public class Planner
 			OpenPrecondition object = new OpenPrecondition(0,null);
 			object.addOpenPrcondition(parser.getGoalPreconditions(i));
 			object.addStep(0);
-			System.out.println(object.getOpenPrecondtion());
+			
+			System.out.println("Step: " + object.getStepID());
+			System.out.println("Open precondition: " + object.getOpenPrecondtion());
+			
 			openPrecon.addLast(object);
 
 		}
@@ -113,9 +116,13 @@ public class Planner
 	 */
 	public boolean searchEffectInInitialState(OpenPrecondition openPrecondition)
 	{
+		System.out.println("/*****In searchEffectInInitialState() --> Planner class*****/");
 
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
+		
+//		System.out.println("Current Step: " + currentStep.getStepName());
+		
 		int effSize = parser.getProblemDomainEffectsSize();
 		for(int i=0; i< effSize;i++)
 		{
@@ -149,6 +156,8 @@ public class Planner
 	 */
 	public boolean searchEffectsInActionDomain(OpenPrecondition openPrecondition)
 	{
+		System.out.println("/*****In searchEffectsInActionDomain() --> Planner class*****/");
+
 		Literal precondition= openPrecondition.getOpenPrecondtion();
 		int id = openPrecondition.getStepID();
 
@@ -227,6 +236,8 @@ public class Planner
 	 */
 	public boolean stepsAreConnectedWithCausalLink(Step current, Step next)
 	{
+		System.out.println("/*****In stepsAreConnectedWithCausalLink() --> Planner class*****/");
+
 		int nextStepID = next.getStepId();
 
 		//int effectSize = next.getEffectsSize();
@@ -261,6 +272,8 @@ public class Planner
 	 */
 	public boolean searchInEffects(OpenPrecondition openPrecondition)
 	{
+		System.out.println("/*****In searchInEffects() --> Planner class*****/");
+
 		Literal precondition= openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
@@ -330,6 +343,8 @@ public class Planner
 	 */
 	public boolean searchAnyInInitialState(OpenPrecondition openPrecondition, ArrayList<Literal> array)
 	{
+		System.out.println("/*****In searchAnyInitialState() --> Planner class*****/");
+
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
@@ -389,6 +404,8 @@ public class Planner
 	 */
 	public boolean searchSimilarInInitialState(OpenPrecondition openPrecondition)
 	{
+		System.out.println("/*****In searchSimilarInInitialState() --> Planner class*****/");
+
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
@@ -472,6 +489,8 @@ public class Planner
 	 */
 	public boolean searchAnyEffect(OpenPrecondition openPrecondition, Map<Integer, Literal> arry)
 	{
+		System.out.println("/*****In searchAnyEffect() --> Planner class*****/");
+
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
@@ -522,6 +541,8 @@ public class Planner
 	 */
 	public boolean searchSimilarInEffects(OpenPrecondition openPrecondition)
 	{
+		System.out.println("/*****In searchSimilarInEffects() --> Planner class*****/");
+
 		Literal precondition= openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
@@ -618,6 +639,8 @@ public class Planner
 	 */
 	public void updateCausalLinks()
 	{
+		System.out.println("/*****In updateCausalLinks() --> Planner class*****/");
+
 		Step temp = null;
 		for(int i=0;i<Links.size();i++)
 		{
@@ -647,6 +670,8 @@ public class Planner
 
 	public boolean bothContainsOrdering(Step s1, Step s2)
 	{
+		System.out.println("/*****In bothContainsOrdering() --> Planner class*****/");
+
 		if(	(graph.containsOrdering(s1, s2)) || (graph.containsOrdering(s2, s1))	)
 		{
 			return true;
@@ -664,6 +689,8 @@ public class Planner
 	 */
 	public boolean hasNoOrdering(ArrayList<CausalLink> threats)
 	{
+		System.out.println("/*****In hasNoOrdering() --> Planner class*****/");
+
 		for(int i=0;i<threats.size();i++)
 		{
 			Literal effect = threats.get(i).getEffect();
@@ -763,6 +790,8 @@ public class Planner
 	 */
 	public Literal getNewEffect(Step s, Literal effect)
 	{
+		System.out.println("/*****In getNewEffect() --> Planner class*****/");
+
 
 		int sizeEffect = s.getEffectsSize();
 
@@ -785,6 +814,8 @@ public class Planner
 	 */
 	public boolean hasOrdering(ArrayList<CausalLink> threats)
 	{
+		System.out.println("/*****In hasOrdering() --> Planner class*****/");
+
 		OpenPrecondition TempOpenPrecon = new OpenPrecondition(-1,null);
 
 
@@ -822,6 +853,8 @@ public class Planner
 	 */
 	public boolean CheckThreats()
 	{
+		System.out.println("/*****In CheckThreats() --> Planner class*****/");
+
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 		
 //		System.out.println("/**********In CheckThreats() -> Planner class**********");
@@ -864,6 +897,8 @@ public class Planner
 	 */
 	public ArrayList<CausalLink> getThreatenCausalLinks()
 	{
+		System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");
+
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 
 		int sizeLinks = Links.size();
@@ -906,6 +941,8 @@ public class Planner
 	 */
 	public boolean isPreconditionNegate(Step s, Literal effect)
 	{
+		System.out.println("/*****In isPreconditionNegate() --> Planner class*****/");
+
 		int sizeEffect = s.getEffectsSize();
 		for(int i=0;i<sizeEffect;i++)
 		{
@@ -946,6 +983,8 @@ public class Planner
 
 	public CausalLink getCausalLink(int index)
 	{
+		System.out.println("/*****In getCausalLink() --> Planner class*****/");
+
 		return Links.get(index);
 	}
 
@@ -995,6 +1034,8 @@ public class Planner
 
 	public OpenPrecondition getOpenPrecondition()
 	{
+		System.out.println("/*****In getOpenPrecondition() --> Planner class*****/");
+
 		OpenPrecondition openprecondition = openPrecon.getFirst();
 		this.removeOpenPrecondition();
 		return openprecondition;
@@ -1002,12 +1043,15 @@ public class Planner
 
 	public OpenPrecondition removeOpenPrecondition()
 	{
+		System.out.println("/*****In removeOpenPrecondition() --> Planner class*****/");
 
 		return openPrecon.removeFirst();
 	}
 
 	public void printStepDetails(Step newStep)
 	{
+		System.out.println("/*****In printStepDetails() --> Planner class*****/");
+
 		System.out.println("Step Name: " + newStep.toString());
 		for (int a = 0; a < newStep.getAgentsSize(); a++)
 		{
@@ -1030,6 +1074,8 @@ public class Planner
 
 	public boolean checkIntentions(Step newStep)
 	{
+		System.out.println("/*****In checkIntentions() --> Planner class*****/");
+
 		boolean broken;
 		int numAgents = newStep.agents.size();
 		System.out.println("Number of Agents: " + numAgents);

@@ -16,7 +16,36 @@ class TestLiteralSelectionByParser {
 	 * @throws FileNotFoundException 
 	 */
 	@Test
-	void test() throws FileNotFoundException {
+	void testParser() throws FileNotFoundException {
+		
+		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
+		parser.parseDomain(domainName);
+		//System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
+		parser.parseProblem(problemName);
+	}
+	
+	/**
+	 * Testing addGoalOpenPrecondition()
+	 */
+	@Test
+	void testAddGoalOpenPrecondition() throws FileNotFoundException {
+		
+//		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
+//		parser.parseDomain(domainName);
+//		//System.out.println("/********** DEBUGGING PROBLEM PARSER **********/");
+//		parser.parseProblem(problemName);
+//		
+//		Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
+//		
+//		planner.addGoalOpenPrecondition();
+		
+	}
+	
+	/**
+	 * Testing searchEffectInInitialState()
+	 */
+	@Test
+	void testSearchEffecetInInitialState() throws FileNotFoundException {
 		
 		//System.out.println("/********** DEBUGGING DOMAIN PARSER **********/");
 		parser.parseDomain(domainName);
@@ -24,8 +53,16 @@ class TestLiteralSelectionByParser {
 		parser.parseProblem(problemName);
 		
 		Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
-		planner.addGoalOpenPrecondition();
+		
+		//get the first open precondition in the queue
+		System.out.println("/********** DEBUGGING searchEffectInInitialState() **********/");
+		
+		//get the first open precondition in the queue
+		OpenPrecondition precondition = planner.getOpenPrecondition();
 
+		planner.searchEffectInInitialState(precondition);
 	}
+
+	
 
 }
