@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,13 +66,16 @@ class TestLiteralSelectionByParser {
 	}
 	
 	@Test
-	void testGetOpenPrecondition() throws FileNotFoundException {
+	void testGetOpenPrecondition() throws IOException {
 		parser.parseDomain(domainName);
 		parser.parseProblem(problemName);
 		
 		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
-		planner.debugGetOpenPreconditions();
+		// change this to create different text files
+		int id = 3;
+		
+		planner.debugGetOpenPreconditions(id);
 		
 	}
 	

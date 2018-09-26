@@ -1,0 +1,13 @@
+The openPrecondition:	weapon Timmy Loaded
+The openPrecondition:	person Timmy
+The openPrecondition:	status Timmy Healthy
+The openPrecondition:	weapon Timmy Unloaded
+The openPrecondition:	weapon William Loaded
+The openPrecondition:	person William
+The openPrecondition:	status William Healthy
+The openPrecondition:	weapon William Unloaded
+The openPrecondition:	status Carl Dead
+The openPrecondition:	person ?killer
+
+
+NO PLAN FOUND

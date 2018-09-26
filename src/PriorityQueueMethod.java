@@ -1,4 +1,7 @@
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -259,34 +262,37 @@ public class PriorityQueueMethod extends Planner
 
 	/**
 	 * added by Philip Deppen to test getOpenPreconditions()
-	 * @throws FileNotFoundException 
+	 * @throws IOException 
 	 */
-	public void debugGetOpenPreconditions() throws FileNotFoundException {
+	public void debugGetOpenPreconditions(int id) throws IOException {
 		
+	    FileWriter fileWriter = new FileWriter("textFiles/orderOfOpenPreconditions" + id+ ".txt");
+	    PrintWriter printWriter = new PrintWriter(fileWriter);
+	    
 		while(!(openPrecon.isEmpty()))
 		{
-			if (!(this.printOpenPreconditions())) {
-				OpenPrecondition precondition = this.getOpenPrecondition();
-				
-				System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
-			}
-			//to print out the solution if it exists
-			if(openPrecon.isEmpty())
-			{
-				System.out.println("The Following plan has been found:");
-				//			this.notused();
-				this.printOutSolution();
+			if (!(this.printOpenPreconditions(printWriter))) {
+				System.out.println("No Plan Found");
+				printWriter.close();
+				System.exit(0);
 			}
 		}
+		//to print out the solution if it exists
+		if(openPrecon.isEmpty())
+		{
+			System.out.println("The Following plan has been found:");
+			//			this.notused();
+			this.printOutSolution();
+		}
+		printWriter.close();
 	}
 	
-	public boolean printOpenPreconditions() {
+	public boolean printOpenPreconditions(PrintWriter printer) {
 		OpenPrecondition precondition;
 
 		precondition = this.getOpenPrecondition();
-		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
-		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
-				"	ActionID is "+precondition.getStepID());
+		printer.print("The openPrecondition:	"+ precondition.getOpenPrecondtion() + "\n");
+	//	printer.print("Action is "+ Actions.get(precondition.getStepID()).getStepName() + "	ActionID is "+precondition.getStepID() + "\n");
 
 
 		//search for an effect in the initial state to satisfy it (if there is)
