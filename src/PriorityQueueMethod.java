@@ -291,6 +291,13 @@ public class PriorityQueueMethod extends Planner
 		OpenPrecondition precondition;
 
 		precondition = this.getOpenPrecondition();
+		
+		String check = "person ?killer";
+		
+		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
+		if (precondition.getOpenPreconditionToString().equals(check))
+			System.out.println("Here in PQM conditional");
+		
 		printer.print("The openPrecondition:	"+ precondition.getOpenPrecondtion() + "\n");
 	//	printer.print("Action is "+ Actions.get(precondition.getStepID()).getStepName() + "	ActionID is "+precondition.getStepID() + "\n");
 

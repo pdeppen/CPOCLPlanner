@@ -73,7 +73,7 @@ class TestLiteralSelectionByParser {
 		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
 		// change this to create different text files
-		int id = 3;
+		int id = 4;
 		
 		planner.debugGetOpenPreconditions(id);
 		

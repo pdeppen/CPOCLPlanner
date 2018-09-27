@@ -11,6 +11,8 @@ public class OpenPrecondition
 	private int stepID;
 	private Literal openPrecondition;
 
+	private String openPreconditionString;
+	
 	public OpenPrecondition(int stepID, Literal openPrecondition)
 	{
 		this.stepID = stepID;
@@ -52,6 +54,14 @@ public class OpenPrecondition
 	public int getStepID()
 	{
 		return this.stepID;
+	}
+	
+	/**
+	 * Added by Philip Deppen
+	 */
+	public String getOpenPreconditionToString() {
+		this.openPreconditionString = openPrecondition.toString();
+		return openPreconditionString;
 	}
 
 
