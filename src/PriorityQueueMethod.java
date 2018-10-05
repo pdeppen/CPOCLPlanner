@@ -339,7 +339,10 @@ public class PriorityQueueMethod extends Planner
 			{
 				//search for an action in the action domain to satisfy the open precondition
 				//add the action to the plan
+				
+				/** ALWAYS IS FALSE IF IT REACHES THIS POINT */
 				boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
+				
 				/** here for last check before plan finally fails */
 				if(!(isFoundinActionDomain))
 				{

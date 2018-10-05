@@ -4,4 +4,4 @@
 
 	(:intentions (intends Timmy Timmy Healthy) (intends Hank Hank Healthy) (intends Carl Carl Healthy) (intends William William Healthy))
 
-	(:goal (weapon Timmy Loaded) (weapon William Loaded) (status Carl Dead) (status Hank Dead))
+	(:goal (weapon William Loaded) (status Carl Dead) (status Hank Dead) (weapon Timmy Loaded))

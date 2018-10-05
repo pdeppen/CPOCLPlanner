@@ -9,18 +9,14 @@ The openPrecondition:	weapon William Unloaded
 The openPrecondition:	status Carl Dead
 The openPrecondition:	person ?killer
 The openPrecondition:	person Carl
+The openPrecondition:	status Timmy Healthy
 The openPrecondition:	status Carl Healthy
-The openPrecondition:	status Carl Healthy
-The openPrecondition:	weapon Carl Loaded
-The openPrecondition:	person Carl
-The openPrecondition:	status Carl Healthy
-The openPrecondition:	weapon Carl Unloaded
+The openPrecondition:	weapon Timmy Loaded
 The openPrecondition:	status Hank Dead
 The openPrecondition:	person ?killer
 The openPrecondition:	person Hank
+The openPrecondition:	status Timmy Healthy
 The openPrecondition:	status Hank Healthy
-The openPrecondition:	status Hank Healthy
-The openPrecondition:	weapon Hank Loaded
-The openPrecondition:	person Hank
-The openPrecondition:	status Hank Healthy
-The openPrecondition:	weapon Hank Unloaded
+The openPrecondition:	weapon Timmy Loaded
+
+SUCCESSFUL PLAN

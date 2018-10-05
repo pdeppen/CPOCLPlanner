@@ -217,11 +217,12 @@ public class Planner
 			}
 		}
 		/** add restrictions here ?*/
-		Restrictions restriction = new Restrictions();
+		Restrictions restriction = new Restrictions(precondition, id);
 		
 		
 		System.out.println("/********** RETURNING FALSE -> IN searchEffectsInActionDomain() at bottom Planner class");
 		return false;
+		//return true;
 	}
 
 	/**
@@ -345,7 +346,8 @@ public class Planner
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
-		Collections.shuffle(array);
+		/** WHY IS THIS HERE ? */
+//		Collections.shuffle(array);
 
 		for (int a = 0; a < array.size(); a++)
 		{

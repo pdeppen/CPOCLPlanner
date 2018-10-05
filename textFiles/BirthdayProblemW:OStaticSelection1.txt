@@ -1,0 +1,9 @@
+The openPrecondition:	has Timmy Car
+The openPrecondition:	party ?location
+The openPrecondition:	kid Timmy
+The openPrecondition:	adult ?adult
+The openPrecondition:	has William Car
+The openPrecondition:	party ?location
+The openPrecondition:	kid William
+
+NO PLAN FOUND

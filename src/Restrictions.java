@@ -10,10 +10,13 @@ import javax.swing.JOptionPane;
 public class Restrictions {
 
 
-	public Restrictions() {
+	public Restrictions(Literal openPrecondition, int id) {
 		System.out.println("*******************\n"
 						 + "IN RESTRICTIONS CLASS\n"
 						 + "*******************\n");
+		
+		System.out.println("Open Precondtion: " + openPrecondition);
+		System.out.println("ID: " + id);
 	}
 	
 }

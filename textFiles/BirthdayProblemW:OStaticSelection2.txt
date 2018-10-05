@@ -1,0 +1,24 @@
+The openPrecondition:	has Timmy Car
+The openPrecondition:	party ?location
+The openPrecondition:	kid Timmy
+The openPrecondition:	adult ?adult
+The openPrecondition:	has Hank Car
+The openPrecondition:	location Timmy Party
+The openPrecondition:	location Hank Party
+The openPrecondition:	adult Hank
+The openPrecondition:	location Hank ?from
+The openPrecondition:	destination Party
+The openPrecondition:	destination Home
+The openPrecondition:	has Timmy Candy
+The openPrecondition:	party ?location
+The openPrecondition:	kid Timmy
+The openPrecondition:	adult ?adult
+The openPrecondition:	has Marie Candy
+The openPrecondition:	location Timmy Party
+The openPrecondition:	location Marie Party
+The openPrecondition:	adult Marie
+The openPrecondition:	location Marie ?from
+The openPrecondition:	destination Party
+The openPrecondition:	destination Home
+
+PLAN FOUND
