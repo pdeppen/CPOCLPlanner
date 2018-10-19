@@ -292,7 +292,10 @@ public class PriorityQueueMethod extends Planner
 
 		precondition = this.getOpenPrecondition();
 		
-		String check = "person ?killer";
+		//String check = "person ?killer";
+		//String check = "adult ?adult";
+		//String check = "kid Hank";
+		String check = "location Paycheck Home";
 		
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
 		if (precondition.getOpenPreconditionToString().equals(check))

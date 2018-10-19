@@ -11,8 +11,10 @@ class TestLiteralSelectionByParser {
 
 //	String domainName = "DeathMatchDomain.txt";
 //	String problemName = "DeathMatchProblem.txt";
-	String domainName = "BirthdayDomain.txt";
-	String problemName = "BirthdayProblem.txt";
+//	String domainName = "BirthdayDomain.txt";
+//	String problemName = "BirthdayProblem.txt";
+	String domainName = "BriefcaseDomain.txt";
+	String problemName = "BriefcaseProblem.txt";
 	
 	/**
 	 * Testing to find actions selected for PQmethod by conflict parser
@@ -75,7 +77,7 @@ class TestLiteralSelectionByParser {
 		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
 		// change this to create different text files
-		int id = 8;
+		int id = 9;
 		
 		planner.debugGetOpenPreconditions(id);
 		

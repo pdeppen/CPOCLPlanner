@@ -1,0 +1,8 @@
+The openPrecondition:	location Briefcase Office
+The openPrecondition:	briefcase Briefcase
+The openPrecondition:	location Briefcase ?from
+The openPrecondition:	has Briefcase ?paycheck
+The openPrecondition:	location Home
+The openPrecondition:	location Office
+The openPrecondition:	paycheck Paycheck
+The openPrecondition:	location Paycheck Home
