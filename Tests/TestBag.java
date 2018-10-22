@@ -11,8 +11,11 @@ public class TestBag {
 	{
 		ConflictParser parser = new ConflictParser();
 
-		String domainName = "DeathMatchDomain.txt";
-		String problemName = "DeathMatchProblem.txt";
+		String domainName = "BriefcaseDomain.txt";
+		String problemName = "BriefcaseProblem.txt";
+		
+//		String domainName = "DeathMatchDomain.txt";
+//		String problemName = "DeathMatchProblem.txt";
 //		String domainName = "SimpleDeathMatchDomain.txt";
 //		String problemName = "SimpleDeathMatchProblem.txt";
 
