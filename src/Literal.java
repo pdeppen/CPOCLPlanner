@@ -177,6 +177,7 @@ public class Literal
 	}
 
 
+	// TODO: no longer supported ?
 	public void hasNegativeSign(boolean isNegative)
 	{
 		 this.isNegative = isNegative;

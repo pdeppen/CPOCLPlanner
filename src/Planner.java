@@ -111,6 +111,7 @@ public class Planner
 	 * @return true if the precondition is found
 	 * @return false if the precondition is not found
 	 */
+	//TODO: check threats before creating new one
 	public boolean searchEffectInInitialState(OpenPrecondition openPrecondition)
 	{
 		System.out.println("/*****In searchEffectInInitialState() --> Planner class*****/");
@@ -126,19 +127,24 @@ public class Planner
 			String temp = precondition.toString();
 			if(temp.equals(parser.getIntialStateEffects(i).toString()))
 			{
-
-				if(!(parser.getIntialStateEffects(i).isNegative()))
+				
+				// TODO: check links instead of isNegative
+				if(!(parser.getIntialStateEffects(i).isNegative()))// && temp != "location Paycheck Home")
+				//if(this.CheckThreats())
 				{
 					System.out.println("Found In initial State");
 
 					//this.applyNegation(currentStep);
-
+					
 					causalLink = new CausalLink(openPrecondition,parser.getInitialState(),parser.getIntialStateEffects(i));
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
 					Links.add(causalLink);
 
 					//this.addOrdering(currentStep, parser.getInitialState());
 					graph.add(currentStep, parser.getInitialState());
+
+					// TODO: add something like this in code 
+					//parser.setInitialStateEffects(i);
 
 					return true;
 				}
@@ -894,6 +900,7 @@ public class Planner
 	 * This function searches for causalLinks that are threatened by other causalLinks
 	 * @return an arrayList of threatened CausalLinks
 	 */
+	// TODO: modify
 	public ArrayList<CausalLink> getThreatenCausalLinks()
 	{
 		System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");

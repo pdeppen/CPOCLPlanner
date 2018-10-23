@@ -276,6 +276,18 @@ public class PriorityQueueMethod extends Planner
 				printWriter.close();
 				System.exit(0);
 			}
+			
+			// TODO: 10/22/18 this was added. Previously was not being called.. these methods are not called other places.. checkthreats should be consulted before creating new link
+			this.updateCausalLinks();
+			System.out.println("\n\n");
+			
+			if(!(this.CheckThreats()))
+			{
+				System.out.println("No Plan Found -> !(this.CheckThreats()");
+				//				break;
+				printWriter.close();
+				System.exit(0);
+			}
 		}
 		//to print out the solution if it exists
 		if(openPrecon.isEmpty())

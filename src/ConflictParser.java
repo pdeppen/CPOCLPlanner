@@ -70,7 +70,7 @@ public class ConflictParser
 
 	}
 
-
+	// TODO: may have to turn this off at somepoint
 	public void randomizeActions()
 	{
 		Collections.shuffle(ActionsDomain);
@@ -358,6 +358,12 @@ public class ConflictParser
 	public Literal getIntialStateEffects(int index)
 	{
 		return ProblemDomain.get(0).getEffects(index);
+	}
+	
+	public void setInitialStateEffects(int index)
+	{
+		step = new Step(null, null, null, null, null, -1);		
+		ProblemDomain.set(index, step);
 	}
 
 	/**
