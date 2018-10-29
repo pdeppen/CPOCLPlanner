@@ -1,18 +1,8 @@
-The openPrecondition:	has Timmy Car
-The openPrecondition:	party ?location
-The openPrecondition:	kid Timmy
-The openPrecondition:	adult ?adult
-The openPrecondition:	has Hank Car
-The openPrecondition:	location Timmy Party
-The openPrecondition:	location Hank Party
-The openPrecondition:	adult Hank
-The openPrecondition:	location Hank ?from
-The openPrecondition:	destination Party
-The openPrecondition:	destination Home
-The openPrecondition:	has Timmy Candy
-The openPrecondition:	party ?location
-The openPrecondition:	kid Timmy
-The openPrecondition:	adult ?adult
-The openPrecondition:	has Hank Candy
-The openPrecondition:	party ?location
-The openPrecondition:	kid Hank
+The openPrecondition:	location Briefcase Office
+The openPrecondition:	briefcase Briefcase
+The openPrecondition:	location Briefcase ?from
+The openPrecondition:	has Briefcase ?paycheck
+The openPrecondition:	location Home
+The openPrecondition:	location Office
+The openPrecondition:	paycheck Paycheck
+The openPrecondition:	location Paycheck Home

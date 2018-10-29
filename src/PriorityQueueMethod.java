@@ -130,14 +130,28 @@ public class PriorityQueueMethod extends Planner
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
 
-
+		String check = "location Paycheck Home";
+		
+//		try {
+//			this.detectPotentialThreat(precondition.toString());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
+		if (precondition.getOpenPreconditionToString().equals(check))
+			System.out.println("Here in PQM conditional");
+		
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
 		{
-			boolean isFoundInIntialState = this.searchEffectInInitialState(precondition);
+			boolean isFoundInIntialState = this.searchEffectInInitialState(precondition); // true
 			System.out.println("In Initial State?	"+isFoundInIntialState);
-
-			if(!(isFoundInIntialState))
+			
+			//boolean isFoundInActionDomain = this.searchEffectsInActionDomain(precondition);
+			
+			if(!(isFoundInIntialState)) // || isFoundInActionDomain))
 			{
 				if(!( this.searchInEffects(precondition)))
 				{

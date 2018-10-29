@@ -80,7 +80,7 @@ class TestLiteralSelectionByParser {
 		int id = 9;
 		
 		planner.debugGetOpenPreconditions(id);
-		
+	
 	}
 	
 

@@ -1,4 +1,7 @@
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -103,7 +106,54 @@ public class Planner
 
 	}
 
+	
+	public void detectPotentialThreat(String precondition, Step step) throws IOException
+	{
+	    FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
+	    PrintWriter printWriter = new PrintWriter(fileWriter);
+	    
+	    printWriter.print(precondition + "\n");
+		
+	   // boolean threat = false;
+	    
+	    //printWriter.print("Current action: " + step.getStepName());
+	    
+//	    for (int i = 0; i < step.getEffectsSize(); i++)
+//	    {
+//	    		printWriter.print(step.getEffects(i) + "\n");
+//	    }
+	    
+		int sizeActions = Actions.size();
+		for(int i=1;i<sizeActions;i++)
+		{
+			int sizeEffects = Actions.get(i).getEffectsSize();
+			for(int x=0;x<sizeEffects;x++)
+			{
+				int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
+				
+				Literal effect = Actions.get(i).getEffects(x);
+					
+				//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
+				String temp = effect.toString();
+				
+				printWriter.print("effect:	"+ temp + "\n");
+				
+//				System.out.println("Effect: " + temp);
+				
+				//if (effect.isNegative())
+				//	printWriter.println("not found in effect: " + temp);
+				
+				if(precondition.equals(temp) && effect.isNegative()) { //&& !precondition.equals("briefcase Briefcase")) {
+					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + step.toString() + "\n");
+					//threat = true;
+				}	
+			}
+		}
+		printWriter.close();
+				
+		//return threat;
 
+	}
 	/**
 	 * This method is to check the initial state if it satisfies the openPrecondition
 	 * Works only with the bounded precondition
@@ -125,13 +175,24 @@ public class Planner
 		for(int i=0; i< effSize;i++)
 		{
 			String temp = precondition.toString();
-			if(temp.equals(parser.getIntialStateEffects(i).toString()))
+			
+			if(temp.equals(parser.getIntialStateEffects(i).toString())) 
 			{
-				
+								
 				// TODO: check links instead of isNegative
-				if(!(parser.getIntialStateEffects(i).isNegative()))// && temp != "location Paycheck Home")
+				if(!(parser.getIntialStateEffects(i).isNegative())) // && !(temp.equals("location Paycheck Home"))
 				//if(this.CheckThreats())
+				//if (!precondition.isExcuted())
+				//if (!(precondition.isExcuted())) //&& !(precondition.toString().equals("not " + precondition.toString())))
 				{
+					/* detecting potential threat when searching effects of actions */
+					try {
+						this.detectPotentialThreat(temp, currentStep);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					System.out.println("Found In initial State");
 
 					//this.applyNegation(currentStep);
@@ -237,6 +298,8 @@ public class Planner
 	 * @param next
 	 * @return true if there is a connection
 	 * @return false if there is no connection
+	 * 
+	 * NOT CALLED ANYWHERE
 	 */
 	public boolean stepsAreConnectedWithCausalLink(Step current, Step next)
 	{
