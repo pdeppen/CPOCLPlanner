@@ -107,21 +107,18 @@ public class Planner
 	}
 
 	
-	public void detectPotentialThreat(String precondition, Step step) throws IOException
+	public boolean detectPotentialThreat(String precondition, Step step, int openPreconditionID) throws IOException
 	{
 	    FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
 	    
 	    printWriter.print(precondition + "\n");
 		
-	   // boolean threat = false;
+	    boolean threat = false;
 	    
 	    //printWriter.print("Current action: " + step.getStepName());
 	    
-//	    for (int i = 0; i < step.getEffectsSize(); i++)
-//	    {
-//	    		printWriter.print(step.getEffects(i) + "\n");
-//	    }
+	    Restrictions restriction;
 	    
 		int sizeActions = Actions.size();
 		for(int i=1;i<sizeActions;i++)
@@ -138,20 +135,16 @@ public class Planner
 				
 				printWriter.print("effect:	"+ temp + "\n");
 				
-//				System.out.println("Effect: " + temp);
-				
-				//if (effect.isNegative())
-				//	printWriter.println("not found in effect: " + temp);
-				
-				if(precondition.equals(temp) && effect.isNegative()) { //&& !precondition.equals("briefcase Briefcase")) {
-					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + step.toString() + "\n");
-					//threat = true;
+				if(precondition.equals(temp) && effect.isNegative() && openPreconditionID != 1) { 
+					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + step.toString() + " ID: " + openPreconditionID + "\n");
+					//restriction = new Restrictions("")
+					threat = true;
 				}	
 			}
 		}
 		printWriter.close();
-				
-		//return threat;
+			
+		return threat;
 
 	}
 	/**
@@ -187,7 +180,7 @@ public class Planner
 				{
 					/* detecting potential threat when searching effects of actions */
 					try {
-						this.detectPotentialThreat(temp, currentStep);
+						return !this.detectPotentialThreat(temp, currentStep, openPrecondition.getStepID());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
