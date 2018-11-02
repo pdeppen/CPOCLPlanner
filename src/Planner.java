@@ -47,6 +47,8 @@ public class Planner
 	protected long startTime;
 	protected long currentTime;
 	protected long duration;
+	
+	protected boolean restriction;
 
 	/**
 	 * create a plan using a selected parser and start time
@@ -107,7 +109,7 @@ public class Planner
 	}
 
 	
-	public boolean detectPotentialThreat(String precondition, Step step, int openPreconditionID) throws IOException
+	public boolean detectPotentialThreat(String precondition, Step step, int openPreconditionID, Literal openPrecondition, OpenPrecondition test) throws IOException
 	{
 	    FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -137,8 +139,21 @@ public class Planner
 				
 				if(precondition.equals(temp) && effect.isNegative() && openPreconditionID != 1) { 
 					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + step.toString() + " ID: " + openPreconditionID + "\n");
-					//restriction = new Restrictions("")
+					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
 					threat = true;
+					
+					step = Actions.get(openPreconditionID + 1);
+					
+					Literal newOpenPrecondition = openPrecondition;
+					
+					newOpenPrecondition.setExcuted(false);
+					newOpenPrecondition.hasNegativeSign(true);
+					
+					System.out.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
+//					printWriter.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
+
+					step.addPreconditions(newOpenPrecondition);
+					System.out.println(Actions.get(openPreconditionID + 1).toString());
 				}	
 			}
 		}
@@ -180,7 +195,7 @@ public class Planner
 				{
 					/* detecting potential threat when searching effects of actions */
 					try {
-						return !this.detectPotentialThreat(temp, currentStep, openPrecondition.getStepID());
+						return !this.detectPotentialThreat(temp, currentStep, openPrecondition.getStepID(), precondition, openPrecondition);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -236,7 +251,13 @@ public class Planner
 					{
 						//System.out.println(parser.getActionsEffects(i, f).getLiteralParameters(0));
 						//To get the step
+						//System.out.println(precondition.getLiteralName());
+						//if (precondition.toString().equals("location Paycheck Home"))
+						//	step = parser.getAction(1);
+						//else
+							
 						step = parser.getAction(i);
+						
 						Step newStep = new Step(step);
 
 ///////////
@@ -277,7 +298,7 @@ public class Planner
 			}
 		}
 		/** add restrictions here ?*/
-		Restrictions restriction = new Restrictions(precondition, id);
+		Restrictions restriction = new Restrictions(precondition, id, currentStep);
 		
 		
 		System.out.println("/********** RETURNING FALSE -> IN searchEffectsInActionDomain() at bottom Planner class");

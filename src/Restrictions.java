@@ -10,13 +10,22 @@ import javax.swing.JOptionPane;
 public class Restrictions {
 
 
-	public Restrictions(Literal openPrecondition, int id) {
+	public Restrictions(Literal openPrecondition, int id, Step step) {
 		System.out.println("*******************\n"
 						 + "IN RESTRICTIONS CLASS\n"
 						 + "*******************\n");
 		
 		System.out.println("Open Precondtion: " + openPrecondition);
 		System.out.println("ID: " + id);
+		System.out.println("Step: " + step.toString());
+		
+		Literal newOpenPrecondition = openPrecondition;
+		
+		newOpenPrecondition.setExcuted(false);
+		newOpenPrecondition.hasNegativeSign(true);
+		
+		System.out.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative()); 
+		step.addPreconditions(newOpenPrecondition);
 	}
 	
 }

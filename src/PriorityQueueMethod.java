@@ -131,6 +131,7 @@ public class PriorityQueueMethod extends Planner
 				"	ActionID is "+precondition.getStepID());
 
 		String check = "location Paycheck Home";
+		//String check = "briefcase Paycheck";
 		
 //		try {
 //			this.detectPotentialThreat(precondition.toString());
@@ -328,8 +329,8 @@ public class PriorityQueueMethod extends Planner
 			System.out.println("Here in PQM conditional");
 		
 		printer.print("The openPrecondition:	"+ precondition.getOpenPrecondtion() + "\n");
-	//	printer.print("Action is "+ Actions.get(precondition.getStepID()).getStepName() + "	ActionID is "+precondition.getStepID() + "\n");
-
+		//printer.print("Action is "+ Actions.get(precondition.getStepID()).getStepName() + "	ActionID is "+precondition.getStepID() + "\n");
+		printer.print("The action is: " + Actions.get(precondition.getStepID()).toString() + "\n\n");
 
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))

@@ -1,8 +1,27 @@
 The openPrecondition:	location Briefcase Office
+The action is: :goal[]
+
 The openPrecondition:	briefcase Briefcase
+The action is: move[Briefcase, ?from, Office]
+
 The openPrecondition:	location Briefcase ?from
+The action is: move[Briefcase, ?from, Office]
+
 The openPrecondition:	has Briefcase ?paycheck
+The action is: move[Briefcase, Home, Office]
+
 The openPrecondition:	location Home
+The action is: move[Briefcase, Home, Office]
+
 The openPrecondition:	location Office
+The action is: move[Briefcase, Home, Office]
+
 The openPrecondition:	paycheck Paycheck
+The action is: move[Briefcase, Home, Office]
+
 The openPrecondition:	location Paycheck Home
+The action is: :goal[]
+
+The openPrecondition:	briefcase Paycheck
+The action is: move[Paycheck, ?from, Home]
+
