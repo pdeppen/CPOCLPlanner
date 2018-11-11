@@ -130,19 +130,43 @@ public class PriorityQueueMethod extends Planner
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
 
-		String check = "location Paycheck Home";
+		//String check = "location Paycheck Home";
 		//String check = "briefcase Paycheck";
+		String check = "paycheck Paycheck";
 		
+		Step temp = Actions.get(precondition.getStepID());
+		
+		if (temp.toString().equals(":goal[]")) {
+			this.addMostRecentMadeGoal(precondition.getOpenPrecondtion());
+			this.currentGoal++;
+		}
 //		try {
-//			this.detectPotentialThreat(precondition.toString());
+//			if (this.detectPotentialThreat(precondition))
+//			{
+//				int stepId = step.getStepId();
+//				
+//				Literal newLiteral = new Literal(null, null);
+//				newLiteral.setExcuted(false);
+//				newLiteral.setLiteralName("has Briefcase Paycheck");
+//				newLiteral.hasNegativeSign(true);
+//				System.out.println("New Literal: " + newLiteral.toString());
+//				
+//				OpenPrecondition object = new OpenPrecondition(0, newLiteral);
+//				object.addOpenPrcondition(newLiteral);
+//				object.addStep(stepId + 1);
+//				list.addFirst(object);				
+//				precondition = object;
+//				
+//				Step currentStep = Actions.get(precondition.getStepID());
+//				System.out.println("Current Step: " + currentStep.toString());
+//			}
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
 		if (precondition.getOpenPreconditionToString().equals(check))
-			System.out.println("Here in PQM conditional");
+			threateningPrecondition = precondition; 
 		
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))

@@ -4,4 +4,4 @@
 
 	(:intentions 
 
-	(:goal (location Briefcase Office) (location Paycheck Home)
+	(:goal (location Paycheck Home) (location Briefcase Office) 

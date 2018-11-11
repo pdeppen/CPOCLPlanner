@@ -23,7 +23,11 @@ import javax.swing.JOptionPane;
 
 public class Planner
 {
-
+	/* added 11/10/18 by Philip Deppen */
+	OpenPrecondition threateningPrecondition;
+	ArrayList <Literal> mostRecentMadeGoal = new ArrayList<Literal>();
+	int currentGoal = 0;
+	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
 	
@@ -107,18 +111,51 @@ public class Planner
 		}
 
 	}
-
 	
-	public boolean detectPotentialThreat(String precondition, Step step, int openPreconditionID, Literal openPrecondition, OpenPrecondition test) throws IOException
+	/**
+	 * Created by Philip Deppne (11/10/18)
+	 * @param goal
+	 */
+	public void addMostRecentMadeGoal(Literal goal)
 	{
+		this.mostRecentMadeGoal.add(goal);				
+	}
+	
+	/**
+	 * Created by Philip Deppen (11/10/18)
+	 * @param tempEffect
+	 * @return threat (boolean)
+	 */
+	public boolean checkGoalThreats(String tempEffect)
+	{
+		boolean threat = false;
+		
+		for (int i = 0; i < this.mostRecentMadeGoal.size(); i++)
+		{
+			if (this.mostRecentMadeGoal.get(i).toString().equals(tempEffect))
+			{
+				threat = true;
+				break;
+			}
+		}
+		
+		return threat;		
+	}
+	
+	public boolean detectPotentialThreat(OpenPrecondition openPrecondition) throws IOException
+	{
+		
 	    FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
-	    
-	    printWriter.print(precondition + "\n");
+	
+		Literal precondition = openPrecondition.getOpenPrecondtion();
+		Step currentStep = Actions.get(openPrecondition.getStepID());
+		
+	    printWriter.print(precondition.toString() + "\n");
 		
 	    boolean threat = false;
 	    
-	    //printWriter.print("Current action: " + step.getStepName());
+	    //printWriter.print("Current action: " + step.getStepName() + "\n");
 	    
 	    Restrictions restriction;
 	    
@@ -137,23 +174,36 @@ public class Planner
 				
 				printWriter.print("effect:	"+ temp + "\n");
 				
-				if(precondition.equals(temp) && effect.isNegative() && openPreconditionID != 1) { 
-					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + step.toString() + " ID: " + openPreconditionID + "\n");
+				//TODO: will need to optimize this condition (i.e. get rid of openPrecondition != 1), only works if goal literals are placed specifically
+				//if(precondition.toString().equals(temp) && effect.isNegative() && openPrecondition.getStepID() != 1) { 
+				
+				//if (this.currentGoal >= 2 && (temp.equals(this.mostRecentMadeGoal.get((this.currentGoal - 2)).toString()) || temp.equals(this.mostRecentMadeGoal.get(this.currentGoal - 1 ).toString())) && effect.isNegative()) {
+				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
+					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
 					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
 					threat = true;
+						
+					printWriter.print("Threatening Effect: " + this.threateningPrecondition.getOpenPreconditionToString().toString());
+//					currentStep = Actions.get(openPrecondition.getStepID() + 1);
+//					
+//					OpenPrecondition newOpenPrecondition = openPrecondition;
+//					
+//					Literal newLiteral = precondition;
+//					
+//					//newLiteral.setLiteralName("");
+//					//newLiteral.setLiteralName("has Briefcase Paycheck");
+//					newLiteral.setExcuted(false);
+//					newLiteral.hasNegativeSign(true);
+//					newOpenPrecondition.addOpenPrcondition(precondition);
+//					
+////					System.out.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
+//					printWriter.println("New OpenPrecondition: " + newLiteral.toString() + " is negated: " + newLiteral.isNegative() + " added to Step: " + currentStep.toString()); 
+//
+//					currentStep.addPreconditions(newLiteral);
 					
-					step = Actions.get(openPreconditionID + 1);
-					
-					Literal newOpenPrecondition = openPrecondition;
-					
-					newOpenPrecondition.setExcuted(false);
-					newOpenPrecondition.hasNegativeSign(true);
-					
-					System.out.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
-//					printWriter.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
-
-					step.addPreconditions(newOpenPrecondition);
-					System.out.println(Actions.get(openPreconditionID + 1).toString());
+					//threat = this.searchEffectsInActionDomain(newOpenPrecondition);
+					//threat = !threat;
+					// System.out.println(Actions.get(openPreconditionID + 1).toString());
 				}	
 			}
 		}
@@ -195,9 +245,9 @@ public class Planner
 				{
 					/* detecting potential threat when searching effects of actions */
 					try {
-						return !this.detectPotentialThreat(temp, currentStep, openPrecondition.getStepID(), precondition, openPrecondition);
+						if (this.detectPotentialThreat(openPrecondition))
+							return false;
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -211,10 +261,10 @@ public class Planner
 
 					//this.addOrdering(currentStep, parser.getInitialState());
 					graph.add(currentStep, parser.getInitialState());
-
+					
 					// TODO: add something like this in code 
 					//parser.setInitialStateEffects(i);
-
+					
 					return true;
 				}
 			}

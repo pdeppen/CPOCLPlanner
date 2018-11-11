@@ -1,3 +1,6 @@
+The openPrecondition:	location Paycheck Home
+The action is: :goal[]
+
 The openPrecondition:	location Briefcase Office
 The action is: :goal[]
 
@@ -18,10 +21,4 @@ The action is: move[Briefcase, Home, Office]
 
 The openPrecondition:	paycheck Paycheck
 The action is: move[Briefcase, Home, Office]
-
-The openPrecondition:	location Paycheck Home
-The action is: :goal[]
-
-The openPrecondition:	briefcase Paycheck
-The action is: move[Paycheck, ?from, Home]
 
