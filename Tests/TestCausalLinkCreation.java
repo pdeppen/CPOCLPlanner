@@ -24,7 +24,7 @@ class TestCausalLinkCreation {
 		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
 		// change this to create different text files
-		int id = 9;
+		int id = 10;
 		
 		//planner.debugGetOpenPreconditions(id);
 		planner.search();
@@ -35,6 +35,20 @@ class TestCausalLinkCreation {
 		/* check that goals were saved correctly */
 		assertEquals("location Paycheck Home", planner.mostRecentMadeGoal.get(0).toString());
 		assertEquals("location Briefcase Office", planner.mostRecentMadeGoal.get(1).toString());
+		
+		/* check that new literal = not paycheck Paycheck */
+		//assertEquals("paycheck Paychfd", )
+		
+//		int stepsNum = parser.getActionDomainSize();		//how many action in the domain
+//		for(int i=0; i< stepsNum;i++)
+//		{
+//			int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
+//			for(int f=0; f< effectNum; f++)
+//			{
+//				System.out.println(parser.getActionsEffects(i, f).getLiteralName());
+//			}
+//		}
+		
 	}
 
 }

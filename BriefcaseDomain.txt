@@ -10,5 +10,5 @@
 	(:action swap
 		:parameters ?item1 ?briefcase ?item2
 		:precondition (and (has ?briefcase ?item1) (briefcase ?briefcase) (paycheck ?item1) (paycheck ?item2) 
-		:effect (and (not has ?briefcase ?item1) (has ?briefcase ?item2) 
+		:effect (and (not has ?briefcase ?item1) (has ?briefcase ?item2) (not paycheck ?paycheck)
 		:agents

@@ -9,10 +9,21 @@ import javax.swing.JOptionPane;
 
 public class PriorityQueueMethod extends Planner
 {
+    FileWriter fileWriter;
+    PrintWriter printWriter = null;
+    
 	public PriorityQueueMethod(ConflictParser p, long startTime) throws FileNotFoundException
 	{
 		super(p, startTime);
 
+		try {
+			fileWriter = new FileWriter("textFiles/orderOfOpenPreconditions10.txt");
+		    printWriter = new PrintWriter(fileWriter);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.key=1;
 		Actions = new LinkedList <Step>();
 		Links = new ArrayList <CausalLink>();
@@ -117,7 +128,7 @@ public class PriorityQueueMethod extends Planner
 	/** conditions that must be met for an action to take place */
 	public boolean resolveOpenPrecondition() throws FileNotFoundException
 	{
-
+	    
 		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
@@ -130,6 +141,9 @@ public class PriorityQueueMethod extends Planner
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
 
+		printWriter.print("The openPrecondition:	"+ precondition.getOpenPrecondtion());
+		printWriter.print("Action is "+ Actions.get(precondition.getStepID()).getStepName()+ "	ActionID is "+precondition.getStepID());
+		
 		//String check = "location Paycheck Home";
 		//String check = "briefcase Paycheck";
 		String check = "paycheck Paycheck";
@@ -140,6 +154,7 @@ public class PriorityQueueMethod extends Planner
 			this.addMostRecentMadeGoal(precondition.getOpenPrecondtion());
 			this.currentGoal++;
 		}
+		
 //		try {
 //			if (this.detectPotentialThreat(precondition))
 //			{

@@ -15,9 +15,10 @@ public class Restrictions {
 						 + "IN RESTRICTIONS CLASS\n"
 						 + "*******************\n");
 		
-		System.out.println("Open Precondtion: " + openPrecondition);
+		System.out.println("Open Precondtion: " + openPrecondition + " is negated: " + openPrecondition.isNegative());
 		System.out.println("ID: " + id);
 		System.out.println("Step: " + step.toString());
+		
 		
 		Literal newOpenPrecondition = openPrecondition;
 		
