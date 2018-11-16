@@ -179,7 +179,7 @@ public class Planner
 				//if(precondition.toString().equals(temp) && effect.isNegative() && openPrecondition.getStepID() != 1) { 
 				//if (this.currentGoal >= 2 && (temp.equals(this.mostRecentMadeGoal.get((this.currentGoal - 2)).toString()) || temp.equals(this.mostRecentMadeGoal.get(this.currentGoal - 1 ).toString())) && effect.isNegative()) {
 				
-				/* this "if" statement created 11/10/18 */
+				/* this "if" statement created 11/10/18 - comment out second && to get planner to work for (location Briefcase Office) as first goal */
 				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
 					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
 					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
