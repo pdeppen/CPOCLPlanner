@@ -312,6 +312,7 @@ public class Planner
 	}
 
 	/**
+	 * Edited by Philip Deppen (12/3/18, issue 4)
 	 * This function searches for an effect in ActionDomain to solve an open precondition
 	 * @param precondition
 	 */
