@@ -29,6 +29,7 @@ public class Planner
 	int currentGoal = 0;
 	OpenPrecondition newOpenPrecondition;
 	boolean checkInitial = true;
+	boolean solutionFound = true;
 	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
@@ -144,6 +145,40 @@ public class Planner
 		return threat;		
 	}
 	
+	/** 
+	 * Created this on 11/28/18 for testing when calling from searchSimiliarInInitial - not permanent solution
+	 * @param literal
+	 * @return
+	 */
+	public boolean detectPotentialThreat2 (Literal literal) 
+	{
+		boolean threat = false;
+		
+		int sizeActions = Actions.size();
+		for(int i=1;i<sizeActions;i++)
+		{
+			int sizeEffects = Actions.get(i).getEffectsSize();
+			for(int x=0;x<sizeEffects;x++)
+			{
+				int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
+				
+				Literal effect = Actions.get(i).getEffects(x);
+					
+				String temp = effect.toString();
+												
+				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
+				if (this.checkGoalThreats(temp) && effect.isNegative() && literal.toString().equals("has Briefcase Paycheck")) {
+					threat = true;
+					
+					/* give threatening open precondition negative sign */
+					literal.hasNegativeSign(true);			
+				}	
+			}
+		}
+					
+		return threat;
+	}
+	
 	public boolean detectPotentialThreat(OpenPrecondition openPrecondition) throws IOException
 	{
 		FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
@@ -180,14 +215,20 @@ public class Planner
 				//if (this.currentGoal >= 2 && (temp.equals(this.mostRecentMadeGoal.get((this.currentGoal - 2)).toString()) || temp.equals(this.mostRecentMadeGoal.get(this.currentGoal - 1 ).toString())) && effect.isNegative()) {
 				
 				/* this "if" statement created 11/10/18 - comment out second && to get planner to work for (location Briefcase Office) as first goal */
-				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
+				//if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
+				
+				//System.out.println("Effect is negative: " + effect.isNegative());
+				//System.out.println("Precondition: " + precondition.toString());
+				//System.out.println("Effect threatens already made goal: " + this.checkGoalThreats(temp));
+				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
+				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("has Briefcase Paycheck")) {
 					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
 					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
 					threat = true;
 					
 					/* give threatening open precondition negative sign */
 					openPrecondition.getOpenPrecondtion().hasNegativeSign(true);
-					printWriter.print("Threatening Effect: " + this.threateningPrecondition.getOpenPreconditionToString().toString());
+					//printWriter.print("Threatening Effect: " + this.threateningPrecondition.getOpenPreconditionToString().toString());
 					
 					//OpenPrecondition newOpenPrecondition = openPrecondition;
 					
@@ -573,12 +614,29 @@ public class Planner
 		int y;
 		for( y =0; y< sizeEffectInitailState;y++)		//The size of effect in initial state
 		{
-
-			if(precondition.getLiteralName().equals(parser.getIntialStateEffects(y).getLiteralName()))
+			/* added second conditional 11/16/18 issue #4 */
+			if(precondition.getLiteralName().equals(parser.getIntialStateEffects(y).getLiteralName()))// && !(parser.getIntialStateEffects(y).toString().equals("paycheck Paycheck")))
 			{
-				array.add(index,parser.getIntialStateEffects(y));
-				index++;
-
+				//if (precondition.toString().equals("?item2") && !(parser.getIntialStateEffects(y).toString().equals("paycheck Paycheck"))) {
+					array.add(index,parser.getIntialStateEffects(y));
+					index++;
+								
+					/* adding conditional here to check if it breaks goal causal link */
+					if (parser.getIntialStateEffects(y).toString().equals("has Briefcase Paycheck")) {
+						
+						/* detecting potential threat when searching effects of actions */
+						//try {
+							//if (true)//checkInitial)
+							//	if (this.detectPotentialThreat2(parser.getIntialStateEffects(y)))
+							//		return false;
+						//} catch (IOException e) {
+						//	e.printStackTrace();
+						//}
+					}
+					
+					//if (precondition.toString().equals("?item2"))
+					//	solutionFound = false;
+				//}
 			}
 		}
 

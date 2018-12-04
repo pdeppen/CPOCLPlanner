@@ -3,12 +3,12 @@
 
 	(:action move
 		:parameters ?briefcase ?from ?to
-		:precondition (and (briefcase ?briefcase) (location ?briefcase ?from) (has ?briefcase ?paycheck) (location ?from) (location ?to) (paycheck ?paycheck)
+		:precondition (and (has ?briefcase ?paycheck) (briefcase ?briefcase) (location ?briefcase ?from) (location ?from) (location ?to) (has ?briefcase ?paycheck) 
 		:effect (and (location ?briefcase ?to) (location ?paycheck ?to) (not location ?from) (not location ?paycheck ?from)
 		:agents
 
 	(:action swap
 		:parameters ?item1 ?briefcase ?item2
 		:precondition (and (has ?briefcase ?item1) (briefcase ?briefcase) (paycheck ?item1) (paycheck ?item2) 
-		:effect (and (not has ?briefcase ?item1) (has ?briefcase ?item2) (not paycheck ?paycheck)
+		:effect (and (not has ?briefcase ?item1) (has ?briefcase ?item2)
 		:agents

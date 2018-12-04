@@ -101,7 +101,7 @@ public class PriorityQueueMethod extends Planner
 				//				break;
 				return false;
 			}
-
+			
 			this.updateCausalLinks();
 			System.out.println("\n\n");
 			
@@ -112,6 +112,7 @@ public class PriorityQueueMethod extends Planner
 				//				break;
 				return false;
 			}
+			
 		}
 
 		//to print out the solution if it exists
@@ -146,7 +147,13 @@ public class PriorityQueueMethod extends Planner
 		
 		//String check = "location Paycheck Home";
 		//String check = "briefcase Paycheck";
-		String check = "paycheck Paycheck";
+		
+		/* variable used for if statement - getting test case to pass */
+		//String check = "paycheck Paycheck";
+		
+		//String check = "has Briefcase ?paycheck";
+		String check = "has Briefcase Paycheck";
+		//String check = "paycheck ?item2";
 		
 		Step temp = Actions.get(precondition.getStepID());
 		
@@ -182,6 +189,7 @@ public class PriorityQueueMethod extends Planner
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
 		if (precondition.getOpenPreconditionToString().equals(check))
 			threateningPrecondition = precondition; 
+		
 		
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
