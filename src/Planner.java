@@ -383,7 +383,10 @@ public class Planner
 						return true;
 
 					}
-					else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("paycheck Paycheck"))
+					
+					//else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("paycheck Paycheck"))
+					/* conditional made 12/3/18 */
+					else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("has Briefcase Paycheck"))
 					{
 						checkInitial = false;
 						step = parser.getAction(i);
