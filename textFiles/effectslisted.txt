@@ -2143,3 +2143,503 @@ effect:	location Paycheck Office
 effect:	location Home
 effect:	location Paycheck Home
 Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]
+location Paycheck Home
+briefcase Briefcase
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location ?from
+effect:	location Paycheck ?from
+location Home
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+location Office
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+has Briefcase Paycheck
+effect:	location Briefcase Office
+effect:	location Paycheck Office
+effect:	location Home
+effect:	location Paycheck Home
+Potential Threat with precondition: has Briefcase Paycheck	Step: move[Briefcase, Home, Office]

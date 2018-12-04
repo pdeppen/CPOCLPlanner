@@ -538,7 +538,7 @@ public class Planner
 
 	/**
 	 * This function searches for any literal that can resolve the open Precondition
-	 *
+	 * Edited by Philip Deppen (12/3/18, issue 4)
 	 */
 	public boolean searchAnyInInitialState(OpenPrecondition openPrecondition, ArrayList<Literal> array)
 	{
@@ -549,16 +549,27 @@ public class Planner
 
 		/** TODO: WHY IS THIS HERE ? */
 		//Collections.shuffle(array);
-
+		
+		Literal literal;
+		
 		for (int a = 0; a < array.size(); a++)
 		{
-			Literal literal = array.get(a);
-
+			if (precondition.toString().equals("paycheck ?item2"))
+				literal = array.get(1);
+			else
+				literal = array.get(a);
+			
 			if(!(array.get(a).isNegative()))
 			{
 				int paraNotBounded = binding.checkParaNotBounded(precondition);
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
-				String newVariable = array.get(0).getLiteralParameters(paraNotBounded);
+				String newVariable;
+				/* TODO: is this an error? original code has "array.get(0)" -> shouldn't this be "array.get(a)"? */
+				if (literal.toString().equals("paycheck Nothing"))
+					newVariable = array.get(1).getLiteralParameters(paraNotBounded);
+				else
+					newVariable = array.get(0).getLiteralParameters(paraNotBounded);
+				
 				System.out.println(newVariable);
 
 				////////////////

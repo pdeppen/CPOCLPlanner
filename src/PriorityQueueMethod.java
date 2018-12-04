@@ -152,8 +152,8 @@ public class PriorityQueueMethod extends Planner
 		//String check = "paycheck Paycheck";
 		
 		//String check = "has Briefcase ?paycheck";
-		String check = "has Briefcase Paycheck";
-		//String check = "paycheck ?item2";
+		//String check = "has Briefcase Paycheck";
+		String check = "paycheck ?item2";
 		
 		Step temp = Actions.get(precondition.getStepID());
 		
