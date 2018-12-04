@@ -610,6 +610,7 @@ public class Planner
 
 	/**
 	 * This methods searches for a literal in the intial state that is similar to it but not fully bounded.
+	 * Edited by Philip Deppen (12/3/18, issue 4)
 	 * @param precondition
 	 * @return
 	 */
