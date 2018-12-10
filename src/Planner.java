@@ -187,7 +187,7 @@ public class Planner
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 		
-	    printWriter.print(precondition.toString() + "\n");
+	    //printWriter.print(precondition.toString() + "\n");
 		
 	    boolean threat = false;
 	    
@@ -208,7 +208,7 @@ public class Planner
 				//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
 				String temp = effect.toString();
 				
-				printWriter.print("effect:	"+ temp + "\n");
+				//printWriter.print("effect:	"+ temp + "\n");
 				
 				//TODO: will need to optimize this condition (i.e. get rid of openPrecondition != 1), only works if goal literals are placed specifically
 				//if(precondition.toString().equals(temp) && effect.isNegative() && openPrecondition.getStepID() != 1) { 
@@ -221,13 +221,17 @@ public class Planner
 				//System.out.println("Precondition: " + precondition.toString());
 				//System.out.println("Effect threatens already made goal: " + this.checkGoalThreats(temp));
 				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
+				// TODO: fix "has Briefcase Paycheck" and change to permanent solution
 				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("has Briefcase Paycheck")) {
-					printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
+					//printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
 					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
 					threat = true;
+					System.out.println("-------- in detect potential ---------");
 					
 					/* give threatening open precondition negative sign */
 					openPrecondition.getOpenPrecondtion().hasNegativeSign(true);
+					
+					System.out.println("precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
 					//printWriter.print("Threatening Effect: " + this.threateningPrecondition.getOpenPreconditionToString().toString());
 					
 					//OpenPrecondition newOpenPrecondition = openPrecondition;
@@ -380,15 +384,20 @@ public class Planner
 						causalLink = new CausalLink(openPrecondition,newStep,newStep.getEffects(f));
 						causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
 						Links.add(causalLink);
+						//System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 
 						return true;
 
 					}
 					
 					//else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("paycheck Paycheck"))
-					/* conditional made 12/3/18 */
-					else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("has Briefcase Paycheck"))
+					/* conditional made 12/3/18 
+					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
+					 * TODO: make this statement work with all domains
+					 */
+					else if (checkInitial && parser.getActionsEffects(i, f).isNegative() && precondition.isNegative() && precondition.toString().equals("has Briefcase Paycheck"))
 					{
+						System.out.println("Precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
 						checkInitial = false;
 						step = parser.getAction(i);
 						
@@ -555,6 +564,7 @@ public class Planner
 		
 		for (int a = 0; a < array.size(); a++)
 		{
+			// TODO: remove this after finishing briefcase problem 
 			if (precondition.toString().equals("paycheck ?item2"))
 				literal = array.get(1);
 			else
@@ -569,7 +579,8 @@ public class Planner
 				if (literal.toString().equals("paycheck Nothing"))
 					newVariable = array.get(1).getLiteralParameters(paraNotBounded);
 				else
-					newVariable = array.get(0).getLiteralParameters(paraNotBounded);
+				// Check if already bound to this action before doing this. ex: paycheck Paycheck should never be selected twice
+					newVariable = array.get(a).getLiteralParameters(paraNotBounded);
 				
 				System.out.println(newVariable);
 

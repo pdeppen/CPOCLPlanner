@@ -12,6 +12,9 @@ public class PriorityQueueMethod extends Planner
     FileWriter fileWriter;
     PrintWriter printWriter = null;
     
+	int tempCounter = 0;
+
+    
 	public PriorityQueueMethod(ConflictParser p, long startTime) throws FileNotFoundException
 	{
 		super(p, startTime);
@@ -141,10 +144,13 @@ public class PriorityQueueMethod extends Planner
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
+		
+		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
 
 		printWriter.print("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		printWriter.print("Action is "+ Actions.get(precondition.getStepID()).getStepName()+ "	ActionID is "+precondition.getStepID());
 		
+			
 		//String check = "location Paycheck Home";
 		//String check = "briefcase Paycheck";
 		
@@ -190,6 +196,23 @@ public class PriorityQueueMethod extends Planner
 		if (precondition.getOpenPreconditionToString().equals(check))
 			threateningPrecondition = precondition; 
 		
+		/* added 12/14/18 for debugging */
+		if (precondition.getStepID() == 1 && precondition.getOpenPreconditionToString().equals(("has Briefcase Paycheck")))
+		{
+			tempCounter++;
+			if (tempCounter > 1) 
+			{
+				//System.out.println("here");
+//				precondition = this.getOpenPrecondition();
+//				System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
+//				System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
+//						"	ActionID is "+precondition.getStepID());
+				// TODO: not a solution
+				System.out.println("forced solution");
+				//this.printOutSolution();
+				//System.exit(0);
+			}
+		}
 		
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
