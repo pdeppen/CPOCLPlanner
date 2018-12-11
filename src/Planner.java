@@ -201,7 +201,7 @@ public class Planner
 			int sizeEffects = Actions.get(i).getEffectsSize();
 			for(int x=0;x<sizeEffects;x++)
 			{
-				int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
+				//int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
 				
 				Literal effect = Actions.get(i).getEffects(x);
 					
@@ -286,6 +286,8 @@ public class Planner
 			
 			if(temp.equals(parser.getIntialStateEffects(i).toString())) 
 			{
+				/* added print statement 12/10/18 */
+				System.out.print(parser.getIntialStateEffects(i) + " is negative : " + parser.getIntialStateEffects(i).isNegative());
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */

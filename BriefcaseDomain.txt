@@ -3,8 +3,8 @@
 
 	(:action move
 		:parameters ?briefcase ?from ?to
-		:precondition (and (has ?briefcase ?paycheck) (briefcase ?briefcase) (location ?briefcase ?from) (location ?from) (location ?to) (has ?briefcase ?paycheck) 
-		:effect (and (location ?briefcase ?to) (location ?paycheck ?to) (not location ?from) (not location ?paycheck ?from)
+		:precondition (and (briefcase ?briefcase) (location ?briefcase ?from) (location ?from) (location ?to) (has ?briefcase ?paycheck)
+		:effect (and (location ?briefcase ?to) (location ?paycheck ?to) (not location ?briefcase ?from) (not location ?paycheck ?from)
 		:agents
 
 	(:action swap

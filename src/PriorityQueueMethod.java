@@ -133,6 +133,13 @@ public class PriorityQueueMethod extends Planner
 	public boolean resolveOpenPrecondition() throws FileNotFoundException
 	{
 	    
+		/* added 12/10/18 - prints remaining preconditions */
+		for (int i = 0; i < this.openPrecon.size(); i++)
+			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+		
+		/* print blank line */
+		System.out.println("");
+
 		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
@@ -146,11 +153,7 @@ public class PriorityQueueMethod extends Planner
 				"	ActionID is "+precondition.getStepID());
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
-
-		printWriter.print("The openPrecondition:	"+ precondition.getOpenPrecondtion());
-		printWriter.print("Action is "+ Actions.get(precondition.getStepID()).getStepName()+ "	ActionID is "+precondition.getStepID());
-		
-			
+				
 		//String check = "location Paycheck Home";
 		//String check = "briefcase Paycheck";
 		
@@ -159,7 +162,8 @@ public class PriorityQueueMethod extends Planner
 		
 		//String check = "has Briefcase ?paycheck";
 		//String check = "has Briefcase Paycheck";
-		String check = "paycheck ?item2";
+		//String check = "paycheck ?item2";
+		String check = "has Briefcase ?paycheck";
 		
 		Step temp = Actions.get(precondition.getStepID());
 		
@@ -193,26 +197,29 @@ public class PriorityQueueMethod extends Planner
 //		}
 		
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
-		if (precondition.getOpenPreconditionToString().equals(check))
+		if (precondition.getOpenPreconditionToString().equals(check)) {
+			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			threateningPrecondition = precondition; 
-		
+		}		
 		/* added 12/14/18 for debugging */
 		if (precondition.getStepID() == 1 && precondition.getOpenPreconditionToString().equals(("has Briefcase Paycheck")))
 		{
 			tempCounter++;
 			if (tempCounter > 1) 
 			{
-				//System.out.println("here");
-//				precondition = this.getOpenPrecondition();
-//				System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
-//				System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
-//						"	ActionID is "+precondition.getStepID());
 				// TODO: not a solution
 				System.out.println("forced solution");
 				//this.printOutSolution();
 				//System.exit(0);
 			}
 		}
+				
+		/* added 12/9/18 */
+//		try {
+//			this.detectPotentialThreat(precondition);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
@@ -240,6 +247,16 @@ public class PriorityQueueMethod extends Planner
 		{
 			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			System.out.println("Similar In Initial State?	"+isFoundSimilarInInitialStat);
+			
+			/* added 12/9/18 */
+//			try {
+//				this.detectPotentialThreat(precondition);
+//				if (precondition.getOpenPrecondtion().isNegative())
+//					return false;
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+			
 			if((isFoundSimilarInInitialStat))
 			{
 				System.out.println(precondition.getOpenPrecondtion());
