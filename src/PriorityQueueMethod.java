@@ -11,7 +11,7 @@ public class PriorityQueueMethod extends Planner
 {
     FileWriter fileWriter;
     PrintWriter printWriter = null;
-    
+        
 	int tempCounter = 0;
 
     
@@ -107,8 +107,7 @@ public class PriorityQueueMethod extends Planner
 			
 			this.updateCausalLinks();
 			System.out.println("\n\n");
-			
-			/** this never gets reached */
+									
 			if(!(this.CheckThreats()))
 			{
 				System.out.println("No Plan Found -> !(this.CheckThreats()");
@@ -164,6 +163,7 @@ public class PriorityQueueMethod extends Planner
 		//String check = "has Briefcase Paycheck";
 		//String check = "paycheck ?item2";
 		String check = "has Briefcase ?paycheck";
+		//String check = "location Briefcase ?from";
 		
 		Step temp = Actions.get(precondition.getStepID());
 		
@@ -200,7 +200,18 @@ public class PriorityQueueMethod extends Planner
 		if (precondition.getOpenPreconditionToString().equals(check)) {
 			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			threateningPrecondition = precondition; 
-		}		
+		}
+		
+		/* debugging */
+		check = "has Briefcase Paycheck";
+		if (precondition.getOpenPreconditionToString().equals(check) &&  precondition.getStepID() == 2)
+			System.out.println("debugging...");
+		
+//		if (Actions.get(precondition.getStepID()).getStepName().equals("swap"))
+//			dontUpdate = true;
+//		else
+//			dontUpdate = false;
+		
 		/* added 12/14/18 for debugging */
 		if (precondition.getStepID() == 1 && precondition.getOpenPreconditionToString().equals(("has Briefcase Paycheck")))
 		{
@@ -213,14 +224,7 @@ public class PriorityQueueMethod extends Planner
 				//System.exit(0);
 			}
 		}
-				
-		/* added 12/9/18 */
-//		try {
-//			this.detectPotentialThreat(precondition);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
+						
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
 		{

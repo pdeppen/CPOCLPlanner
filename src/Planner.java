@@ -279,6 +279,8 @@ public class Planner
 		
 //		System.out.println("Current Step: " + currentStep.getStepName());
 		
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+				
 		int effSize = parser.getProblemDomainEffectsSize();
 		for(int i=0; i< effSize;i++)
 		{
@@ -287,7 +289,7 @@ public class Planner
 			if(temp.equals(parser.getIntialStateEffects(i).toString())) 
 			{
 				/* added print statement 12/10/18 */
-				System.out.print(parser.getIntialStateEffects(i) + " is negative : " + parser.getIntialStateEffects(i).isNegative());
+				System.out.println(parser.getIntialStateEffects(i) + " is negative : " + parser.getIntialStateEffects(i).isNegative());
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
@@ -298,6 +300,10 @@ public class Planner
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					//threats = this.getThreatenCausalLinks(openPrecondition, currentStep);
+					
+//					if (!threats.isEmpty())
+//						return false;
 					
 					System.out.println("Found In initial State");
 
@@ -950,7 +956,7 @@ public class Planner
 					if(!(this.bothContainsOrdering(s1, s2)))
 					{
 						System.out.println(s1.toString() + s2.toString());
-						if(	(this.isPreconditionNegate(s1, effect)) && (this.isPreconditionNegate(s2, effect))	)
+						if(	(this.isPreconditionNegateOld(s1, effect)) && (this.isPreconditionNegateOld(s2, effect))	)
 						{
 							Literal precondition = threats.get(i).getPrecondition().getOpenPrecondtion();
 							Literal newEffect = this.getNewEffect(s1, effect);
@@ -971,7 +977,7 @@ public class Planner
 						{
 //							System.out.println("/********** in hasNoOrdering(); -> Planner class **********/");
 
-							if(this.isPreconditionNegate(s1,effect))
+							if(this.isPreconditionNegateOld(s1,effect))
 							{
 
 
@@ -998,7 +1004,7 @@ public class Planner
 								return true;
 
 							}
-							else if(this.isPreconditionNegate(s2, effect))
+							else if(this.isPreconditionNegateOld(s2, effect))
 							{
 								Literal precondition = threats.get(i).getPrecondition().getOpenPrecondtion();
 								Literal newEffect = this.getNewEffect(s2, effect);
@@ -1150,18 +1156,27 @@ public class Planner
 		int sizeLinks = Links.size();
 		for(int i =0;i<sizeLinks;i++)
 		{
-			Literal thisEffect = Links.get(i).getEffect();
+			CausalLink link1 = Links.get(i);
+			Literal thisEffect = link1.getEffect();
 			for(int x=0; x<sizeLinks;x++)
 			{
 				Literal effect = Links.get(x).getEffect();
-				if((thisEffect.toString().equals(effect.toString()) && (Links.get(i) != Links.get(x))))
+//				CausalLink link2 = Links.get(x);
+//				Literal effect = link2.getEffect();
+				// TODO: second side of conditional previously had (Links.get(i) != Links.get(x)) -> not how you compare strings
+				if((thisEffect.toString().equals(effect.toString()) && (!(Links.get(i).equals(Links.get(x))))))
 				{
+					//System.out.println(Links.get(i));
+					//System.out.println(Links.get(x));
 					if(Links.get(i).getStepName() == Links.get(x).getStepName())
 					{
 						int stepid = Links.get(i).getPrecondition().getStepID();
 						Step s = Actions.get(stepid);
-						if((isPreconditionNegate(s,thisEffect)))
+						if((isPreconditionNegateOld(s,thisEffect)))
 						{
+							//System.out.println(Links.get(i));
+							//System.out.println(Links.get(x));
+
 //							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
 							threats.add(Links.get(i));
 							threats.add(Links.get(x));
@@ -1175,9 +1190,88 @@ public class Planner
 
 		return threats;
 	}
+	
+	/**
+	 * Created 12/11/18 - Girard
+	 * This function searches for causalLinks that are threatened by other causalLinks
+	 * @return an arrayList of threatened CausalLinks
+	 */
+	public ArrayList<CausalLink> getThreatenCausalLinks(OpenPrecondition condition, Step s)
+	{
+		//System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");
+
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+		
+		int sizeLinks = Links.size();
+		for(int i =0;i<sizeLinks;i++)
+		{
+			CausalLink link1 = Links.get(i);
+			Literal thisEffect = link1.getEffect();
+			Literal threat = condition.getOpenPrecondtion();
+			if((isPreconditionNegate(threat,thisEffect)))
+			{
+				System.out.println(link1);
+
+//							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
+				threats.add(link1);
+			}
+			
+			if (s != null)
+			{
+			// Need to have all Literals updated for that Step
+			for (int x=0;x<s.getEffectsSize();x++)
+			{
+				threat = s.getEffects(x);
+				if((isPreconditionNegate(threat,thisEffect)))
+				{
+					System.out.println(link1);
+
+//								System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
+					threats.add(link1);
+				}
+				
+			}
+			
+			for (int x=0;x<s.getPreconditionSize();x++)
+			{
+				threat = s.getPreconditions(x);
+				if((isPreconditionNegate(threat,thisEffect)))
+				{
+					System.out.println(link1);
+
+//								System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
+					threats.add(link1);
+				}
+			}
+			}
+			
+		}
+
+		return threats;
+	}
 
 
+	/**
+	 * Created 12/11/18 - Girard
+	 * This function checks if the step negates a satisfied precondition
+	 * @param s the step of the precondition
+	 * @param effect the effect that connects the openprecondition
+	 * @return
+	 */
+	public boolean isPreconditionNegate(Literal threat, Literal effect)
+	{
+		//System.out.println("/*****In isPreconditionNegate() --> Planner class*****/");
 
+        if(threat.toString().equals(effect.toString()))
+		{
+			if(threat.isNegative() || effect.isNegative())
+				{
+					//System.out.println(threat.toString() + " is negative: " + effect.isNegative()); Needs fixing
+					return true;
+				}
+		}
+		return false;
+	}
 
 	/**
 	 * This function checks if the step negates a satisfied precondition
@@ -1185,7 +1279,7 @@ public class Planner
 	 * @param effect the effect that connects the openprecondition
 	 * @return
 	 */
-	public boolean isPreconditionNegate(Step s, Literal effect)
+	public boolean isPreconditionNegateOld(Step s, Literal effect)
 	{
 		//System.out.println("/*****In isPreconditionNegate() --> Planner class*****/");
 
@@ -1196,7 +1290,7 @@ public class Planner
 			{
 				if(s.getEffects(i).isNegative())
 				{
-					return true;
+					return false;
 				}
 			}
 		}
