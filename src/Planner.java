@@ -178,8 +178,13 @@ public class Planner
 					
 		return threat;
 	}
-	
-	public boolean detectPotentialThreat(OpenPrecondition openPrecondition) throws IOException
+	/**
+	 * This is where you should be call getThreatenedCausalLinks based on the situation.
+	 * @param openPrecondition
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean detectPotentialThreatOld(OpenPrecondition openPrecondition) throws IOException
 	{
 		FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -200,19 +205,11 @@ public class Planner
 		{
 			int sizeEffects = Actions.get(i).getEffectsSize();
 			for(int x=0;x<sizeEffects;x++)
-			{
-				//int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
-				
+			{				
 				Literal effect = Actions.get(i).getEffects(x);
-					
-				//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
+									//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
 				String temp = effect.toString();
-				
-				//printWriter.print("effect:	"+ temp + "\n");
-				
-				//TODO: will need to optimize this condition (i.e. get rid of openPrecondition != 1), only works if goal literals are placed specifically
-				//if(precondition.toString().equals(temp) && effect.isNegative() && openPrecondition.getStepID() != 1) { 
-				//if (this.currentGoal >= 2 && (temp.equals(this.mostRecentMadeGoal.get((this.currentGoal - 2)).toString()) || temp.equals(this.mostRecentMadeGoal.get(this.currentGoal - 1 ).toString())) && effect.isNegative()) {
+								
 				
 				/* this "if" statement created 11/10/18 - comment out second && to get planner to work for (location Briefcase Office) as first goal */
 				//if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
@@ -223,8 +220,7 @@ public class Planner
 				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
 				// TODO: fix "has Briefcase Paycheck" and change to permanent solution
 				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("has Briefcase Paycheck")) {
-					//printWriter.print("Potential Threat with precondition: " + precondition +  "	Step: " + currentStep.toString() + "\n");
-					//restriction = new Restrictions(openPrecondition, openPreconditionID, step);
+					
 					threat = true;
 					System.out.println("-------- in detect potential ---------");
 					
@@ -262,6 +258,35 @@ public class Planner
 		return threat;
 
 	}
+	
+	/**
+	 * Created 12/13/18 - use this in place of detectPotentialThreatOld
+	 */
+	public boolean detectPotentialThreat(OpenPrecondition condition, Step step)
+	{
+		boolean threat = false;
+		
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+		
+		threats = this.getThreatenCausalLinks(condition);
+		
+		if (!threats.isEmpty()) {
+			threat = true;
+			condition.getOpenPrecondtion().hasNegativeSign(true);
+		}		
+		
+		if (!condition.getOpenPreconditionToString().equals("location Home") && !condition.getOpenPreconditionToString().equals("location Office"))
+			threats = this.getThreatenCausalLinks(step);
+				
+		if (!threats.isEmpty()) {
+			threat = true;
+			condition.getOpenPrecondtion().hasNegativeSign(true);
+		}
+		
+		return threat;
+		
+	}
+	
 	/**
 	 * This method is to check the initial state if it satisfies the openPrecondition
 	 * Works only with the bounded precondition
@@ -278,9 +303,7 @@ public class Planner
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 		
 //		System.out.println("Current Step: " + currentStep.getStepName());
-		
-		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
-				
+						
 		int effSize = parser.getProblemDomainEffectsSize();
 		for(int i=0; i< effSize;i++)
 		{
@@ -293,18 +316,9 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-					try {
-						if (checkInitial)
-							if (this.detectPotentialThreat(openPrecondition))
-								return false;
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					//threats = this.getThreatenCausalLinks(openPrecondition, currentStep);
-					
-//					if (!threats.isEmpty())
-//						return false;
-					
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
+			
 					System.out.println("Found In initial State");
 
 					//this.applyNegation(currentStep);
@@ -357,9 +371,9 @@ public class Planner
 						//if (precondition.toString().equals("location Paycheck Home"))
 						//	step = parser.getAction(1);
 						//else
-							
-						step = parser.getAction(i);
 						
+						step = parser.getAction(i);
+												
 						Step newStep = new Step(step);
 
 ///////////
@@ -1161,10 +1175,11 @@ public class Planner
 			for(int x=0; x<sizeLinks;x++)
 			{
 				Literal effect = Links.get(x).getEffect();
-//				CausalLink link2 = Links.get(x);
-//				Literal effect = link2.getEffect();
-				// TODO: second side of conditional previously had (Links.get(i) != Links.get(x)) -> not how you compare strings
-				if((thisEffect.toString().equals(effect.toString()) && (!(Links.get(i).equals(Links.get(x))))))
+				
+				// 12/11/18 - following 3 lines edited by Girard
+				//CausalLink link2 = Links.get(x);
+				//Literal effect = link2.getEffect();
+				if(thisEffect.toString().equals(effect.toString()) && (!(Links.get(i).equals(Links.get(x)))))
 				{
 					//System.out.println(Links.get(i));
 					//System.out.println(Links.get(x));
@@ -1192,57 +1207,99 @@ public class Planner
 	}
 	
 	/**
-	 * Created 12/11/18 - Girard
-	 * This function searches for causalLinks that are threatened by other causalLinks
+	 * Created 12/12/18 - Girard
+	 * This function searches for causalLinks that are threatened by other causalLinks.
+	 * This should only be used if the Causal Link connects a Literal from the initial
+	 * state to the goal state.
 	 * @return an arrayList of threatened CausalLinks
 	 */
-	public ArrayList<CausalLink> getThreatenCausalLinks(OpenPrecondition condition, Step s)
+	public ArrayList<CausalLink> getThreatenCausalLinks(OpenPrecondition condition)
 	{
-		//System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");
-
+		/* threatened links are saved here */
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 		
+		/* size of links array */
 		int sizeLinks = Links.size();
+		
+		/* loop for each link */
 		for(int i =0;i<sizeLinks;i++)
 		{
+			/* get a link */
 			CausalLink link1 = Links.get(i);
+			/* get effect of link */
 			Literal thisEffect = link1.getEffect();
+			/* get current open precondition */
 			Literal threat = condition.getOpenPrecondtion();
+			
+			/* checks if either currentPrecondition or link effect are not and .toString's are the same */
 			if((isPreconditionNegate(threat,thisEffect)))
 			{
 				System.out.println(link1);
-
-//							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
+				/* add the lnk to threats */
 				threats.add(link1);
 			}
 			
-			if (s != null)
-			{
-			// Need to have all Literals updated for that Step
-			for (int x=0;x<s.getEffectsSize();x++)
-			{
-				threat = s.getEffects(x);
-				if((isPreconditionNegate(threat,thisEffect)))
-				{
-					System.out.println(link1);
+		}
 
-//								System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
-					threats.add(link1);
+		return threats;
+	}
+
+	
+	/**
+	 * Created 12/12/18 - Girard
+	 * This function searches for causalLinks that are threatened by other causalLinks
+	 * This should only be used if the new causal link connects to one or more action/steps.
+	 * 
+	 * Pass in the Step that the causal link connects to.  If the Causal Link connects 
+	 * two action/states then should check each state individually.
+	 * @return an arrayList of threatened CausalLinks
+	 */
+	public ArrayList<CausalLink> getThreatenCausalLinks(Step s)
+	{
+		/* threatened links are saved here */
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+		
+		/* size of links array */
+		int sizeLinks = Links.size();
+		
+		/* loop for each link */
+		for(int i =0;i<sizeLinks;i++)
+		{
+			/* get a link */
+			CausalLink link1 = Links.get(i);
+			/* get effect of link */
+			Literal thisEffect = link1.getEffect();
+			/* get current open precondition */
+			
+			/* if step != null */
+			if (s != link1.getStepName())
+			{
+				// Need to have all Literals updated for that Step
+				
+				/* loop for each effect in current step */
+				for (int x=0;x<s.getEffectsSize();x++)
+				{
+					/* threat = current step effect */
+					Literal threat = s.getEffects(x);
+					if((isPreconditionNegate(threat,thisEffect)))
+					{
+						System.out.println(link1);
+						threats.add(link1);
+					}
+					
 				}
 				
-			}
-			
-			for (int x=0;x<s.getPreconditionSize();x++)
-			{
-				threat = s.getPreconditions(x);
-				if((isPreconditionNegate(threat,thisEffect)))
+				/* loop for each precondition in current step */
+				for (int x=0;x<s.getPreconditionSize();x++)
 				{
-					System.out.println(link1);
-
-//								System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
-					threats.add(link1);
+					/* threat = current step precondition */
+					Literal threat = s.getPreconditions(x);
+					if((isPreconditionNegate(threat,thisEffect)))
+					{
+						System.out.println(link1);
+						threats.add(link1);
+					}
 				}
-			}
 			}
 			
 		}
@@ -1260,20 +1317,20 @@ public class Planner
 	 */
 	public boolean isPreconditionNegate(Literal threat, Literal effect)
 	{
-		//System.out.println("/*****In isPreconditionNegate() --> Planner class*****/");
-
         if(threat.toString().equals(effect.toString()))
 		{
-			if(threat.isNegative() || effect.isNegative())
-				{
-					//System.out.println(threat.toString() + " is negative: " + effect.isNegative()); Needs fixing
+			if(threat.isNegative() == !effect.isNegative())
+			{
+					System.out.println("threat: " + threat.toString() + " is negative: " + threat.isNegative());
+					System.out.println("effect: " + effect.toString() + " is negative: " + effect.isNegative());
 					return true;
-				}
+			}
 		}
 		return false;
 	}
 
 	/**
+	 * 12/11/18 - Method from old planner. Change return to true for briefcase plan to work
 	 * This function checks if the step negates a satisfied precondition
 	 * @param s the step of the precondition
 	 * @param effect the effect that connects the openprecondition
@@ -1290,7 +1347,12 @@ public class Planner
 			{
 				if(s.getEffects(i).isNegative())
 				{
-					return false;
+//					System.out.println("Step: " + s.getStepName());
+//					System.out.println("Step effect: " + s.getEffects(i).toString());
+//					System.out.println("Step effect: is negative: " + s.getEffects(i).isNegative());
+//					System.out.println("Effect: " + effect.toString());
+//					System.out.println("Effect is negative: " + effect.isNegative());
+					return true;
 				}
 			}
 		}

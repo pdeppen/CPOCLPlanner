@@ -108,12 +108,12 @@ public class PriorityQueueMethod extends Planner
 			this.updateCausalLinks();
 			System.out.println("\n\n");
 									
-			if(!(this.CheckThreats()))
-			{
-				System.out.println("No Plan Found -> !(this.CheckThreats()");
-				//				break;
-				return false;
-			}
+//			if(!(this.CheckThreats()))
+//			{
+//				System.out.println("No Plan Found -> !(this.CheckThreats()");
+//				//				break;
+//				return false;
+//			}
 			
 		}
 
@@ -136,6 +136,11 @@ public class PriorityQueueMethod extends Planner
 		for (int i = 0; i < this.openPrecon.size(); i++)
 			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
 		
+		/* added 12/12/18 - prints causal links created so far */
+		System.out.println("\nLinks Created so far: ");
+		for (int i = 0; i < this.Links.size(); i++)
+			System.out.println(this.Links.get(i));
+			
 		/* print blank line */
 		System.out.println("");
 
@@ -198,6 +203,7 @@ public class PriorityQueueMethod extends Planner
 		
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
 		if (precondition.getOpenPreconditionToString().equals(check)) {
+			// call this method here for "has Briefcase ?paycheck" so that it is bounded and detectPotentialThreat is called 
 			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			threateningPrecondition = precondition; 
 		}
@@ -206,12 +212,7 @@ public class PriorityQueueMethod extends Planner
 		check = "has Briefcase Paycheck";
 		if (precondition.getOpenPreconditionToString().equals(check) &&  precondition.getStepID() == 2)
 			System.out.println("debugging...");
-		
-//		if (Actions.get(precondition.getStepID()).getStepName().equals("swap"))
-//			dontUpdate = true;
-//		else
-//			dontUpdate = false;
-		
+				
 		/* added 12/14/18 for debugging */
 		if (precondition.getStepID() == 1 && precondition.getOpenPreconditionToString().equals(("has Briefcase Paycheck")))
 		{
@@ -251,16 +252,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			System.out.println("Similar In Initial State?	"+isFoundSimilarInInitialStat);
-			
-			/* added 12/9/18 */
-//			try {
-//				this.detectPotentialThreat(precondition);
-//				if (precondition.getOpenPrecondtion().isNegative())
-//					return false;
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-			
+						
 			if((isFoundSimilarInInitialStat))
 			{
 				System.out.println(precondition.getOpenPrecondtion());
