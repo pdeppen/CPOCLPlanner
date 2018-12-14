@@ -417,7 +417,8 @@ public class Planner
 					//else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("paycheck Paycheck"))
 					/* conditional made 12/3/18 
 					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
-					 * TODO: make this statement work with all domains
+					 * TODO: make this statement work with all domains 
+					 * TODO: add this else if statement to all methods that search for a literal 
 					 */
 					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) //&& precondition.toString().equals("has Briefcase Paycheck"))
 					{
@@ -713,6 +714,14 @@ public class Planner
 				binding.bindPrecondtion(precondition, groundLetter, newVariable);
 				binding.bindStep(currentStep, groundLetter, newVariable);
 
+				/*
+				 *  added 12/13/18 
+				 */
+				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
+				{
+					/* if it is not found in initial - search action effects */
+					return this.searchEffectsInActionDomain(openPrecondition);
+				}
 
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);
 				causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -723,15 +732,8 @@ public class Planner
 
 //				printStepDetails(currentStep);
 //				checkIntentions(currentStep);
-				//JOptionPane.showMessageDialog(null, openPrecondition.);
-				/* added 12/13/18 
-				 * TODO: fix second value
-				 */
-				if (this.detectPotentialThreat(openPrecondition, currentStep) && openPrecondition.getOpenPreconditionToString().equals("has Briefcase Paycheck"))
-				{
-					/* if it is not found in initial - search action effects */
-					return this.searchEffectsInActionDomain(openPrecondition);
-				}
+
+
 					
 				return true;
 			}
