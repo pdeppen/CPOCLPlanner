@@ -275,13 +275,15 @@ public class Planner
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}		
 		
-		if (!condition.getOpenPreconditionToString().equals("location Home") && !condition.getOpenPreconditionToString().equals("location Office"))
-			threats = this.getThreatenCausalLinks(step);
-				
+		//if (condition.getOpenPreconditionToString().equals("has Briefcase Paycheck"))
+		//{	
+		threats = this.getThreatenCausalLinks(step);
 		if (!threats.isEmpty()) {
 			threat = true;
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
+		//}
+				
 		
 		return threat;
 		
@@ -316,8 +318,8 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-					if (this.detectPotentialThreat(openPrecondition, currentStep))
-						return false;
+					//if (this.detectPotentialThreat(openPrecondition, currentStep))
+					//	return false;
 			
 					System.out.println("Found In initial State");
 
@@ -417,7 +419,7 @@ public class Planner
 					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
 					 * TODO: make this statement work with all domains
 					 */
-					else if (checkInitial && parser.getActionsEffects(i, f).isNegative() && precondition.isNegative() && precondition.toString().equals("has Briefcase Paycheck"))
+					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) //&& precondition.toString().equals("has Briefcase Paycheck"))
 					{
 						System.out.println("Precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
 						checkInitial = false;
@@ -670,19 +672,6 @@ public class Planner
 					array.add(index,parser.getIntialStateEffects(y));
 					index++;
 								
-					/* adding conditional here to check if it breaks goal causal link */
-					if (parser.getIntialStateEffects(y).toString().equals("has Briefcase Paycheck")) {
-						
-						/* detecting potential threat when searching effects of actions */
-						//try {
-							//if (true)//checkInitial)
-							//	if (this.detectPotentialThreat2(parser.getIntialStateEffects(y)))
-							//		return false;
-						//} catch (IOException e) {
-						//	e.printStackTrace();
-						//}
-					}
-					
 					//if (precondition.toString().equals("?item2"))
 					//	solutionFound = false;
 				//}
@@ -734,7 +723,16 @@ public class Planner
 
 //				printStepDetails(currentStep);
 //				checkIntentions(currentStep);
-
+				//JOptionPane.showMessageDialog(null, openPrecondition.);
+				/* added 12/13/18 
+				 * TODO: fix second value
+				 */
+				if (this.detectPotentialThreat(openPrecondition, currentStep) && openPrecondition.getOpenPreconditionToString().equals("has Briefcase Paycheck"))
+				{
+					/* if it is not found in initial - search action effects */
+					return this.searchEffectsInActionDomain(openPrecondition);
+				}
+					
 				return true;
 			}
 		}

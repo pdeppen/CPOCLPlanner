@@ -202,11 +202,12 @@ public class PriorityQueueMethod extends Planner
 //		}
 		
 		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
-		if (precondition.getOpenPreconditionToString().equals(check)) {
-			// call this method here for "has Briefcase ?paycheck" so that it is bounded and detectPotentialThreat is called 
-			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
-			threateningPrecondition = precondition; 
-		}
+//		if (precondition.getOpenPreconditionToString().equals(check)) {
+//			// call this method here for "has Briefcase ?paycheck" so that it is bounded and detectPotentialThreat is called 
+//			//TODO: fix this below
+//			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
+//			threateningPrecondition = precondition; 
+//		}
 		
 		/* debugging */
 		check = "has Briefcase Paycheck";
