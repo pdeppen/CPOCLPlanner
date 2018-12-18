@@ -28,8 +28,6 @@ public class Planner
 	ArrayList <Literal> mostRecentMadeGoal = new ArrayList<Literal>();
 	int currentGoal = 0;
 	OpenPrecondition newOpenPrecondition;
-	boolean checkInitial = true;
-	boolean solutionFound = true;
 	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
@@ -270,7 +268,6 @@ public class Planner
 					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) 
 					{
 						System.out.println("Precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
-						checkInitial = false;
 						step = parser.getAction(i);
 						
 						Step newStep = new Step(step);
