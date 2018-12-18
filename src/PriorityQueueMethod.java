@@ -157,76 +157,8 @@ public class PriorityQueueMethod extends Planner
 				"	ActionID is "+precondition.getStepID());
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
-				
-		//String check = "location Paycheck Home";
-		//String check = "briefcase Paycheck";
-		
-		/* variable used for if statement - getting test case to pass */
-		//String check = "paycheck Paycheck";
-		
-		//String check = "has Briefcase ?paycheck";
-		//String check = "has Briefcase Paycheck";
-		//String check = "paycheck ?item2";
-		String check = "has Briefcase ?paycheck";
-		//String check = "location Briefcase ?from";
-		
-		Step temp = Actions.get(precondition.getStepID());
-		
-		if (temp.toString().equals(":goal[]")) {
-			this.addMostRecentMadeGoal(precondition.getOpenPrecondtion());
-			this.currentGoal++;
-		}
-		
-//		try {
-//			if (this.detectPotentialThreat(precondition))
-//			{
-//				int stepId = step.getStepId();
-//				
-//				Literal newLiteral = new Literal(null, null);
-//				newLiteral.setExcuted(false);
-//				newLiteral.setLiteralName("has Briefcase Paycheck");
-//				newLiteral.hasNegativeSign(true);
-//				System.out.println("New Literal: " + newLiteral.toString());
-//				
-//				OpenPrecondition object = new OpenPrecondition(0, newLiteral);
-//				object.addOpenPrcondition(newLiteral);
-//				object.addStep(stepId + 1);
-//				list.addFirst(object);				
-//				precondition = object;
-//				
-//				Step currentStep = Actions.get(precondition.getStepID());
-//				System.out.println("Current Step: " + currentStep.toString());
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-		/** SET BREAKPOINT HERE TO TRACK WHAT HAPPENS AFTER THIS IS REACHED */
-//		if (precondition.getOpenPreconditionToString().equals(check)) {
-//			// call this method here for "has Briefcase ?paycheck" so that it is bounded and detectPotentialThreat is called 
-//			//TODO: fix this below
-//			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
-//			threateningPrecondition = precondition; 
-//		}
-		
-		/* debugging */
-		check = "has Briefcase Paycheck";
-		if (precondition.getOpenPreconditionToString().equals(check) &&  precondition.getStepID() == 2)
-			System.out.println("debugging...");
-				
-		/* added 12/14/18 for debugging */
-		if (precondition.getStepID() == 1 && precondition.getOpenPreconditionToString().equals(("has Briefcase Paycheck")))
-		{
-			tempCounter++;
-			if (tempCounter > 1) 
-			{
-				// TODO: not a solution
-				System.out.println("forced solution");
-				//this.printOutSolution();
-				//System.exit(0);
-			}
-		}
-						
+								
+										
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
 		{

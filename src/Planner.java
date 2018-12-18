@@ -114,151 +114,7 @@ public class Planner
 		}
 
 	}
-	
-	/**
-	 * Created by Philip Deppne (11/10/18)
-	 * @param goal
-	 */
-	public void addMostRecentMadeGoal(Literal goal)
-	{
-		this.mostRecentMadeGoal.add(goal);				
-	}
-	
-	/**
-	 * Created by Philip Deppen (11/10/18)
-	 * @param tempEffect
-	 * @return threat (boolean)
-	 */
-	public boolean checkGoalThreats(String tempEffect)
-	{
-		boolean threat = false;
-		
-		for (int i = 0; i < this.mostRecentMadeGoal.size(); i++)
-		{
-			if (this.mostRecentMadeGoal.get(i).toString().equals(tempEffect))
-			{
-				threat = true;
-				break;
-			}
-		}
-		
-		return threat;		
-	}
-	
-	/** 
-	 * Created this on 11/28/18 for testing when calling from searchSimiliarInInitial - not permanent solution
-	 * @param literal
-	 * @return
-	 */
-	public boolean detectPotentialThreat2 (Literal literal) 
-	{
-		boolean threat = false;
-		
-		int sizeActions = Actions.size();
-		for(int i=1;i<sizeActions;i++)
-		{
-			int sizeEffects = Actions.get(i).getEffectsSize();
-			for(int x=0;x<sizeEffects;x++)
-			{
-				int effectNum = parser.getActionsDomainEffectSize(i);		//how many effects in every action
-				
-				Literal effect = Actions.get(i).getEffects(x);
-					
-				String temp = effect.toString();
-												
-				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
-				if (this.checkGoalThreats(temp) && effect.isNegative() && literal.toString().equals("has Briefcase Paycheck")) {
-					threat = true;
-					
-					/* give threatening open precondition negative sign */
-					literal.hasNegativeSign(true);			
-				}	
-			}
-		}
-					
-		return threat;
-	}
-	/**
-	 * This is where you should be call getThreatenedCausalLinks based on the situation.
-	 * @param openPrecondition
-	 * @return
-	 * @throws IOException
-	 */
-	public boolean detectPotentialThreatOld(OpenPrecondition openPrecondition) throws IOException
-	{
-		FileWriter fileWriter = new FileWriter("textFiles/effectslisted.txt", true);
-	    PrintWriter printWriter = new PrintWriter(fileWriter);
-	
-		Literal precondition = openPrecondition.getOpenPrecondtion();
-		Step currentStep = Actions.get(openPrecondition.getStepID());
-		
-	    //printWriter.print(precondition.toString() + "\n");
-		
-	    boolean threat = false;
-	    
-	    //printWriter.print("Current action: " + step.getStepName() + "\n");
-	    
-	    Restrictions restriction;
-	    
-		int sizeActions = Actions.size();
-		for(int i=1;i<sizeActions;i++)
-		{
-			int sizeEffects = Actions.get(i).getEffectsSize();
-			for(int x=0;x<sizeEffects;x++)
-			{				
-				Literal effect = Actions.get(i).getEffects(x);
-									//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
-				String temp = effect.toString();
-								
-				
-				/* this "if" statement created 11/10/18 - comment out second && to get planner to work for (location Briefcase Office) as first goal */
-				//if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("paycheck Paycheck")) {
-				
-				//System.out.println("Effect is negative: " + effect.isNegative());
-				//System.out.println("Precondition: " + precondition.toString());
-				//System.out.println("Effect threatens already made goal: " + this.checkGoalThreats(temp));
-				/* this "if" statement created 11/28/18 - trying to create literal - "not has Briefcase Paycheck" */
-				// TODO: fix "has Briefcase Paycheck" and change to permanent solution
-				if (this.checkGoalThreats(temp) && effect.isNegative() && precondition.toString().equals("has Briefcase Paycheck")) {
-					
-					threat = true;
-					System.out.println("-------- in detect potential ---------");
-					
-					/* give threatening open precondition negative sign */
-					openPrecondition.getOpenPrecondtion().hasNegativeSign(true);
-					
-					System.out.println("precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
-					//printWriter.print("Threatening Effect: " + this.threateningPrecondition.getOpenPreconditionToString().toString());
-					
-					//OpenPrecondition newOpenPrecondition = openPrecondition;
-					
-					//Literal newLiteral = precondition;
-					
-					//newLiteral.setLiteralName("");
-					//newLiteral.setLiteralName("has Briefcase Paycheck");
-					//newLiteral.setExcuted(false);
-					//newLiteral.hasNegativeSign(true);
-					//newOpenPrecondition.addOpenPrcondition(precondition);
-					
-					//System.out.println("New OpenPrecondition: " + newOpenPrecondition.toString() + " is negated: " + newOpenPrecondition.isNegative() + " added to Step: " + step.toString()); 
-					//printWriter.println("New OpenPrecondition: " + newLiteral.toString() + " is negated: " + newLiteral.isNegative() + " added to Step: " + currentStep.toString()); 
-
-					//currentStep.addPreconditions(newLiteral);
-					
-					//threat = this.searchEffectsInActionDomain(newOpenPrecondition);
-					//threat = this.searchInEffects(newOpenPrecondition);
-					//threat = this.searchSimilarInEffects(newOpenPrecondition);
-					//threat = !threat;
-					// System.out.println(Actions.get(openPreconditionID + 1).toString());
-				}	
-			}
-		}
-		printWriter.close();
 			
-		return threat;
-
-	}
-	
 	/**
 	 * Created 12/13/18 - use this in place of detectPotentialThreatOld
 	 */
@@ -275,14 +131,12 @@ public class Planner
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}		
 		
-		//if (condition.getOpenPreconditionToString().equals("has Briefcase Paycheck"))
-		//{	
 		threats = this.getThreatenCausalLinks(step);
+		
 		if (!threats.isEmpty()) {
 			threat = true;
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
-		//}
 				
 		
 		return threat;
@@ -367,12 +221,6 @@ public class Planner
 					//The literal is not negative
 					if(!(parser.getActionsEffects(i, f).isNegative()))
 					{
-						//System.out.println(parser.getActionsEffects(i, f).getLiteralParameters(0));
-						//To get the step
-						//System.out.println(precondition.getLiteralName());
-						//if (precondition.toString().equals("location Paycheck Home"))
-						//	step = parser.getAction(1);
-						//else
 						
 						step = parser.getAction(i);
 												
@@ -414,13 +262,12 @@ public class Planner
 
 					}
 					
-					//else if (parser.getActionsEffects(i, f).isNegative() && precondition.toString().equals("paycheck Paycheck"))
 					/* conditional made 12/3/18 
 					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
 					 * TODO: make this statement work with all domains 
 					 * TODO: add this else if statement to all methods that search for a literal 
 					 */
-					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) //&& precondition.toString().equals("has Briefcase Paycheck"))
+					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) 
 					{
 						System.out.println("Precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
 						checkInitial = false;
@@ -451,7 +298,7 @@ public class Planner
 			}
 		}
 		/** add restrictions here ?*/
-		Restrictions restriction = new Restrictions(precondition, id, currentStep);
+		//Restrictions restriction = new Restrictions(precondition, id, currentStep);
 		
 		
 		System.out.println("/********** RETURNING FALSE -> IN searchEffectsInActionDomain() at bottom Planner class");
@@ -667,15 +514,11 @@ public class Planner
 		for( y =0; y< sizeEffectInitailState;y++)		//The size of effect in initial state
 		{
 			/* added second conditional 11/16/18 issue #4 */
-			if(precondition.getLiteralName().equals(parser.getIntialStateEffects(y).getLiteralName()))// && !(parser.getIntialStateEffects(y).toString().equals("paycheck Paycheck")))
+			if(precondition.getLiteralName().equals(parser.getIntialStateEffects(y).getLiteralName()))
 			{
-				//if (precondition.toString().equals("?item2") && !(parser.getIntialStateEffects(y).toString().equals("paycheck Paycheck"))) {
 					array.add(index,parser.getIntialStateEffects(y));
 					index++;
-								
-					//if (precondition.toString().equals("?item2"))
-					//	solutionFound = false;
-				//}
+		
 			}
 		}
 
