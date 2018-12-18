@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 class TestCausalLinkCreation {
 	
-	String domainName = "BriefcaseDomain.txt";
-	String problemName = "BriefcaseProblem.txt";
-//	String domainName = "BirthdayDomain.txt";
-//	String problemName = "BirthdayProblem.txt";
+//	String domainName = "BriefcaseDomain.txt";
+//	String problemName = "BriefcaseProblem.txt";
+	String domainName = "BlockDomain.txt";
+	String problemName = "BlockProblem.txt";
 	
 	ConflictParser parser = new ConflictParser();
 	
@@ -23,18 +23,14 @@ class TestCausalLinkCreation {
 		
 		PriorityQueueMethod planner = new PriorityQueueMethod(parser, System.nanoTime());
 		
-		// change this to create different text files
-		int id = 10;
-		
-		//planner.debugGetOpenPreconditions(id);
 		planner.search();
 		
 		/* check that threatening preconditino is being saved correctly */
-		assertEquals("paycheck Paycheck", planner.threateningPrecondition.getOpenPreconditionToString().toString());
-		
-		/* check that goals were saved correctly */
-		assertEquals("location Paycheck Home", planner.mostRecentMadeGoal.get(0).toString());
-		assertEquals("location Briefcase Office", planner.mostRecentMadeGoal.get(1).toString());
+//		assertEquals("paycheck Paycheck", planner.threateningPrecondition.getOpenPreconditionToString().toString());
+//		
+//		/* check that goals were saved correctly */
+//		assertEquals("location Paycheck Home", planner.mostRecentMadeGoal.get(0).toString());
+//		assertEquals("location Briefcase Office", planner.mostRecentMadeGoal.get(1).toString());
 		
 		/* check that new literal = not paycheck Paycheck */
 		//assertEquals("paycheck Paychfd", )
