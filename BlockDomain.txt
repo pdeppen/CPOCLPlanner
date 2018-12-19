@@ -1,8 +1,14 @@
 (define (domain briefcase)
-	(:predicates (block ?block) (table ?table) (on ?block ?table) (on ?block ?block) (clear ?table) (clear ?block))
+	(:predicates (block ?block) (ontable ?block) (on ?block ?block) (clear ?block))
 
-	(:action move
-		:parameters ?block1 ?table ?block2
-		:precondition (and (table ?table) (block ?block1) (block ?block2) (clear ?block1) (clear ?block2) (on ?block1 ?table)
-		:effect (and (on ?block1 ?block2) (clear ?table) (not on ?block1 ?table) (not clear ?block2)
+	(:action move_onto_block
+		:parameters ?block1 ?block2
+		:precondition (and (block ?block1) (block ?block2) (clear ?block1) (clear ?block2) (ontable ?block1)
+		:effect (and (on ?block1 ?block2) (not clear ?block2) (not ontable ?block1)
+		:agents
+
+	(:action move_off_block
+		:parameters ?block1 ?block2
+		:precondition (and (block ?block1) (block ?block2) (clear ?block1) (on ?block1 ?block2)
+		:effect (and (not on ?block1 ?block2) (clear ?block2) (ontable ?block1)
 		:agents
