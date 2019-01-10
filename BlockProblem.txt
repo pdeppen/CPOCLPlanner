@@ -1,0 +1,6 @@
+(define (problem block-problem)
+
+	(:init (block blockA) (block blockB) (block blockC) (on blockC blockA) (clear blockB) (clear blockC) (ontable blockA) (ontable blockB)
+	(:intentions
+
+	(:goal (on blockB blockC) (on blockA blockB)

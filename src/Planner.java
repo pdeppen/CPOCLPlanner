@@ -170,8 +170,8 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-					//if (this.detectPotentialThreat(openPrecondition, currentStep))
-					//	return false;
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
 			
 					System.out.println("Found In initial State");
 
