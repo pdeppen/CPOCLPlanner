@@ -155,6 +155,7 @@ public class PriorityQueueMethod extends Planner
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
+					
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
 								

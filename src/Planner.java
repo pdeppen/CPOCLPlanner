@@ -29,6 +29,9 @@ public class Planner
 	int currentGoal = 0;
 	OpenPrecondition newOpenPrecondition;
 	
+	/* added 1/9/19 by Philip Deppen */
+	ArrayList <String> selectedLiterals = new ArrayList<String>();
+	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
 	
@@ -170,8 +173,8 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-					if (this.detectPotentialThreat(openPrecondition, currentStep))
-						return false;
+					//if (this.detectPotentialThreat(openPrecondition, currentStep))
+					//	return false;
 			
 					System.out.println("Found In initial State");
 
@@ -418,6 +421,7 @@ public class Planner
 	/**
 	 * This function searches for any literal that can resolve the open Precondition
 	 * Edited by Philip Deppen (12/3/18, issue 4)
+	 * Edited by Philip Deppen (1/9/19, issue 10)
 	 */
 	public boolean searchAnyInInitialState(OpenPrecondition openPrecondition, ArrayList<Literal> array)
 	{
@@ -433,23 +437,16 @@ public class Planner
 		
 		for (int a = 0; a < array.size(); a++)
 		{
-			// TODO: remove this after finishing briefcase problem 
-			if (precondition.toString().equals("paycheck ?item2"))
-				literal = array.get(1);
-			else
-				literal = array.get(a);
+			literal = array.get(a);
 			
-			if(!(array.get(a).isNegative()))
+			int paraNotBounded = binding.checkParaNotBounded(precondition);
+
+			if(!(array.get(a).isNegative()) && !selectedLiterals.contains(literal.getLiteralParameters(paraNotBounded)))
 			{
-				int paraNotBounded = binding.checkParaNotBounded(precondition);
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable;
-				/* TODO: is this an error? original code has "array.get(0)" -> shouldn't this be "array.get(a)"? */
-				if (literal.toString().equals("paycheck Nothing"))
-					newVariable = array.get(1).getLiteralParameters(paraNotBounded);
-				else
-				// Check if already bound to this action before doing this. ex: paycheck Paycheck should never be selected twice
-					newVariable = array.get(a).getLiteralParameters(paraNotBounded);
+				newVariable = array.get(a).getLiteralParameters(paraNotBounded);
+				selectedLiterals.add(newVariable);
 				
 				System.out.println(newVariable);
 
@@ -549,7 +546,9 @@ public class Planner
 				int paraNotBounded = binding.checkParaNotBounded(precondition);
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable = temp.getLiteralParameters(paraNotBounded);
-
+				
+				selectedLiterals.add(newVariable);
+				
 				//to bind the dequeued precondition with the new parameters
 				binding.bindPrecondtion(precondition, groundLetter, newVariable);
 				binding.bindStep(currentStep, groundLetter, newVariable);
@@ -745,7 +744,7 @@ public class Planner
 	public void updateCausalLinks()
 	{
 		//System.out.println("/*****In updateCausalLinks() --> Planner class*****/");
-
+		
 		Step temp = null;
 		for(int i=0;i<Links.size();i++)
 		{
@@ -762,7 +761,7 @@ public class Planner
 			binding.bindStepByPrecondition(newStep, precondition);
 			temp = newStep;
 		}
-
+		
 		printStepDetails(temp);
 
 	}
@@ -1161,8 +1160,8 @@ public class Planner
 		{
 			if(threat.isNegative() == !effect.isNegative())
 			{
-					System.out.println("threat: " + threat.toString() + " is negative: " + threat.isNegative());
-					System.out.println("effect: " + effect.toString() + " is negative: " + effect.isNegative());
+					//System.out.println("threat: " + threat.toString() + " is negative: " + threat.isNegative());
+					//System.out.println("effect: " + effect.toString() + " is negative: " + effect.isNegative());
 					return true;
 			}
 		}
