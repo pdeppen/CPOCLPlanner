@@ -24,6 +24,9 @@ public class Step
 	ArrayList <Literal>  effectArray = new ArrayList <Literal>();
 	//new for consent
 	ArrayList <String>  agents = new ArrayList <String>();
+	
+	/* added 1/9/19 by Philip Deppen */
+	ArrayList <String> selectedLiterals = new ArrayList<String>();
 
 	// first is plain planner, second is for conflict planner
 //	public Step(String name, ArrayList <String> parameters, ArrayList <Literal> preconditionArray, ArrayList <Literal>  effectArray, int id)
@@ -47,10 +50,32 @@ public class Step
 		this.effectArray = aStep.getEffects();
 		this.preconditionArray = aStep.getPreconditions();
 		this.parameters = aStep.getParameter();
+		this.selectedLiterals.addAll(aStep.getParameter());
 		// new for consent
 		this.agents = aStep.getAgent();
 	}
 
+	/**
+	 * Created by Philip Deppen (1/10/19, issue 10) 
+	 */
+	public void setSelectedLiteral(String s)
+	{
+		this.selectedLiterals.add(s);
+			
+		System.out.println("Selected Literals for step: " + this.getStepName());
+		for (int i = 0; i < selectedLiterals.size(); i++)
+			System.out.println(selectedLiterals.get(i));
+	}
+	
+	/**
+	 * Created by Philip Deppen (1/10/19, issue 10)
+	 */
+	public boolean getSelectedLiteralExists(String s)
+	{
+		this.selectedLiterals.addAll(this.parameters);
+		return this.selectedLiterals.contains(s);
+	}
+	
 	/**
 	 * This used to get a copy of the effect array in the constructor
 	 * @return effectArray
@@ -81,7 +106,7 @@ public class Step
 		{
 			Literal newLit = new Literal(null,null);
 			newLit = preconditionArray.get(i);
-			Literal literal = new Literal(newLit) ;
+			Literal literal = new Literal(newLit);
 			preconditions.add(literal);
 		}
 		return preconditions;

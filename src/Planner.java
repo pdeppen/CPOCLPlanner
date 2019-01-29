@@ -30,7 +30,7 @@ public class Planner
 	OpenPrecondition newOpenPrecondition;
 	
 	/* added 1/9/19 by Philip Deppen */
-	ArrayList <String> selectedLiterals = new ArrayList<String>();
+//	ArrayList <String> selectedLiterals = new ArrayList<String>();
 	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
@@ -431,7 +431,7 @@ public class Planner
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
 		/** TODO: WHY IS THIS HERE ? */
-		//Collections.shuffle(array);
+//		Collections.shuffle(array);
 		
 		Literal literal;
 		
@@ -440,15 +440,15 @@ public class Planner
 			literal = array.get(a);
 			
 			int paraNotBounded = binding.checkParaNotBounded(precondition);
-
-			if(!(array.get(a).isNegative()) && !selectedLiterals.contains(literal.getLiteralParameters(paraNotBounded)))
+			
+			if(!(array.get(a).isNegative()) && !currentStep.getSelectedLiteralExists(literal.getLiteralParameters(paraNotBounded)))
 			{
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable;
 				newVariable = array.get(a).getLiteralParameters(paraNotBounded);
-				selectedLiterals.add(newVariable);
+				currentStep.setSelectedLiteral(newVariable);
 				
-				System.out.println(newVariable);
+				System.out.println("newVariablex: " + newVariable);
 
 				////////////////
 				String tempPreCond = groundLetter;
@@ -547,7 +547,11 @@ public class Planner
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable = temp.getLiteralParameters(paraNotBounded);
 				
-				selectedLiterals.add(newVariable);
+				if (newVariable.equals("Paycheck"))
+					System.out.println("here");
+				
+				currentStep.setSelectedLiteral(newVariable);
+				System.out.println("currentStep: " + currentStep.toString());
 				
 				//to bind the dequeued precondition with the new parameters
 				binding.bindPrecondtion(precondition, groundLetter, newVariable);
@@ -759,6 +763,14 @@ public class Planner
 			Step newStep = causalLink.getStepName();
 			Literal precondition = causalLink.getPrecondition().getOpenPrecondtion();
 			binding.bindStepByPrecondition(newStep, precondition);
+			
+//			int paraNotBounded = binding.checkParaNotBounded(precondition);
+//			if (paraNotBounded >= 0)
+//			{
+//				String newVariable = precondition.getLiteralParameters(paraNotBounded);
+//				newStep.setSelectedLiteral(newVariable);
+//			}
+			
 			temp = newStep;
 		}
 		
