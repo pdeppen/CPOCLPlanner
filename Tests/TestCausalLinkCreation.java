@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 class TestCausalLinkCreation {
 	
-	String domainName = "BriefcaseDomain.txt";
-	String problemName = "BriefcaseProblem.txt";
-//	String domainName = "BlockDomain.txt";
-//	String problemName = "BlockProblem.txt";
+//	String domainName = "BriefcaseDomain.txt";
+//	String problemName = "BriefcaseProblem.txt";
+	String domainName = "BlockDomain.txt";
+	String problemName = "BlockProblem.txt";
 	
 	ConflictParser parser = new ConflictParser();
 	

@@ -135,9 +135,9 @@ public class Planner
 			threat = true;
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
-				
-		
-		return threat;
+					
+		return false;
+//		return threat;
 		
 	}
 	
@@ -427,8 +427,8 @@ public class Planner
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
-		/** TODO: WHY IS THIS HERE ? */
-//		Collections.shuffle(array);
+		/** TODO: Comment out to have static plan */
+		Collections.shuffle(array);
 		
 		Literal literal;
 		
@@ -552,13 +552,14 @@ public class Planner
 				binding.bindStep(currentStep, groundLetter, newVariable);
 
 				/*
+				 *  TODO: add this for all methods
 				 *  added 12/13/18 
 				 */
-				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
-				{
-					/* if it is not found in initial - search action effects */
-					return this.searchEffectsInActionDomain(openPrecondition);
-				}
+//				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
+//				{
+//					/* if it is not found in initial - search action effects */
+//					return this.searchEffectsInActionDomain(openPrecondition);
+//				}
 
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);
 				causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -956,17 +957,15 @@ public class Planner
 	 */
 	public boolean CheckThreats()
 	{
-		//System.out.println("/*****In CheckThreats() --> Planner class*****/");
-
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 		
-//		System.out.println("/**********In CheckThreats() -> Planner class**********");
 		threats = this.getThreatenCausalLinks();
 
 		//When there is no threats
 		if(threats.isEmpty()) {
 			return true;
 		}
+		
 		//if there is no ordering between the threatened steps then we order the step
 		if(this.hasNoOrdering(threats))
 		{
@@ -995,42 +994,80 @@ public class Planner
 
 
 	/**
+	 * Original getThreatenCausalLink() that was modified by Girard 12/11/18
 	 * This function searches for causalLinks that are threatened by other causalLinks
 	 * @return an arrayList of threatened CausalLinks
 	 */
 	// TODO: modify
+//	public ArrayList<CausalLink> getThreatenCausalLinks()
+//	{
+//		//System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");
+//
+//		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+//
+//		int sizeLinks = Links.size();
+//		for(int i =0;i<sizeLinks;i++)
+//		{
+//			CausalLink link1 = Links.get(i);
+//			Literal thisEffect = link1.getEffect();
+//			for(int x=0; x<sizeLinks;x++)
+//			{
+//				Literal effect = Links.get(x).getEffect();
+//				
+//				// 12/11/18 - following 3 lines edited by Girard
+//				//CausalLink link2 = Links.get(x);
+//				//Literal effect = link2.getEffect();
+//				if(thisEffect.toString().equals(effect.toString()) && (!(Links.get(i).equals(Links.get(x)))))
+//				{
+//					//System.out.println(Links.get(i));
+//					//System.out.println(Links.get(x));
+//					if(Links.get(i).getStepName() == Links.get(x).getStepName())
+//					{
+//						int stepid = Links.get(i).getPrecondition().getStepID();
+//						Step s = Actions.get(stepid);
+//						if((isPreconditionNegateOld(s,thisEffect)))
+//						{
+//							//System.out.println(Links.get(i));
+//							//System.out.println(Links.get(x));
+//
+////							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
+//							threats.add(Links.get(i));
+//							threats.add(Links.get(x));
+//						}
+//					}
+//
+//				}
+//			}
+//
+//		}
+//
+//		return threats;
+//	}
+	
+	/**
+	 * This is the original getThreatenCausalLink()
+	 * This function searches for causalLinks that are threatened by other causalLinks
+	 * @return an arrayList of threatened CausalLinks
+	 */
 	public ArrayList<CausalLink> getThreatenCausalLinks()
 	{
-		//System.out.println("/*****In getThreatenCausalLinks() --> Planner class*****/");
-
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 
 		int sizeLinks = Links.size();
 		for(int i =0;i<sizeLinks;i++)
 		{
-			CausalLink link1 = Links.get(i);
-			Literal thisEffect = link1.getEffect();
+			Literal thisEffect = Links.get(i).getEffect();
 			for(int x=0; x<sizeLinks;x++)
 			{
 				Literal effect = Links.get(x).getEffect();
-				
-				// 12/11/18 - following 3 lines edited by Girard
-				//CausalLink link2 = Links.get(x);
-				//Literal effect = link2.getEffect();
-				if(thisEffect.toString().equals(effect.toString()) && (!(Links.get(i).equals(Links.get(x)))))
+				if((thisEffect.toString().equals(effect.toString()) && (Links.get(i) != Links.get(x))))
 				{
-					//System.out.println(Links.get(i));
-					//System.out.println(Links.get(x));
 					if(Links.get(i).getStepName() == Links.get(x).getStepName())
 					{
 						int stepid = Links.get(i).getPrecondition().getStepID();
 						Step s = Actions.get(stepid);
 						if((isPreconditionNegateOld(s,thisEffect)))
 						{
-							//System.out.println(Links.get(i));
-							//System.out.println(Links.get(x));
-
-//							System.out.println("/**********In getThreatenCausalLinks -> Planner class**********");
 							threats.add(Links.get(i));
 							threats.add(Links.get(x));
 						}

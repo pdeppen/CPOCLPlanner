@@ -107,13 +107,14 @@ public class PriorityQueueMethod extends Planner
 			
 			this.updateCausalLinks();
 			System.out.println("\n\n");
-									
-//			if(!(this.CheckThreats()))
-//			{
-//				System.out.println("No Plan Found -> !(this.CheckThreats()");
-//				//				break;
-//				return false;
-//			}
+				
+			// TODO: uncomment to test ordering
+			if(!(this.CheckThreats()))
+			{
+				System.out.println("No Plan Found -> !(this.CheckThreats()");
+				//				break;
+				return false;
+			}
 			
 		}
 
@@ -133,13 +134,13 @@ public class PriorityQueueMethod extends Planner
 	{
 	    
 		/* added 12/10/18 - prints remaining preconditions */
-//		for (int i = 0; i < this.openPrecon.size(); i++)
-//			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+		for (int i = 0; i < this.openPrecon.size(); i++)
+			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
 		
 		/* added 12/12/18 - prints causal links created so far */
-//		System.out.println("\nLinks Created so far: ");
-//		for (int i = 0; i < this.Links.size(); i++)
-//			System.out.println(this.Links.get(i));
+		System.out.println("\nLinks Created so far: ");
+		for (int i = 0; i < this.Links.size(); i++)
+			System.out.println(this.Links.get(i));
 			
 		/* print blank line */
 		System.out.println("");
@@ -254,7 +255,6 @@ public class PriorityQueueMethod extends Planner
 			}
 			System.out.println("\n");
 		}
-
 
 		int size = graph.topSort().size();
 		for(int i= size -1;i>=0;i--)
