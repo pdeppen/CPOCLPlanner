@@ -29,9 +29,6 @@ public class Planner
 	int currentGoal = 0;
 	OpenPrecondition newOpenPrecondition;
 	
-	/* added 1/9/19 by Philip Deppen */
-//	ArrayList <String> selectedLiterals = new ArrayList<String>();
-	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
 	
@@ -547,11 +544,8 @@ public class Planner
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable = temp.getLiteralParameters(paraNotBounded);
 				
-				if (newVariable.equals("Paycheck"))
-					System.out.println("here");
-				
+				// TODO: check here
 				currentStep.setSelectedLiteral(newVariable);
-				System.out.println("currentStep: " + currentStep.toString());
 				
 				//to bind the dequeued precondition with the new parameters
 				binding.bindPrecondtion(precondition, groundLetter, newVariable);
@@ -763,14 +757,7 @@ public class Planner
 			Step newStep = causalLink.getStepName();
 			Literal precondition = causalLink.getPrecondition().getOpenPrecondtion();
 			binding.bindStepByPrecondition(newStep, precondition);
-			
-//			int paraNotBounded = binding.checkParaNotBounded(precondition);
-//			if (paraNotBounded >= 0)
-//			{
-//				String newVariable = precondition.getLiteralParameters(paraNotBounded);
-//				newStep.setSelectedLiteral(newVariable);
-//			}
-			
+						
 			temp = newStep;
 		}
 		

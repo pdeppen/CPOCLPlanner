@@ -50,7 +50,6 @@ public class Step
 		this.effectArray = aStep.getEffects();
 		this.preconditionArray = aStep.getPreconditions();
 		this.parameters = aStep.getParameter();
-		this.selectedLiterals.addAll(aStep.getParameter());
 		// new for consent
 		this.agents = aStep.getAgent();
 	}
