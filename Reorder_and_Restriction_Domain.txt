@@ -1,0 +1,21 @@
+(define (domain briefcase)
+	(:predicates (briefcase ?briefcase) (location ?briefcase ?location) (has ?briefcase ?paycheck) (paycheck ?paycheck) (location ?paycheck ?location) (location ?location))
+
+	(:action move
+		:parameters ?briefcase ?from ?to
+		:precondition (and (briefcase ?briefcase) (location ?briefcase ?from) (location ?from) (location ?to) (has ?briefcase ?paycheck)
+		:effect (and (location ?briefcase ?to) (location ?paycheck ?to) (not location ?briefcase ?from) (not location ?paycheck ?from)
+		:agents
+
+	(:action remove
+		:parameters ?item ?briefcase
+		:precondition (and (has ?briefcase ?item) (briefcase ?briefcase) (paycheck ?item)
+		:effect (and (not has ?briefcase ?item) 
+		:agents
+
+	(:action add
+		:parameters ?item ?briefcase
+		:precondition (and (briefcase ?briefcase) (paycheck ?item)
+		:effect (and (has ?briefcase ?item)
+		:agents
+		
