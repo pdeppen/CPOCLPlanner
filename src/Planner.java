@@ -170,9 +170,9 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-					//if (this.detectPotentialThreat(openPrecondition, currentStep))
-					//	return false;
-			
+//					if (this.detectPotentialThreat(openPrecondition, currentStep))
+//						return false;
+					
 					System.out.println("Found In initial State");
 
 					//this.applyNegation(currentStep);
@@ -193,6 +193,7 @@ public class Planner
 
 	/**
 	 * Edited by Philip Deppen (12/3/18, issue 4)
+	 * Edited by Philip Deppen (3/12/18, issue 11)
 	 * This function searches for an effect in ActionDomain to solve an open precondition
 	 * @param precondition
 	 */
@@ -216,10 +217,14 @@ public class Planner
 				//System.out.println(parser.getActionsEffects(i, f).getLiteralName());
 				if(precondition.getLiteralName().equals(parser.getActionsEffects(i, f).getLiteralName()))
 				{
-					//The literal is not negative
-					if(!(parser.getActionsEffects(i, f).isNegative()))
+					// Both literals are either + or -
+					/* conditional made 12/3/18 
+					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
+					 * TODO: make this statement work with all domains 
+					 * TODO: add this else if statement to all methods that search for a literal 
+					 */
+					if(!(parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) || (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()))
 					{
-						
 						step = parser.getAction(i);
 												
 						Step newStep = new Step(step);
@@ -242,14 +247,17 @@ public class Planner
 
 						addPreconditions(newStep);
 
-
+						
+						if (this.detectPotentialThreat(openPrecondition, newStep))
+							return false;
+						
 						Actions.addLast(newStep);
 						//this.addOrdering(currentStep, newStep);
 						graph.add(currentStep, newStep);
 
 						//this.applyNegation(boundedStep);
 
-
+						
 						//add causal Link
 						causalLink = new CausalLink(openPrecondition,newStep,newStep.getEffects(f));
 						causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -258,38 +266,6 @@ public class Planner
 
 						return true;
 
-					}
-					
-					/* conditional made 12/3/18 
-					 * edited on 12/4/18 - added "checkInitial" and "precondition.isNegative" which was a key part 
-					 * TODO: make this statement work with all domains 
-					 * TODO: add this else if statement to all methods that search for a literal 
-					 */
-					else if (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) 
-					{
-						System.out.println("Precondition: " + precondition.toString() + " is negative: " + precondition.isNegative());
-						step = parser.getAction(i);
-						
-						Step newStep = new Step(step);
-
-						//bind the variables
-						newStep = binding.bindLiterals(newStep, precondition , f);
-
-						StepId+=1;
-						newStep.setStepId(StepId);
-
-						addPreconditions(newStep);
-
-
-						Actions.addLast(newStep);
-						graph.add(currentStep, newStep);
-
-						//add causal Link
-						causalLink = new CausalLink(openPrecondition,newStep,newStep.getEffects(f));
-						causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
-						Links.add(causalLink);
-
-						return true;
 					}
 				}
 			}
@@ -559,7 +535,7 @@ public class Planner
 					/* if it is not found in initial - search action effects */
 					return this.searchEffectsInActionDomain(openPrecondition);
 				}
-
+				
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);
 				causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
 				Links.add(causalLink);

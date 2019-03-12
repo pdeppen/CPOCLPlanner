@@ -108,12 +108,12 @@ public class PriorityQueueMethod extends Planner
 			this.updateCausalLinks();
 			System.out.println("\n\n");
 									
-//			if(!(this.CheckThreats()))
-//			{
-//				System.out.println("No Plan Found -> !(this.CheckThreats()");
-//				//				break;
-//				return false;
-//			}
+			if(!(this.CheckThreats()))
+			{
+				System.out.println("No Plan Found -> !(this.CheckThreats()");
+				//				break;
+				return false;
+			}
 			
 		}
 
