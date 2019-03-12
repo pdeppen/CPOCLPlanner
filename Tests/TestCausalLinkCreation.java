@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 class TestCausalLinkCreation {
 	
+//	String domainName = "Reorder_and_Restriction_Domain.txt";
+//	String problemName = "Reorder_and_Restriction_Problem.txt";
 	String domainName = "BriefcaseDomain.txt";
 	String problemName = "BriefcaseProblem.txt";
 //	String domainName = "BlockDomain.txt";
