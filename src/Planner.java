@@ -142,6 +142,36 @@ public class Planner
 	}
 	
 	/**
+	 * Created by Philip Deppen (3/12/19, issue 11)
+	 * @param condition
+	 * @param step
+	 * @return
+	 */
+	public boolean detectPotentialInitial(OpenPrecondition condition, Step step)
+	{
+		boolean threat = false;
+		
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+		
+		threats = this.getThreatenCausalLinks(condition);
+		
+		if (!threats.isEmpty()) {
+			threat = true;
+			condition.getOpenPrecondtion().hasNegativeSign(true);
+		}		
+		
+//		threats = this.getThreatenCausalLinks(step);
+//		
+//		if (!threats.isEmpty()) {
+//			threat = true;
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
+//		}
+				
+		
+		return threat;
+	}
+	
+	/**
 	 * This method is to check the initial state if it satisfies the openPrecondition
 	 * Works only with the bounded precondition
 	 * @param precondition
@@ -170,7 +200,7 @@ public class Planner
 				if(!(parser.getIntialStateEffects(i).isNegative())) 
 				{
 					/* detecting potential threat when searching effects of actions */
-//					if (this.detectPotentialThreat(openPrecondition, currentStep))
+//					if (this.detectPotentialInitial(openPrecondition, currentStep))
 //						return false;
 					
 					System.out.println("Found In initial State");
@@ -246,8 +276,8 @@ public class Planner
 
 
 						addPreconditions(newStep);
-
 						
+						// checks for potential threat
 						if (this.detectPotentialThreat(openPrecondition, newStep))
 							return false;
 						
@@ -341,14 +371,17 @@ public class Planner
 				for(int x=0;x<sizeEffects;x++)
 				{
 					Literal effect = Actions.get(i).getEffects(x);
-					if(	(!(effect.isNegative()))	&&(effect.toString().equals(precondition.toString())))
+					// precondition and effect are both positive or negative
+					if(	(!(effect.isNegative())	&&(effect.toString().equals(precondition.toString()))) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
 					{
 
 						if(!(graph.containsOrdering(Actions.get(i), currentStep )))
 						{
 							System.out.println("Found in Effects");
 							//this.addOrdering(currentStep, Actions.get(i));
-
+							
+							if (this.detectPotentialThreat(openPrecondition, currentStep))
+								return false;
 
 							graph.add(currentStep, Actions.get(i));
 
@@ -533,7 +566,8 @@ public class Planner
 				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 				{
 					/* if it is not found in initial - search action effects */
-					return this.searchEffectsInActionDomain(openPrecondition);
+//					return this.searchEffectsInActionDomain(openPrecondition);
+					return false;
 				}
 				
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);
@@ -592,7 +626,10 @@ public class Planner
 					//to bind the dequeued precondition with the new parameters
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
-
+					
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
+					
 					causalLink= new CausalLink(openPrecondition,Actions.get(mapkey),literal);
 
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -691,7 +728,8 @@ public class Planner
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
 
-
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
 
 					causalLink = new CausalLink(openPrecondition,Actions.get(key),temp);
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -1089,6 +1127,7 @@ public class Planner
 			if (s != link1.getStepName())
 			{
 				// Need to have all Literals updated for that Step
+				
 				
 				/* loop for each effect in current step */
 				for (int x=0;x<s.getEffectsSize();x++)
