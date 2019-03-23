@@ -1,7 +1,7 @@
 (define (problem briefcase-problem)
 
-	(:init (briefcase Briefcase) (location Briefcase Home) (has Briefcase P) (paycheck P) (location Office) (location Home) (location P Home) (paycheck R) (briefcase C) (at R Home) (has C R) (location C Home)
+	(:init (briefcase Briefcase) (location Briefcase Home) (has Briefcase P) (paycheck P) (location Office) (location Home) (location P Home) (paycheck R) (briefcase C) (at R Home) (has C R) (location C Home) (location R Home)
  
 	(:intentions 
 
-	(:goal (location Paycheck Home) (location Briefcase Office) (location C Home) (location R Office)
+	(:goal (location P Home) (location Briefcase Office) (location C Home) (location R Office)
