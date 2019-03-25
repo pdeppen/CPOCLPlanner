@@ -253,7 +253,7 @@ public class Planner
 					 * TODO: make this statement work with all domains 
 					 * TODO: add this else if statement to all methods that search for a literal 
 					 */
-					if(!(parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()) || (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()))
+					if((!parser.getActionsEffects(i, f).isNegative() && !precondition.isNegative()) || (parser.getActionsEffects(i, f).isNegative() && precondition.isNegative()))
 					{
 						step = parser.getAction(i);
 												
@@ -437,7 +437,7 @@ public class Planner
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
 		/** TODO: Comment out to have static plan */
-		Collections.shuffle(array);
+//		Collections.shuffle(array);
 		
 		Literal literal;
 		
