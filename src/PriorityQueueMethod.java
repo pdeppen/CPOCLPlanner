@@ -159,7 +159,7 @@ public class PriorityQueueMethod extends Planner
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
 								
-		if (precondition.getOpenPrecondtion().toString().equals("briefcase Paycheck"))
+		if (precondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
 			System.out.println("here");
 		
 		

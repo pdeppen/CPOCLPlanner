@@ -372,7 +372,7 @@ public class Planner
 				{
 					Literal effect = Actions.get(i).getEffects(x);
 					// precondition and effect are both positive or negative
-					if(	(!(effect.isNegative())	&&(effect.toString().equals(precondition.toString()))) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
+					if(	(!effect.isNegative() && !precondition.isNegative() && effect.toString().equals(precondition.toString())) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
 					{
 
 						if(!(graph.containsOrdering(Actions.get(i), currentStep )))
@@ -1221,6 +1221,7 @@ public class Planner
 
 	/**
 	 * 12/11/18 - Method from old planner. Change return to true for briefcase plan to work
+	 * Edited by Philip Deppen (issue 15, 4/3/19)
 	 * This function checks if the step negates a satisfied precondition
 	 * @param s the step of the precondition
 	 * @param effect the effect that connects the openprecondition
@@ -1235,13 +1236,15 @@ public class Planner
 		{
 			if(s.getEffects(i).toString().equals(effect.toString()))
 			{
-				if(s.getEffects(i).isNegative())
+				// call new isPreconditionNegate
+				if(this.isPreconditionNegate(effect, s.getEffects(i)))
 				{
 //					System.out.println("Step: " + s.getStepName());
 //					System.out.println("Step effect: " + s.getEffects(i).toString());
 //					System.out.println("Step effect: is negative: " + s.getEffects(i).isNegative());
 //					System.out.println("Effect: " + effect.toString());
 //					System.out.println("Effect is negative: " + effect.isNegative());
+//					JOptionPane.showMessageDialog(null, "here");
 					return true;
 				}
 			}

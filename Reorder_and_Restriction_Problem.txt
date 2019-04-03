@@ -4,4 +4,4 @@
  
 	(:intentions 
 
-	(:goal (location P Home) (location Briefcase Office) (location C Home) (location R Office)
+	(:goal (location Briefcase Office) (location P Home) (location C Home) (has Briefcase R)
