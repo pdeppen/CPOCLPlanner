@@ -799,6 +799,7 @@ public class Planner
 
 
 	/**
+	 * Edited by Philip Deppen (issue 12, 4/3/19)
 	 * This function searches in the arrayList of threats and then checks if there is no ordering between
 	 * the the steps, it adds an ordering constraint between them.
 	 * This function applies promotion and demotion
@@ -846,7 +847,8 @@ public class Planner
 
 							if(this.isPreconditionNegateOld(s1,effect))
 							{
-
+								System.out.println("s1: " + s1.toString());
+								System.out.println("s2: " + s2.toString());
 
 								//either way it will be the same precondition
 								Literal precondition = threats.get(i).getPrecondition().getOpenPrecondtion();
@@ -865,8 +867,8 @@ public class Planner
 									binding.bindStepByChangingLetters(s2, newEffect, precondition);
 								}
 
-								//graph.add(s1, s2);    //this was changed to from s1 to s2
-								//graph.add(s2, s1);
+								graph.add(s1, s2);    //this was changed to from s1 to s2
+								graph.add(s2, s1);
 								graph.updateOrdering(graph, s2, s1);
 								return true;
 
@@ -883,7 +885,7 @@ public class Planner
 									binding.bindStepByChangingLetters(s1, newEffect, precondition);
 								}
 
-								//graph.add(s1, s2);
+//								graph.add(s1, s2);
 								graph.updateOrdering(graph, s1, s2);
 
 								return true;
