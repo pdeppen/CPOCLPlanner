@@ -868,7 +868,7 @@ public class Planner
 								}
 
 								graph.add(s1, s2);    //this was changed to from s1 to s2
-								graph.add(s2, s1);
+//								graph.add(s2, s1);
 								graph.updateOrdering(graph, s2, s1);
 								return true;
 
