@@ -864,7 +864,9 @@ public class Planner
 								if((newEffect.getLiteralName().equals(effect.getLiteralName())))
 								{
 									System.out.println("swapping step order");
-									binding.bindStepByChangingLetters(s2, newEffect, precondition);
+//									binding.bindStepByChangingLetters(s2, newEffect, precondition);
+									binding.bindStepByChangingLetters(s2, precondition, newEffect);
+									
 								}
 
 								graph.add(s1, s2);    //this was changed to from s1 to s2
