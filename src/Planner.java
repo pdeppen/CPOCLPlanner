@@ -326,7 +326,7 @@ public class Planner
 		Literal precondition = openPrecondition.getOpenPrecondtion();
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
-		Collections.shuffle(array);
+//		Collections.shuffle(array);
 
 		for (int a = 0; a < array.size(); a++)
 		{

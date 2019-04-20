@@ -94,6 +94,9 @@ public class PriorityQueueMethod extends Planner
 				//				break;
 				return false;
 			}
+			
+			this.printOutSolution();
+
 		}
 
 		//to print out the solution if it exists
@@ -101,7 +104,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.notused();
-//			this.printOutSolution();
+			this.printOutSolution();
 			return true;
 		}
 		return true;
@@ -210,7 +213,8 @@ public class PriorityQueueMethod extends Planner
 			System.out.println("\n");
 		}
 
-
+		
+		System.out.println("Printing Current Graph");
 		int size = graph.topSort().size();
 		for(int i= size -1;i>=0;i--)
 		{

@@ -11,8 +11,8 @@ public class TestPriorityQueue {
 	{
 		ConflictParser parser = new ConflictParser();
 
-		String domainName = "DeathMatchDomain.txt";
-		String problemName = "DeathMatchProblem.txt";
+//		String domainName = "DeathMatchDomain.txt";
+//		String problemName = "DeathMatchProblem.txt";
 //		String domainName = "SimpleDeathMatchDomain.txt";
 //		String problemName = "SimpleDeathMatchProblem.txt";
 
@@ -23,8 +23,8 @@ public class TestPriorityQueue {
 
 //		String domainName = "BirthdayDomain.txt";
 //		String problemName = "BirthdayProblem.txt";
-//		String domainName = "SimpleBirthdayDomain.txt";
-//		String problemName = "SimpleBirthdayProblem.txt";
+		String domainName = "SimpleBirthdayDomain.txt";
+		String problemName = "SimpleBirthdayProblem.txt";
 
 //		String domainName = "MarriageDomain.txt";
 //		String problemName = "MarriageProblem.txt";
@@ -45,7 +45,7 @@ public class TestPriorityQueue {
 //			success = false;
 //			while (!success)
 //			{
-				Planner planner = new BagMethod(parser, System.nanoTime());
+				Planner planner = new PriorityQueueMethod(parser, System.nanoTime());
 //				success = planner.search();
 				planner.search();
 //			}
