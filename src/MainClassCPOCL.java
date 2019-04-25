@@ -18,9 +18,11 @@ public class MainClassCPOCL
 //	static String problemName = "CryingBabyProblem.txt";
 //	static String domainName = "SimpleCryingBabyDomain.txt";
 //	static String problemName = "SimpleCryingBabyProblem.txt";
-
-	static String domainName = "BirthdayDomain.txt";
-	static String problemName = "BirthdayProblem.txt";
+	static String domainName = "Reorder_and_Restriction_Domain.txt";
+	static String problemName = "Reorder_and_Restriction_Problem.txt";
+	
+//	static String domainName = "BirthdayDomain.txt";
+//	static String problemName = "BirthdayProblem.txt";
 //	static String domainName = "SimpleBirthdayDomain.txt";
 //	static String problemName = "SimpleBirthdayProblem.txt";
 
