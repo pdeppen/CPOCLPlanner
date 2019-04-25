@@ -18,11 +18,11 @@ public class MainClassCPOCL
 //	static String problemName = "CryingBabyProblem.txt";
 //	static String domainName = "SimpleCryingBabyDomain.txt";
 //	static String problemName = "SimpleCryingBabyProblem.txt";
-	static String domainName = "Reorder_and_Restriction_Domain.txt";
-	static String problemName = "Reorder_and_Restriction_Problem.txt";
+//	static String domainName = "Reorder_and_Restriction_Domain.txt";
+//	static String problemName = "Reorder_and_Restricti/on_Problem.txt";
 	
-//	static String domainName = "BirthdayDomain.txt";
-//	static String problemName = "BirthdayProblem.txt";
+	static String domainName = "BirthdayDomain.txt";
+	static String problemName = "BirthdayProblem.txt";
 //	static String domainName = "SimpleBirthdayDomain.txt";
 //	static String problemName = "SimpleBirthdayProblem.txt";
 
@@ -99,41 +99,41 @@ public class MainClassCPOCL
 			}
 		}
 
-		for (int i = 0; i < queueTimes.length; i++)
-		{
-			success = false;
-			while (!success)
-			{
-				start = System.nanoTime();
-//				start = System.currentTimeMillis();
-				planner = new QueueMethod(parser, start);
-				success = planner.search();
-				end = System.nanoTime();
-				time = (end - start) / 1000;
-//				time = System.currentTimeMillis() - start;
-				queueTimes[i] = time;
-				if (!success)
-					queueFails++;
-			}
-		}
-
-		for (int i = 0; i < priorityTimes.length; i++)
-		{
-			success = false;
-			while (!success)
-			{
-				start = System.nanoTime();
-//				start = System.currentTimeMillis();
-				planner = new PriorityQueueMethod(parser, start);
-				success = planner.search();
-				end = System.nanoTime();
-//				time = System.currentTimeMillis() - start;
-				time = (end - start) / 1000;
-				priorityTimes[i] = time;
-				if(!success)
-					priorityFails++;
-			}
-		}
+//		for (int i = 0; i < queueTimes.length; i++)
+//		{
+//			success = false;
+//			while (!success)
+//			{
+//				start = System.nanoTime();
+////				start = System.currentTimeMillis();
+//				planner = new QueueMethod(parser, start);
+//				success = planner.search();
+//				end = System.nanoTime();
+//				time = (end - start) / 1000;
+////				time = System.currentTimeMillis() - start;
+//				queueTimes[i] = time;
+//				if (!success)
+//					queueFails++;
+//			}
+//		}
+//
+//		for (int i = 0; i < priorityTimes.length; i++)
+//		{
+//			success = false;
+//			while (!success)
+//			{
+//				start = System.nanoTime();
+////				start = System.currentTimeMillis();
+//				planner = new PriorityQueueMethod(parser, start);
+//				success = planner.search();
+//				end = System.nanoTime();
+////				time = System.currentTimeMillis() - start;
+//				time = (end - start) / 1000;
+//				priorityTimes[i] = time;
+//				if(!success)
+//					priorityFails++;
+//			}
+//		}
 
 
 		DecimalFormat df = new DecimalFormat("##.##");

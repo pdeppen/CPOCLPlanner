@@ -18,9 +18,12 @@ public class TestPriorityQueue {
 //		String problemName = "CryingBabyProblem.txt";
 //		String domainName = "SimpleCryingBabyDomain.txt";
 //		String problemName = "SimpleCryingBabyProblem.txt";
-
-		String domainName = "BirthdayDomain.txt";
-		String problemName = "BirthdayProblem.txt";
+		
+		String domainName = "Reorder_and_Restriction_Domain.txt";
+		String problemName = "Reorder_and_Restriction_Problem.txt";
+		
+//		String domainName = "BirthdayDomain.txt";
+//		String problemName = "BirthdayProblem.txt";
 //		String domainName = "SimpleBirthdayDomain.txt";
 //		String problemName = "SimpleBirthdayProblem.txt";
 

@@ -545,8 +545,8 @@ public class Planner
 			}
 
 			Literal temp = array.get(f);	//CargoAt C1 SFO & CargoAt C2 JFK
-			if(	(precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded)))
-					&& (!(temp.isNegative())))
+			if(	((temp.isNegative() && precondition.isNegative()) || (!temp.isNegative() && !precondition.isNegative()))
+					&& (precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded))))
 			{
 //////////////////////
 //				printStepDetails(currentStep);
@@ -716,8 +716,10 @@ public class Planner
 			}
 
 			Literal temp = arry.get(key);	//CargoAt C1 SFO & CargoAt C2 JFK
+			// issue 14
 			if(	(precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded)))
-					&& (!(temp.isNegative())))
+				&& (!temp.isNegative() && !precondition.isNegative()) || (temp.isNegative() && precondition.isNegative()))
+
 			{
 				System.out.println(Actions.get(key).toString() + key);
 				System.out.println(currentStep.toString());
@@ -871,8 +873,7 @@ public class Planner
 								{
 									System.out.println("swapping step order");
 //									binding.bindStepByChangingLetters(s2, newEffect, precondition);
-									binding.bindStepByChangingLetters(s2, precondition, newEffect);
-									
+									binding.bindStepByChangingLetters(s2, precondition, newEffect);									
 								}
 
 								graph.add(s1, s2);    //this was changed to from s1 to s2
