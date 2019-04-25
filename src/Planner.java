@@ -718,7 +718,9 @@ public class Planner
 			Literal temp = arry.get(key);	//CargoAt C1 SFO & CargoAt C2 JFK
 			// issue 14
 			if(	(precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded)))
-				&& (!temp.isNegative() && !precondition.isNegative()) || (temp.isNegative() && precondition.isNegative()))
+					&&  (!temp.isNegative() && !precondition.isNegative()) || (temp.isNegative() && precondition.isNegative()))
+				// old code
+//				(!(temp.isNegative())))
 
 			{
 				System.out.println(Actions.get(key).toString() + key);
