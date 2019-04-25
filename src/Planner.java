@@ -125,6 +125,7 @@ public class Planner
 		threats = this.getThreatenCausalLinks(condition);
 		
 		if (!threats.isEmpty()) {
+			System.out.println("Restriction Added");
 			threat = true;
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}		
@@ -133,9 +134,14 @@ public class Planner
 		
 		if (!threats.isEmpty()) {
 			threat = true;
+			System.out.println("Restriction Added");
 			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
 					
+//		if (threat) {
+//			System.out.println("Restriction Added");	
+//		}
+		
 //		return false;
 		return threat;
 		
@@ -437,7 +443,7 @@ public class Planner
 		Step currentStep = Actions.get(openPrecondition.getStepID());
 
 		/** TODO: Comment out to have static plan */
-//		Collections.shuffle(array);
+		Collections.shuffle(array);
 		
 		Literal literal;
 		

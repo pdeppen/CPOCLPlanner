@@ -96,7 +96,7 @@ public class QueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.tempmethod();
-			this.printOutSolution();
+//			this.printOutSolution();
 			return true;
 		}
 		return true;
