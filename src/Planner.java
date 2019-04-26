@@ -573,8 +573,7 @@ public class Planner
 				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 				{
 					/* if it is not found in initial - search action effects */
-//					return this.searchEffectsInActionDomain(openPrecondition);
-					return false;
+					return this.searchEffectsInActionDomain(openPrecondition);
 				}
 				
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);
