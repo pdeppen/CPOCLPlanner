@@ -120,27 +120,27 @@ public class Planner
 	{
 		boolean threat = false;
 		
-//		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
-//		
-//		threats = this.getThreatenCausalLinks(condition);
-//		
-//		if (!threats.isEmpty()) {
-//			System.out.println("Restriction Added");
-//			threat = true;
-//			condition.getOpenPrecondtion().hasNegativeSign(true);
-//		}		
-//		
-//		threats = this.getThreatenCausalLinks(step);
-//		
-//		if (!threats.isEmpty()) {
-//			threat = true;
-//			System.out.println("Restriction Added");
-//			condition.getOpenPrecondtion().hasNegativeSign(true);
-//		}
-//					
-//		if (threat) {
-//			System.out.println("Restriction Added");	
-//		}
+		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+		
+		threats = this.getThreatenCausalLinks(condition);
+		
+		if (!threats.isEmpty()) {
+			System.out.println("Restriction Added");
+			threat = true;
+			condition.getOpenPrecondtion().hasNegativeSign(true);
+		}		
+		
+		threats = this.getThreatenCausalLinks(step);
+		
+		if (!threats.isEmpty()) {
+			threat = true;
+			System.out.println("Restriction Added");
+			condition.getOpenPrecondtion().hasNegativeSign(true);
+		}
+					
+		if (threat) {
+			System.out.println("Restriction Added");	
+		}
 		
 //		return false;
 		return threat;
@@ -283,8 +283,8 @@ public class Planner
 						newStep.setStepId(StepId);
 						
 						// checks for potential threat
-//						if (this.detectPotentialThreat(openPrecondition, newStep))
-//							return false;
+						if (this.detectPotentialThreat(openPrecondition, newStep))
+							return false;
 						
 						addPreconditions(newStep);
 						
@@ -457,7 +457,8 @@ public class Planner
 			
 			int paraNotBounded = binding.checkParaNotBounded(precondition);
 			
-			if(!(array.get(a).isNegative()) && !currentStep.getSelectedLiteralExists(literal.getLiteralParameters(paraNotBounded)))
+//			if(!(array.get(a).isNegative()) && !currentStep.getSelectedLiteralExists(literal.getLiteralParameters(paraNotBounded)))
+			if (!currentStep.getSelectedLiteralExists(literal.getLiteralParameters(paraNotBounded)))
 			{
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable;
@@ -488,7 +489,6 @@ public class Planner
 					}
 					
 					causalLink = new CausalLink(openPrecondition,parser.getInitialState(),array.get(0));
-
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
 					Links.add(causalLink);
 					//this.addOrdering(currentStep, parser.getInitialState());
@@ -586,7 +586,6 @@ public class Planner
 				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 				{
 					
-					/* if it is not found in initial - search action effects */
 //					return this.searchEffectsInActionDomain(openPrecondition);
 					return false;
 				}
@@ -892,9 +891,9 @@ public class Planner
 									binding.bindStepByChangingLetters(s2, precondition, newEffect);									
 								}
 
-								graph.add(s1, s2);    //this was changed to from s1 to s2
+//								graph.add(s1, s2);    //this was changed to from s1 to s2
 //								graph.add(s2, s1);
-//								graph.updateOrdering(graph, s2, s1);
+								graph.updateOrdering(graph, s2, s1);
 								return true;
 
 							}

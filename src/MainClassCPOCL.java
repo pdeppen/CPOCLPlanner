@@ -11,13 +11,13 @@ public class MainClassCPOCL
 {
 //	static String domainName = "DeathMatchDomain.txt";
 //	static String problemName = "DeathMatchProblem.txt";
-	static String domainName = "SimpleDeathMatchDomain.txt";
-	static String problemName = "SimpleDeathMatchProblem.txt";
+//	static String domainName = "SimpleDeathMatchDomain.txt";
+//	static String problemName = "SimpleDeathMatchProblem.txt";
 
 //	static String domainName = "CryingBabyDomain.txt";
 //	static String problemName = "CryingBabyProblem.txt";
-//	static String domainName = "SimpleCryingBabyDomain.txt";
-//	static String problemName = "SimpleCryingBabyProblem.txt";
+	static String domainName = "SimpleCryingBabyDomain.txt";
+	static String problemName = "SimpleCryingBabyProblem.txt";
 //	static String domainName = "Reorder_and_Restriction_Domain.txt";
 //	static String problemName = "Reorder_and_Restriction_Problem.txt";
 	
@@ -80,24 +80,24 @@ public class MainClassCPOCL
 		parser.parseProblem(problemName);
 		Planner planner;
 
-		for (int i = 0; i < bagTimes.length; i++)
-		{
-			success = false;
-			while (!success)
-			{
-				start = System.nanoTime();
-//				start = System.currentTimeMillis();
-				planner = new BagMethod(parser, start);
-				success = planner.search();
-				end = System.nanoTime();
-				time = (end - start) / 1000;
-//				time = System.currentTimeMillis() - start;
-
-				bagTimes[i] = time;
-				if (!success)
-					bagFails++;
-			}
-		}
+//		for (int i = 0; i < bagTimes.length; i++)
+//		{
+//			success = false;
+//			while (!success)
+//			{
+//				start = System.nanoTime();
+////				start = System.currentTimeMillis();
+//				planner = new BagMethod(parser, start);
+//				success = planner.search();
+//				end = System.nanoTime();
+//				time = (end - start) / 1000;
+////				time = System.currentTimeMillis() - start;
+//
+//				bagTimes[i] = time;
+//				if (!success)
+//					bagFails++;
+//			}
+//		}
 
 		for (int i = 0; i < queueTimes.length; i++)
 		{
