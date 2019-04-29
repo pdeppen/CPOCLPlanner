@@ -112,7 +112,7 @@ public class Planner
 		}
 
 	}
-			
+				
 	/**
 	 * Created 12/13/18 - use this in place of detectPotentialThreatOld
 	 */
@@ -120,24 +120,24 @@ public class Planner
 	{
 		boolean threat = false;
 		
-		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
-		
-		threats = this.getThreatenCausalLinks(condition);
-		
-		if (!threats.isEmpty()) {
-			System.out.println("Restriction Added");
-			threat = true;
-			condition.getOpenPrecondtion().hasNegativeSign(true);
-		}		
-		
-		threats = this.getThreatenCausalLinks(step);
-		
-		if (!threats.isEmpty()) {
-			threat = true;
-			System.out.println("Restriction Added");
-			condition.getOpenPrecondtion().hasNegativeSign(true);
-		}
-					
+//		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
+//		
+//		threats = this.getThreatenCausalLinks(condition);
+//		
+//		if (!threats.isEmpty()) {
+//			System.out.println("Restriction Added");
+//			threat = true;
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
+//		}		
+//		
+//		threats = this.getThreatenCausalLinks(step);
+//		
+//		if (!threats.isEmpty()) {
+//			threat = true;
+//			System.out.println("Restriction Added");
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
+//		}
+//					
 //		if (threat) {
 //			System.out.println("Restriction Added");	
 //		}
@@ -203,10 +203,11 @@ public class Planner
 			{
 				/* added print statement 12/10/18 */
 				System.out.println(parser.getIntialStateEffects(i) + " is negative : " + parser.getIntialStateEffects(i).isNegative());
-				if(!(parser.getIntialStateEffects(i).isNegative())) 
+//				if(!(parser.getIntialStateEffects(i).isNegative())) 
+				if (parser.getIntialStateEffects(i).isNegative() == precondition.isNegative())
 				{
 					/* detecting potential threat when searching effects of actions */
-//					if (this.detectPotentialInitial(openPrecondition, currentStep))
+//					if (this.detectPotentialThreat(openPrecondition, currentStep))
 //						return false;
 					
 					System.out.println("Found In initial State");
@@ -277,15 +278,15 @@ public class Planner
 						//bind the variables
 						newStep = binding.bindLiterals(newStep, precondition , f);
 
+						
 						StepId+=1;
 						newStep.setStepId(StepId);
-
-
-						addPreconditions(newStep);
 						
 						// checks for potential threat
-						if (this.detectPotentialThreat(openPrecondition, newStep))
-							return false;
+//						if (this.detectPotentialThreat(openPrecondition, newStep))
+//							return false;
+						
+						addPreconditions(newStep);
 						
 						Actions.addLast(newStep);
 						//this.addOrdering(currentStep, newStep);
@@ -381,6 +382,9 @@ public class Planner
 					if(	(!effect.isNegative() && !precondition.isNegative() && effect.toString().equals(precondition.toString())) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
 					{
 
+//						if (this.detectPotentialThreat(openPrecondition, currentStep))
+//							return false;
+						
 						if(!(graph.containsOrdering(Actions.get(i), currentStep )))
 						{
 							System.out.println("Found in Effects");
@@ -476,6 +480,13 @@ public class Planner
 				printStepDetails(currentStep);
 				if (checkIntentions(currentStep) == true)
 				{
+					
+					if (this.detectPotentialThreat(openPrecondition, currentStep)) 
+					{
+//						/* if it is not found in initial - search action effects */
+						return false;
+					}
+					
 					causalLink = new CausalLink(openPrecondition,parser.getInitialState(),array.get(0));
 
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -539,12 +550,13 @@ public class Planner
 				{
 					return true;
 				}
-				/** add restrictions here ? */
 				System.out.println("/********** RETURNING FALSE -> IN searchSimilarInInitialState() 1st conditional Planner class");
 				return false;
 			}
 
 			Literal temp = array.get(f);	//CargoAt C1 SFO & CargoAt C2 JFK
+//			if(	(precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded)))
+//					&& (!(temp.isNegative())))
 			if(	((temp.isNegative() && precondition.isNegative()) || (!temp.isNegative() && !precondition.isNegative()))
 					&& (precondition.getLiteralParameters(paraBounded).equals(temp.getLiteralParameters(paraBounded))))
 			{
@@ -559,21 +571,24 @@ public class Planner
 				String groundLetter = precondition.getLiteralParameters(paraNotBounded);
 				String newVariable = temp.getLiteralParameters(paraNotBounded);
 				
+				
 				// TODO: check here
 				currentStep.setSelectedLiteral(newVariable);
 				
 				//to bind the dequeued precondition with the new parameters
 				binding.bindPrecondtion(precondition, groundLetter, newVariable);
 				binding.bindStep(currentStep, groundLetter, newVariable);
-
+								
 				/*
 				 *  TODO: add this for all methods
 				 *  added 12/13/18 
 				 */
 				if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 				{
+					
 					/* if it is not found in initial - search action effects */
-					return this.searchEffectsInActionDomain(openPrecondition);
+//					return this.searchEffectsInActionDomain(openPrecondition);
+					return false;
 				}
 				
 				causalLink = new CausalLink(openPrecondition,parser.getInitialState(),temp);

@@ -114,6 +114,7 @@ public class BagMethod extends Planner
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
 
+		System.out.println("Is negative: " + precondition.getOpenPrecondtion().isNegative());
 
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
@@ -167,7 +168,7 @@ public class BagMethod extends Planner
 				}
 			}
 		}
-
+		System.out.println("Is negative: " + precondition.getOpenPrecondtion().isNegative());
 		return true;
 
 	}

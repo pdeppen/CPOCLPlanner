@@ -122,7 +122,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.notused();
-//			this.printOutSolution();
+			this.printOutSolution();
 			return true;
 		}
 		return true;
@@ -161,8 +161,7 @@ public class PriorityQueueMethod extends Planner
 								
 		if (precondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
 			System.out.println("here");
-		
-		
+
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
 		{
@@ -170,7 +169,7 @@ public class PriorityQueueMethod extends Planner
 			System.out.println("In Initial State?	"+isFoundInIntialState);
 			
 			//boolean isFoundInActionDomain = this.searchEffectsInActionDomain(precondition);
-			
+
 			if(!(isFoundInIntialState)) // || isFoundInActionDomain))
 			{
 				if(!( this.searchInEffects(precondition)))
@@ -189,7 +188,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
 			System.out.println("Similar In Initial State?	"+isFoundSimilarInInitialStat);
-						
+			
 			if((isFoundSimilarInInitialStat))
 			{
 				System.out.println(precondition.getOpenPrecondtion());
