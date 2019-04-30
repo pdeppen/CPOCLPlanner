@@ -122,7 +122,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.notused();
-//			this.printOutSolution();
+			this.printOutSolution();
 			return true;
 		}
 		return true;
@@ -144,7 +144,7 @@ public class PriorityQueueMethod extends Planner
 		/* print blank line */
 //		System.out.println("");
 
-		OpenPrecondition precondition;
+//		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
 		
