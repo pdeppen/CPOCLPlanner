@@ -134,15 +134,15 @@ public class Planner
 		if (!threats.isEmpty()) {
 			threat = true;
 			System.out.println("Restriction Added");
-			condition.getOpenPrecondtion().hasNegativeSign(true);
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
 					
 		if (threat) {
 			System.out.println("Restriction Added");	
 		}
 		
-//		return false;
-		return threat;
+		return false;
+//		return threat;
 		
 	}
 	
@@ -889,9 +889,9 @@ public class Planner
 									binding.bindStepByChangingLetters(s2, precondition, newEffect);									
 								}
 
-								graph.add(s1, s2);    //this was changed to from s1 to s2
+//								graph.add(s1, s2);    //this was changed to from s1 to s2
 //								graph.add(s2, s1);
-//								graph.updateOrdering(graph, s2, s1);
+								graph.updateOrdering(graph, s2, s1);
 								return true;
 
 							}
@@ -1232,7 +1232,7 @@ public class Planner
 									// link is connected to gaol state
 									System.out.println("Link Step: " + link1.getStepName());
 									System.out.println("Step name: " + s.getStepName().toString());
-									if (link1.getPrecondition().getStepID() != s.getStepId() && !link1.getStepName().toString().equals(s.getStepName().toString()))
+									if (link1.getPrecondition().getStepID() != s.getStepId()) //&& !link1.getStepName().toString().equals(s.getStepName().toString()))
 									{
 										threats.add(link1);
 										System.out.println("Restriction Added");

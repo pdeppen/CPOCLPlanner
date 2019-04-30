@@ -99,41 +99,41 @@ public class MainClassCPOCL
 //			}
 //		}
 
-		for (int i = 0; i < queueTimes.length; i++)
-		{
-			success = false;
-			while (!success)
-			{
-				start = System.nanoTime();
-//				start = System.currentTimeMillis();
-				planner = new QueueMethod(parser, start);
-				success = planner.search();
-				end = System.nanoTime();
-				time = (end - start) / 1000;
-//				time = System.currentTimeMillis() - start;
-				queueTimes[i] = time;
-				if (!success)
-					queueFails++;
-			}
-		}
-
-//		for (int i = 0; i < priorityTimes.length; i++)
+//		for (int i = 0; i < queueTimes.length; i++)
 //		{
 //			success = false;
 //			while (!success)
 //			{
 //				start = System.nanoTime();
 ////				start = System.currentTimeMillis();
-//				planner = new PriorityQueueMethod(parser, start);
+//				planner = new QueueMethod(parser, start);
 //				success = planner.search();
 //				end = System.nanoTime();
-////				time = System.currentTimeMillis() - start;
 //				time = (end - start) / 1000;
-//				priorityTimes[i] = time;
-//				if(!success)
-//					priorityFails++;
+////				time = System.currentTimeMillis() - start;
+//				queueTimes[i] = time;
+//				if (!success)
+//					queueFails++;
 //			}
 //		}
+
+		for (int i = 0; i < priorityTimes.length; i++)
+		{
+			success = false;
+			while (!success)
+			{
+				start = System.nanoTime();
+//				start = System.currentTimeMillis();
+				planner = new PriorityQueueMethod(parser, start);
+				success = planner.search();
+				end = System.nanoTime();
+//				time = System.currentTimeMillis() - start;
+				time = (end - start) / 1000;
+				priorityTimes[i] = time;
+				if(!success)
+					priorityFails++;
+			}
+		}
 
 
 		DecimalFormat df = new DecimalFormat("##.##");
