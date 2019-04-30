@@ -25,7 +25,7 @@ public class Planner
 {
 	/* added 11/10/18 by Philip Deppen */
 	OpenPrecondition threateningPrecondition;
-	ArrayList <Literal> mostRecentMadeGoal = new ArrayList<Literal>();
+	ArrayList <Literal> goals = new ArrayList<Literal>();
 	int currentGoal = 0;
 	OpenPrecondition newOpenPrecondition;
 	
@@ -108,7 +108,6 @@ public class Planner
 			object.addStep(0);
 						
 			openPrecon.addLast(object);
-
 		}
 
 	}
@@ -122,15 +121,15 @@ public class Planner
 		
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 		
-		threats = this.getThreatenCausalLinks(condition);
+//		threats = this.getThreatenCausalLinks(condition);
+//		
+//		if (!threats.isEmpty()) {
+//			System.out.println("Restriction Added");
+//			threat = true;
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
+//		}		
 		
-		if (!threats.isEmpty()) {
-			System.out.println("Restriction Added");
-			threat = true;
-			condition.getOpenPrecondtion().hasNegativeSign(true);
-		}		
-		
-		threats = this.getThreatenCausalLinks(step);
+		threats = this.getThreatenCausalLinks(step, condition);
 		
 		if (!threats.isEmpty()) {
 			threat = true;
@@ -207,8 +206,11 @@ public class Planner
 				if (parser.getIntialStateEffects(i).isNegative() == precondition.isNegative())
 				{
 					/* detecting potential threat when searching effects of actions */
-//					if (this.detectPotentialThreat(openPrecondition, currentStep))
-//						return false;
+					if (temp.equals("location Home"))
+						System.out.println("Here");
+					
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
 					
 					System.out.println("Found In initial State");
 
@@ -482,10 +484,10 @@ public class Planner
 				if (checkIntentions(currentStep) == true)
 				{
 					
-					if (this.detectPotentialThreat(openPrecondition, currentStep)) 
+//					if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 					{
 //						/* if it is not found in initial - search action effects */
-						return false;
+//						return false;
 					}
 					
 					causalLink = new CausalLink(openPrecondition,parser.getInitialState(),array.get(0));
@@ -647,8 +649,8 @@ public class Planner
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
 					
-					if (this.detectPotentialThreat(openPrecondition, currentStep))
-						return false;
+//					if (this.detectPotentialThreat(openPrecondition, currentStep))
+//						return false;
 					
 					causalLink= new CausalLink(openPrecondition,Actions.get(mapkey),literal);
 
@@ -752,8 +754,8 @@ public class Planner
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
 
-					if (this.detectPotentialThreat(openPrecondition, currentStep))
-						return false;
+//					if (this.detectPotentialThreat(openPrecondition, currentStep))
+//						return false;
 
 					causalLink = new CausalLink(openPrecondition,Actions.get(key),temp);
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -891,9 +893,9 @@ public class Planner
 									binding.bindStepByChangingLetters(s2, precondition, newEffect);									
 								}
 
-//								graph.add(s1, s2);    //this was changed to from s1 to s2
+								graph.add(s1, s2);    //this was changed to from s1 to s2
 //								graph.add(s2, s1);
-								graph.updateOrdering(graph, s2, s1);
+//								graph.updateOrdering(graph, s2, s1);
 								return true;
 
 							}
@@ -1169,11 +1171,22 @@ public class Planner
 	 * two action/states then should check each state individually.
 	 * @return an arrayList of threatened CausalLinks
 	 */
-	public ArrayList<CausalLink> getThreatenCausalLinks(Step s)
+	public ArrayList<CausalLink> getThreatenCausalLinks(Step s, OpenPrecondition condition)
 	{
 		/* threatened links are saved here */
 		ArrayList <CausalLink> threats = new ArrayList <CausalLink>();
 		
+		Literal precondition = condition.getOpenPrecondtion();
+//		System.out.println("Precondition Literal Params: " + precondition.getLiteralParameters(1));
+//		
+//		boolean possibleThreat = false;
+//		for (int i = 0; i < parser.getProblemDomainPreconditionSize(); i++) {
+//			Literal temp = parser.getGoalPreconditions(i);
+//			System.out.println(temp.getLiteralParameters(1));
+//			if (temp.getLiteralParameters(1) == precondition.getLiteralParameters(1))
+//				possibleThreat = true;
+//		}
+				
 		/* size of links array */
 		int sizeLinks = Links.size();
 		
@@ -1187,7 +1200,9 @@ public class Planner
 			/* get current open precondition */
 			
 			/* if step != null */
-			if (s != link1.getStepName())
+			System.out.println(link1.getStepName());
+			
+			if (s != link1.getStepName())// && precondition.toString().equals(thisEffect))
 			{
 				// Need to have all Literals updated for that Step
 				
@@ -1199,8 +1214,31 @@ public class Planner
 					Literal threat = s.getEffects(x);
 					if((isPreconditionNegate(threat,thisEffect)))
 					{
-						System.out.println(link1);
-						threats.add(link1);
+						System.out.println("Condition: " + precondition.toString());
+						System.out.println("Link effect: " + thisEffect.toString());
+						System.out.println("Step effect: " + threat.toString());
+//						if (condition.toString().equals(thisEffect.toString()) && precondition.toString().equals(threat.toString()))
+						for (int j = 0; j < precondition.getLiteralParameters().size(); j++)
+						{	
+							for (int q = 0; q < threat.getLiteralParameters().size(); q++)
+							{	
+								System.out.println("j: " + j);
+								System.out.println("q: " + q);
+								System.out.println(precondition.getLiteralParameters(j));
+								System.out.println(threat.getLiteralParameters(q));
+								if (precondition.getLiteralParameters(j).equals(threat.getLiteralParameters(q)))
+								{
+									System.out.println("hereq");
+									System.out.println(link1);
+									System.out.println(x);
+									if (link1.getPrecondition().getStepID() == 0)
+									{
+										threats.add(link1);
+										return threats;
+									}
+								}
+							}
+						}
 					}
 					
 				}

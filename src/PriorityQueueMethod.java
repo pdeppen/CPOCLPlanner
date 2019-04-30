@@ -131,20 +131,19 @@ public class PriorityQueueMethod extends Planner
 	/** conditions that must be met for an action to take place */
 	public boolean resolveOpenPrecondition() throws FileNotFoundException
 	{
-	    
 		/* added 12/10/18 - prints remaining preconditions */
 //		for (int i = 0; i < this.openPrecon.size(); i++)
 //			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
 		
 		/* added 12/12/18 - prints causal links created so far */
-//		System.out.println("\nLinks Created so far: ");
-//		for (int i = 0; i < this.Links.size(); i++)
-//			System.out.println(this.Links.get(i));
+		System.out.println("\nLinks Created so far: ");
+		for (int i = 0; i < this.Links.size(); i++)
+			System.out.println(this.Links.get(i));
 			
 		/* print blank line */
 //		System.out.println("");
 
-//		OpenPrecondition precondition;
+		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
 		
