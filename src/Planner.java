@@ -1233,7 +1233,7 @@ public class Planner
 									System.out.println(link1);
 									System.out.println(link1.getPrecondition().getStepID());
 									// link is connected to gaol state
-									if (link1.getPrecondition().getStepID() == 0)
+									if (link1.getPrecondition().getStepID() != s.getStepId())
 									{
 										threats.add(link1);
 										return threats;
