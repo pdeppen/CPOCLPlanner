@@ -1230,7 +1230,7 @@ public class Planner
 								{
 									System.out.println("hereq");
 									System.out.println(link1);
-									System.out.println(x);
+									System.out.println(link1.getPrecondition().getStepID());
 									if (link1.getPrecondition().getStepID() == 0)
 									{
 										threats.add(link1);
