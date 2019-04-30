@@ -134,15 +134,15 @@ public class Planner
 		if (!threats.isEmpty()) {
 			threat = true;
 			System.out.println("Restriction Added");
-//			condition.getOpenPrecondtion().hasNegativeSign(true);
+			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
 					
 		if (threat) {
 			System.out.println("Restriction Added");	
 		}
 		
-		return false;
-//		return threat;
+//		return false;
+		return threat;
 		
 	}
 	
