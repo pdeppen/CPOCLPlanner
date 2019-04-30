@@ -384,8 +384,8 @@ public class Planner
 					if(	(!effect.isNegative() && !precondition.isNegative() && effect.toString().equals(precondition.toString())) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
 					{
 
-//						if (this.detectPotentialThreat(openPrecondition, currentStep))
-//							return false;
+						if (this.detectPotentialThreat(openPrecondition, currentStep))
+							return false;
 						
 						if(!(graph.containsOrdering(Actions.get(i), currentStep )))
 						{
@@ -484,10 +484,10 @@ public class Planner
 				if (checkIntentions(currentStep) == true)
 				{
 					
-//					if (this.detectPotentialThreat(openPrecondition, currentStep)) 
+					if (this.detectPotentialThreat(openPrecondition, currentStep)) 
 					{
 //						/* if it is not found in initial - search action effects */
-//						return false;
+						return false;
 					}
 					
 					causalLink = new CausalLink(openPrecondition,parser.getInitialState(),array.get(0));
@@ -649,8 +649,8 @@ public class Planner
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
 					
-//					if (this.detectPotentialThreat(openPrecondition, currentStep))
-//						return false;
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
 					
 					causalLink= new CausalLink(openPrecondition,Actions.get(mapkey),literal);
 
@@ -754,8 +754,8 @@ public class Planner
 					binding.bindPrecondtion(precondition, groundLetter, newVariable);
 					binding.bindStep(currentStep, groundLetter, newVariable);
 
-//					if (this.detectPotentialThreat(openPrecondition, currentStep))
-//						return false;
+					if (this.detectPotentialThreat(openPrecondition, currentStep))
+						return false;
 
 					causalLink = new CausalLink(openPrecondition,Actions.get(key),temp);
 					causalLink.getPrecondition().getOpenPrecondtion().setExcuted(true);
@@ -1226,11 +1226,13 @@ public class Planner
 								System.out.println("q: " + q);
 								System.out.println(precondition.getLiteralParameters(j));
 								System.out.println(threat.getLiteralParameters(q));
+								// precondition contains params that are the same as threatening link
 								if (precondition.getLiteralParameters(j).equals(threat.getLiteralParameters(q)))
 								{
 									System.out.println("hereq");
 									System.out.println(link1);
 									System.out.println(link1.getPrecondition().getStepID());
+									// link is connected to gaol state
 									if (link1.getPrecondition().getStepID() == 0)
 									{
 										threats.add(link1);
