@@ -382,11 +382,7 @@ public class Planner
 					Literal effect = Actions.get(i).getEffects(x);
 					// precondition and effect are both positive or negative
 					if(	(!effect.isNegative() && !precondition.isNegative() && effect.toString().equals(precondition.toString())) || (effect.isNegative() && precondition.isNegative() && effect.toString().equals(precondition.toString())))
-					{
-
-						if (this.detectPotentialThreat(openPrecondition, currentStep))
-							return false;
-						
+					{						
 						if(!(graph.containsOrdering(Actions.get(i), currentStep )))
 						{
 							System.out.println("Found in Effects");
@@ -1200,7 +1196,7 @@ public class Planner
 			/* get current open precondition */
 			
 			/* if step != null */
-			System.out.println(link1.getStepName());
+//			System.out.println(link1.getStepName());
 			
 			if (s != link1.getStepName())// && precondition.toString().equals(thisEffect))
 			{
@@ -1227,15 +1223,19 @@ public class Planner
 								System.out.println(precondition.getLiteralParameters(j));
 								System.out.println(threat.getLiteralParameters(q));
 								// precondition contains params that are the same as threatening link
-								if (precondition.getLiteralParameters(j).equals(threat.getLiteralParameters(q)))
+//								if (precondition.getLiteralParameters(j).equals(threat.getLiteralParameters(q)))
+								if (precondition.toString().equals(threat.toString()))
 								{
 									System.out.println("hereq");
 									System.out.println(link1);
 									System.out.println(link1.getPrecondition().getStepID());
 									// link is connected to gaol state
-									if (link1.getPrecondition().getStepID() != s.getStepId())
+									System.out.println("Link Step: " + link1.getStepName());
+									System.out.println("Step name: " + s.getStepName().toString());
+									if (link1.getPrecondition().getStepID() != s.getStepId() && !link1.getStepName().toString().equals(s.getStepName().toString()))
 									{
 										threats.add(link1);
+										System.out.println("Restriction Added");
 										return threats;
 									}
 								}
@@ -1246,16 +1246,16 @@ public class Planner
 				}
 				
 				/* loop for each precondition in current step */
-				for (int x=0;x<s.getPreconditionSize();x++)
-				{
-					/* threat = current step precondition */
-					Literal threat = s.getPreconditions(x);
-					if((isPreconditionNegate(threat,thisEffect)))
-					{
-						System.out.println(link1);
-						threats.add(link1);
-					}
-				}
+//				for (int x=0;x<s.getPreconditionSize();x++)
+//				{
+//					/* threat = current step precondition */
+//					Literal threat = s.getPreconditions(x);
+//					if((isPreconditionNegate(threat,thisEffect)))
+//					{
+//						System.out.println(link1);
+//						threats.add(link1);
+//					}
+//				}
 			}
 			
 		}

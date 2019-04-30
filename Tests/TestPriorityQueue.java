@@ -21,15 +21,15 @@ public class TestPriorityQueue {
 		
 //		String domainName = "BlockDomain.txt";
 //		String problemName = "BlockProblem.txt";
-		String domainName = "Reorder_and_Restriction_Domain.txt";
-		String problemName = "Reorder_and_Restriction_Problem.txt";
+//		String domainName = "Reorder_and_Restriction_Domain.txt";
+//		String problemName = "Reorder_and_Restriction_Problem.txt";
 //		String domainName = "BriefcaseDomain.txt";
 //		String problemName = "BriefcaseProblem.txt";
 		
 //		String domainName = "BirthdayDomain.txt";
 //		String problemName = "BirthdayProblem.txt";
-//		String domainName = "SimpleBirthdayDomain.txt";
-//		String problemName = "SimpleBirthdayProblem.txt";
+		String domainName = "SimpleBirthdayDomain.txt";
+		String problemName = "SimpleBirthdayProblem.txt";
 
 //		String domainName = "MarriageDomain.txt";
 //		String problemName = "MarriageProblem.txt";
