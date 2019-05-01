@@ -106,7 +106,7 @@ public class PriorityQueueMethod extends Planner
 				{
 					this.Links = new ArrayList<CausalLink>(this.RestrictionLinks);
 			        this.openPrecon = (LinkedList)this.restrictionOpenPrecons.clone(); 
-					this.restrictionPrecondition = this.getOpenPrecondition();
+//					this.restrictionPrecondition = this.getOpenPrecondition();
 					System.out.println("Old Graph: " + graph.neighbors.toString());
 					
 //					this.graph = this.restrictionGraph;
@@ -119,9 +119,11 @@ public class PriorityQueueMethod extends Planner
 					System.out.println("New Graph: " + graph.neighbors.toString());
 
 					System.out.println("Possible Restriction");
-					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
-					this.restrictionPrecondition.getOpenPrecondtion().hasNegativeSign(true);
-					if (!(this.resolveWithRestriction()))
+//					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
+//					this.restrictionPrecondition.getOpenPrecondtion().hasNegativeSign(true);
+					addRestriction = true;
+//					if (!(this.resolveWithRestriction()))
+					if (!this.resolveOpenPrecondition())
 							return false;
 				}
 				else {
@@ -132,6 +134,7 @@ public class PriorityQueueMethod extends Planner
 				}
 			}
 			
+			this.addRestriction = false;
 			this.updateCausalLinks();
 			System.out.println("\n\n");
 
@@ -290,6 +293,9 @@ public class PriorityQueueMethod extends Planner
 //			precondition = this.restrictionPrecondition;
 		
 		precondition = this.getOpenPrecondition();
+		
+		if (this.addRestriction)
+			precondition.getOpenPrecondtion().hasNegativeSign(true);
 		
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+

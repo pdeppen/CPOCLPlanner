@@ -23,13 +23,13 @@ public class MainClassCPOCL
 	
 //	static String domainName = "BirthdayDomain.txt";
 //	static String problemName = "BirthdayProblem.txt";
-	static String domainName = "SimpleBirthdayDomain.txt";
-	static String problemName = "SimpleBirthdayProblem.txt";
+//	static String domainName = "SimpleBirthdayDomain.txt";
+//	static String problemName = "SimpleBirthdayProblem.txt";
 
 //	static String domainName = "MarriageDomain.txt";
 //	static String problemName = "MarriageProblem.txt";
-//	static String domainName = "SimpleMarriageDomain.txt";
-//	static String problemName = "SimpleMarriageProblem.txt";
+	static String domainName = "SimpleMarriageDomain.txt";
+	static String problemName = "SimpleMarriageProblem.txt";
 
 //	static String domainName = "DinnerDomain.txt";
 //	static String problemName = "DinnerProblem.txt";
