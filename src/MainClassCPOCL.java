@@ -23,11 +23,11 @@ public class MainClassCPOCL
 	
 //	static String domainName = "BirthdayDomain.txt";
 //	static String problemName = "BirthdayProblem.txt";
-	static String domainName = "SimpleBirthdayDomain.txt";
-	static String problemName = "SimpleBirthdayProblem.txt";
+//	static String domainName = "SimpleBirthdayDomain.txt";
+//	static String problemName = "SimpleBirthdayProblem.txt";
 
-//	static String domainName = "MarriageDomain.txt";
-//	static String problemName = "MarriageProblem.txt";
+	static String domainName = "MarriageDomain.txt";
+	static String problemName = "MarriageProblem.txt";
 //	static String domainName = "SimpleMarriageDomain.txt";
 //	static String problemName = "SimpleMarriageProblem.txt";
 
@@ -80,24 +80,24 @@ public class MainClassCPOCL
 		parser.parseProblem(problemName);
 		Planner planner;
 
-//		for (int i = 0; i < bagTimes.length; i++)
-//		{
-//			success = false;
-//			while (!success)
-//			{
-//				start = System.nanoTime();
-////				start = System.currentTimeMillis();
-//				planner = new BagMethod(parser, start);
-//				success = planner.search();
-//				end = System.nanoTime();
-//				time = (end - start) / 1000;
-////				time = System.currentTimeMillis() - start;
-//
-//				bagTimes[i] = time;
-//				if (!success)
-//					bagFails++;
-//			}
-//		}
+		for (int i = 0; i < bagTimes.length; i++)
+		{
+			success = false;
+			while (!success)
+			{
+				start = System.nanoTime();
+//				start = System.currentTimeMillis();
+				planner = new BagMethod(parser, start);
+				success = planner.search();
+				end = System.nanoTime();
+				time = (end - start) / 1000;
+//				time = System.currentTimeMillis() - start;
+
+				bagTimes[i] = time;
+				if (!success)
+					bagFails++;
+			}
+		}
 
 		for (int i = 0; i < queueTimes.length; i++)
 		{
@@ -117,23 +117,23 @@ public class MainClassCPOCL
 			}
 		}
 
-//		for (int i = 0; i < priorityTimes.length; i++)
-//		{
-//			success = false;
-//			while (!success)
-//			{
-//				start = System.nanoTime();
-////				start = System.currentTimeMillis();
-//				planner = new PriorityQueueMethod(parser, start);
-//				success = planner.search();
-//				end = System.nanoTime();
-////				time = System.currentTimeMillis() - start;
-//				time = (end - start) / 1000;
-//				priorityTimes[i] = time;
-//				if(!success)
-//					priorityFails++;
-//			}
-//		}
+		for (int i = 0; i < priorityTimes.length; i++)
+		{
+			success = false;
+			while (!success)
+			{
+				start = System.nanoTime();
+//				start = System.currentTimeMillis();
+				planner = new PriorityQueueMethod(parser, start);
+				success = planner.search();
+				end = System.nanoTime();
+//				time = System.currentTimeMillis() - start;
+				time = (end - start) / 1000;
+				priorityTimes[i] = time;
+				if(!success)
+					priorityFails++;
+			}
+		}
 
 
 		DecimalFormat df = new DecimalFormat("##.##");

@@ -99,17 +99,13 @@ public class QueueMethod extends Planner
 
 			if(!(this.CheckThreats()))
 			{
+				// if there are threats  that weren't resolved
 				if (!this.restrictionOpenPrecons.isEmpty())
 				{
-					// if there are threats  that weren't resolved
-					if (!this.restrictionOpenPrecons.isEmpty())
-					{
-						// try adding restriction
-						if (!this.addingRestriction())
-								return false;
-						this.updateCausalLinks();
-					}
-
+					// try adding restriction
+					if (!this.addingRestriction())
+							return false;
+					this.updateCausalLinks();					
 				}
 				else {
 					System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
@@ -155,13 +151,13 @@ public class QueueMethod extends Planner
 	public boolean resolveOpenPrecondition() 
 	{
 
-		for (int i = 0; i < this.openPrecon.size(); i++)
-		System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
-	
-	/* added 12/12/18 - prints causal links created so far */
-	System.out.println("\nLinks Created so far: ");
-	for (int i = 0; i < this.Links.size(); i++)
-		System.out.println(this.Links.get(i));
+//		for (int i = 0; i < this.openPrecon.size(); i++)
+//		System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+//	
+//	/* added 12/12/18 - prints causal links created so far */
+//	System.out.println("\nLinks Created so far: ");
+//	for (int i = 0; i < this.Links.size(); i++)
+//		System.out.println(this.Links.get(i));
 		
 		// makes temp copies
 		tempLinks = new ArrayList<CausalLink>(this.Links);
@@ -180,7 +176,6 @@ public class QueueMethod extends Planner
 			precondition.getOpenPrecondtion().hasNegativeSign(true);
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
-
 
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))

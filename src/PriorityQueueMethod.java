@@ -125,15 +125,10 @@ public class PriorityQueueMethod extends Planner
 			{
 				if (!this.restrictionOpenPrecons.isEmpty())
 				{
-					// if there are threats  that weren't resolved
-					if (!this.restrictionOpenPrecons.isEmpty())
-					{
-						// try adding restriction
-						if (!this.addingRestriction())
-								return false;
-						this.updateCausalLinks();
-					}
-
+					// try adding restriction
+					if (!this.addingRestriction())
+							return false;
+					this.updateCausalLinks();
 				}
 				else {
 					System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
