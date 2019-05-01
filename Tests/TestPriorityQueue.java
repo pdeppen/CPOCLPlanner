@@ -14,8 +14,8 @@ public class TestPriorityQueue {
 //		String domainName = "SimpleDeathMatchDomain.txt";
 //		String problemName = "SimpleDeathMatchProblem.txt";
 
-//		String domainName = "CryingBabyDomain.txt";
-//		String problemName = "CryingBabyProblem.txt";
+		String domainName = "CryingBabyDomain.txt";
+		String problemName = "CryingBabyProblem.txt";
 //		String domainName = "SimpleCryingBabyDomain.txt";
 //		String problemName = "SimpleCryingBabyProblem.txt";
 		
@@ -28,8 +28,8 @@ public class TestPriorityQueue {
 		
 //		String domainName = "BirthdayDomain.txt";
 //		String problemName = "BirthdayProblem.txt";
-		String domainName = "SimpleBirthdayDomain.txt";
-		String problemName = "SimpleBirthdayProblem.txt";
+//		String domainName = "SimpleBirthdayDomain.txt";
+//		String problemName = "SimpleBirthdayProblem.txt";
 
 //		String domainName = "MarriageDomain.txt";
 //		String problemName = "MarriageProblem.txt";
