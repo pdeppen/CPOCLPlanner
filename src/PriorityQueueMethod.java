@@ -98,14 +98,18 @@ public class PriorityQueueMethod extends Planner
 				return false;
 			}
 			
-			if(!(this.resolveOpenPrecondition()) && this.restrictionPrecondition != null)
+			if(!(this.resolveOpenPrecondition()))
 			{
-				System.out.println("Possible Restriction");
-				System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
-				this.precondition.getOpenPrecondtion().hasNegativeSign(true);
-//				System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
-				if (!(this.resolveWithRestriction()))
-				
+				if (this.restrictionPrecondition != null)
+				{
+					System.out.println("Possible Restriction");
+					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
+					this.precondition.getOpenPrecondtion().hasNegativeSign(true);
+//					System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
+					if (!(this.resolveWithRestriction()))
+							return false;
+				}
+				else
 				//				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
 					return false;
@@ -130,7 +134,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.notused();
-			this.printOutSolution();
+//			this.printOutSolution();
 			return true;
 		}
 		return true;
