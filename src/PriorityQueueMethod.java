@@ -100,10 +100,18 @@ public class PriorityQueueMethod extends Planner
 			
 			if(!(this.resolveOpenPrecondition()))
 			{
-				if (this.restrictionPrecondition != null)
+				if (!this.restrictionOpenPrecons.isEmpty())
 				{
+//					this.Links = this.RestrictionLinks;
+//					this.restrictionPath = true;
+					this.Links = new ArrayList<CausalLink>(this.RestrictionLinks);
+//					this.openPrecon = new LinkedList<OpenPrecondition>(this.restrictionOpenPrecons);
+			        this.openPrecon = (LinkedList)this.restrictionOpenPrecons.clone(); 
+					this.restrictionPrecondition = this.getOpenPrecondition();
+
 					System.out.println("Possible Restriction");
 					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
+//					this.restrictionPrecondition = this.getOpenPrecondition();
 					this.restrictionPrecondition.getOpenPrecondtion().hasNegativeSign(true);
 //					System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
 					if (!(this.resolveWithRestriction()))
@@ -120,16 +128,21 @@ public class PriorityQueueMethod extends Planner
 
 			if(!(this.CheckThreats()))
 			{
-				if (this.restrictionPrecondition != null)
-				{
-					System.out.println("Possible Restriction");
-					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
-					this.restrictionPrecondition.getOpenPrecondtion().hasNegativeSign(true);
-//					System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
-					if (!(this.resolveWithRestriction()))
-							return false;
-				}
-				else
+//				if (this.restrictionPrecondition != null)
+//				{
+//					this.Links = new ArrayList<CausalLink>(this.RestrictionLinks);
+////					this.openPrecon = new LinkedList<OpenPrecondition>(this.restrictionOpenPrecons);
+//			        this.openPrecon = (LinkedList)this.restrictionOpenPrecons.clone(); 
+//
+////					this.Links = this.RestrictionLinks;
+//					System.out.println("Possible Restriction");
+//					System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
+//					this.restrictionPrecondition.getOpenPrecondtion().hasNegativeSign(true);
+////					System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
+//					if (!(this.resolveWithRestriction()))
+//							return false;
+//				}
+//				else
 				//				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
 					return false;
@@ -145,7 +158,7 @@ public class PriorityQueueMethod extends Planner
 		{
 			System.out.println("The Following plan has been found:");
 			//			this.notused();
-//			this.printOutSolution();
+			this.printOutSolution();
 			return true;
 		}
 		return true;
@@ -153,16 +166,21 @@ public class PriorityQueueMethod extends Planner
 	
 	public boolean resolveWithRestriction()
 	{
+		for (int i = 0; i < this.openPrecon.size(); i++)
+			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+	
+		/* added 12/12/18 - prints causal links created so far */
+		System.out.println("\nLinks Created so far: ");
+		for (int i = 0; i < this.Links.size(); i++)
+			System.out.println(this.Links.get(i));
+		
 		System.out.println("The openPrecondition:	"+ this.restrictionPrecondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(restrictionPrecondition.getStepID()).getStepName()+
 				"	ActionID is "+restrictionPrecondition.getStepID());
 					
 		
 		System.out.println("Action is negative: " + restrictionPrecondition.getOpenPrecondtion().isNegative());
-								
-		if (restrictionPrecondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
-			System.out.println("here");
-
+							
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(restrictionPrecondition.getOpenPrecondtion()))
 		{
@@ -237,17 +255,17 @@ public class PriorityQueueMethod extends Planner
 	public boolean resolveOpenPrecondition() throws FileNotFoundException
 	{
 		/* added 12/10/18 - prints remaining preconditions */
-//		for (int i = 0; i < this.openPrecon.size(); i++)
-//			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+		for (int i = 0; i < this.openPrecon.size(); i++)
+			System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
 		
 		/* added 12/12/18 - prints causal links created so far */
 		System.out.println("\nLinks Created so far: ");
-//		for (int i = 0; i < this.Links.size(); i++)
-//			System.out.println(this.Links.get(i));
+		for (int i = 0; i < this.Links.size(); i++)
+			System.out.println(this.Links.get(i));
 			
 		/* print blank line */
-//		System.out.println("");
-
+		System.out.println("");
+		LinkedList <OpenPrecondition> temp = (LinkedList)this.openPrecon.clone(); 
 //		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
@@ -255,7 +273,11 @@ public class PriorityQueueMethod extends Planner
 		/**
 		 * This is where preconditions differ each time 
 		 */
+//		if (this.restrictionPath)
+//			precondition = this.restrictionPrecondition;
+		
 		precondition = this.getOpenPrecondition();
+		
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
@@ -263,8 +285,6 @@ public class PriorityQueueMethod extends Planner
 		
 		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
 								
-		if (precondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
-			System.out.println("here");
 
 		//search for an effect in the initial state to satisfy it (if there is)
 		if(binding.isBounded(precondition.getOpenPrecondtion()))
@@ -334,9 +354,15 @@ public class PriorityQueueMethod extends Planner
 		}
 		
 		if (this.possibleRestriction)
-		{			
-			this.restrictionPrecondition = this.precondition;
+		{	
+			this.RestrictionLinks = new ArrayList<CausalLink>(this.Links);
+//			this.restrictionOpenPrecons = new LinkedList<OpenPrecondition>(this.openPrecon);
+	        this.restrictionOpenPrecons = (LinkedList)temp.clone(); 
+
+//			this.restrictionPrecondition = this.precondition;
+//			this.RestrictionLinks = this.Links;
 		}
+		this.possibleRestriction = false;
 		
 		return true;
 

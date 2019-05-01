@@ -31,9 +31,11 @@ public class Planner
 	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
+	ArrayList <CausalLink> RestrictionLinks;// = new ArrayList<CausalLink>();
 	
 	LinkedList <OpenPrecondition> openPrecon = new LinkedList <OpenPrecondition>();
-
+	LinkedList <OpenPrecondition> restrictionOpenPrecons = new LinkedList<OpenPrecondition>();
+	
 	Ordering<Step> graph = new Ordering<Step>();
 	ArrayList <Literal> intent = new ArrayList <Literal>();
 
@@ -56,6 +58,7 @@ public class Planner
 	protected boolean restriction;
 	protected boolean possibleRestriction = false;
 	protected OpenPrecondition restrictionPrecondition;
+	protected boolean restrictionPath = false;
 
 	/**
 	 * create a plan using a selected parser and start time
