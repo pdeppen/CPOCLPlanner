@@ -37,6 +37,8 @@ public class Planner
 	LinkedList <OpenPrecondition> restrictionOpenPrecons = new LinkedList<OpenPrecondition>();
 	
 	Ordering<Step> graph = new Ordering<Step>();
+	Ordering<Step> restrictionGraph = new Ordering<Step>();
+	
 	ArrayList <Literal> intent = new ArrayList <Literal>();
 
 	protected ConflictParser parser;

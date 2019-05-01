@@ -17,13 +17,43 @@ import java.util.Stack;
 public class Ordering<T>
 {
     Map<T,List<T>> neighbors = new HashMap<T,List<T>>();
+    Map<T, List<T>> restrictionNeighbors = new HashMap<T, List<T>>();
+    Map<T, List<T>> temp = new HashMap<T, List<T>>();
+
     
     public int getSize()
     {
     	return neighbors.size();
     }
     
-
+    public void createTemp()
+    {
+    		temp = neighbors;
+    }
+    
+    public void copyRestrictions()
+    {
+//    		restrictionNeighbors.putAll(neighbors);
+    		for (Map.Entry<T,List<T>> entry : neighbors.entrySet())
+        {
+            restrictionNeighbors.put(entry.getKey(),
+               // Or whatever List implementation you'd like here.
+               (entry.getValue()));
+        }
+//    		restrictionNeighbors.remove(neighbors.size());
+    }
+    
+    public void resetRestrictions()
+    {
+//    		neighbors.putAll(restrictionNeighbors);
+    		neighbors.clear();
+		for (Map.Entry<T,List<T>> entry : restrictionNeighbors.entrySet())
+        {
+            neighbors.put(entry.getKey(),
+               // Or whatever List implementation you'd like here.
+               (entry.getValue()));
+        }
+    }
     
     /**
      * Add a vertex to the graph.  Nothing happens if vertex is already in graph.
