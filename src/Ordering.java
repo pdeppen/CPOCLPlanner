@@ -28,13 +28,19 @@ public class Ordering<T>
     
     public void createTemp()
     {
-    		temp = neighbors;
+    		temp.clear();
+		for (Map.Entry<T,List<T>> entry : neighbors.entrySet())
+        {
+            temp.put(entry.getKey(),
+               // Or whatever List implementation you'd like here.
+               (entry.getValue()));
+        }
     }
     
     public void copyRestrictions()
     {
-//    		restrictionNeighbors.putAll(neighbors);
-    		for (Map.Entry<T,List<T>> entry : neighbors.entrySet())
+    		restrictionNeighbors.clear();
+    		for (Map.Entry<T,List<T>> entry : temp.entrySet())
         {
             restrictionNeighbors.put(entry.getKey(),
                // Or whatever List implementation you'd like here.

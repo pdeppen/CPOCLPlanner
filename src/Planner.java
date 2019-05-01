@@ -31,6 +31,7 @@ public class Planner
 	
 	LinkedList <Step>  Actions = new LinkedList <Step>();
 	ArrayList <CausalLink>  Links = new ArrayList <CausalLink>();
+	ArrayList <CausalLink> tempLinks;
 	ArrayList <CausalLink> RestrictionLinks;// = new ArrayList<CausalLink>();
 	
 	LinkedList <OpenPrecondition> openPrecon = new LinkedList <OpenPrecondition>();
