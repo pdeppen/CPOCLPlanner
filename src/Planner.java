@@ -54,6 +54,7 @@ public class Planner
 	protected long duration;
 	
 	protected boolean restriction;
+	protected boolean possibleRestriction = false;
 
 	/**
 	 * create a plan using a selected parser and start time
@@ -132,17 +133,14 @@ public class Planner
 		threats = this.getThreatenCausalLinks(step, condition);
 		
 		if (!threats.isEmpty()) {
+			this.possibleRestriction = true;
 			threat = true;
 			System.out.println("Restriction Added");
-			condition.getOpenPrecondtion().hasNegativeSign(true);
+//			condition.getOpenPrecondtion().hasNegativeSign(true);
 		}
-					
-		if (threat) {
-			System.out.println("Restriction Added");	
-		}
-		
-//		return false;
-		return threat;
+						
+		return false;
+//		return threat;
 		
 	}
 	
@@ -1020,9 +1018,15 @@ public class Planner
 //			System.out.println("/**********In second conditional in CheckThreats() -> Planner**********"); 
 			return true;
 		}
-
+		if (this.possibleRestriction)
+		{
+			System.out.println("Adding Restriction");
+			return true;
+		}
+		
 		else
 		{
+			System.out.println("Possible Restriction");
 			System.out.println("The threat can not be resolved");
 //			System.out.println("/**********In third conditional in CheckThreats() -> Planner**********"); 
 			return false;
@@ -1214,28 +1218,28 @@ public class Planner
 						System.out.println("Link effect: " + thisEffect.toString());
 						System.out.println("Step effect: " + threat.toString());
 //						if (condition.toString().equals(thisEffect.toString()) && precondition.toString().equals(threat.toString()))
-						for (int j = 0; j < precondition.getLiteralParameters().size(); j++)
+//						for (int j = 0; j < precondition.getLiteralParameters().size(); j++)
 						{	
-							for (int q = 0; q < threat.getLiteralParameters().size(); q++)
+//							for (int q = 0; q < threat.getLiteralParameters().size(); q++)
 							{	
-								System.out.println("j: " + j);
-								System.out.println("q: " + q);
-								System.out.println(precondition.getLiteralParameters(j));
-								System.out.println(threat.getLiteralParameters(q));
+//								System.out.println("j: " + j);
+//								System.out.println("q: " + q);
+//								System.out.println(precondition.getLiteralParameters(j));
+//								System.out.println(threat.getLiteralParameters(q));
 								// precondition contains params that are the same as threatening link
 //								if (precondition.getLiteralParameters(j).equals(threat.getLiteralParameters(q)))
 								if (precondition.toString().equals(threat.toString()))
 								{
-									System.out.println("hereq");
-									System.out.println(link1);
-									System.out.println(link1.getPrecondition().getStepID());
+//									System.out.println("hereq");
+//									System.out.println(link1);
+//									System.out.println(link1.getPrecondition().getStepID());
 									// link is connected to gaol state
-									System.out.println("Link Step: " + link1.getStepName());
-									System.out.println("Step name: " + s.getStepName().toString());
+//									System.out.println("Link Step: " + link1.getStepName());
+//									System.out.println("Step name: " + s.getStepName().toString());
 									if (link1.getPrecondition().getStepID() != s.getStepId()) //&& !link1.getStepName().toString().equals(s.getStepName().toString()))
 									{
 										threats.add(link1);
-										System.out.println("Restriction Added");
+//										System.out.println("Restriction Added");
 										return threats;
 									}
 								}

@@ -14,8 +14,8 @@ public class TestBag {
 //		String domainName = "BriefcaseDomain.txt";
 //		String problemName = "BriefcaseProblem.txt";
 		
-		String domainName = "DeathMatchDomain.txt";
-		String problemName = "DeathMatchProblem.txt";
+//		String domainName = "DeathMatchDomain.txt";
+//		String problemName = "DeathMatchProblem.txt";
 //		String domainName = "SimpleDeathMatchDomain.txt";
 //		String problemName = "SimpleDeathMatchProblem.txt";
 
@@ -29,8 +29,8 @@ public class TestBag {
 //		String domainName = "SimpleBirthdayDomain.txt";
 //		String problemName = "SimpleBirthdayProblem.txt";
 
-//		String domainName = "MarriageDomain.txt";
-//		String problemName = "MarriageProblem.txt";
+		String domainName = "MarriageDomain.txt";
+		String problemName = "MarriageProblem.txt";
 //		String domainName = "SimpleMarriageDomain.txt";
 //		String problemName = "SimpleMarriageProblem.txt";
 

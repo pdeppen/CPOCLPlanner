@@ -13,7 +13,7 @@ public class PriorityQueueMethod extends Planner
     PrintWriter printWriter = null;
         
 	int tempCounter = 0;
-
+	OpenPrecondition precondition;
     
 	public PriorityQueueMethod(ConflictParser p, long startTime) throws FileNotFoundException
 	{
@@ -100,9 +100,15 @@ public class PriorityQueueMethod extends Planner
 			
 			if(!(this.resolveOpenPrecondition()))
 			{
-				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
+				System.out.println("Possible Restriction");
+				System.out.println("Making precondition: " + this.precondition.getOpenPrecondtion() + " negative");
+				this.precondition.getOpenPrecondtion().hasNegativeSign(true);
+				System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
+				if (!this.resolveOpenPrecondition())
+				
+				//				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
-				return false;
+					return false;
 			}
 			
 			this.updateCausalLinks();
@@ -114,6 +120,8 @@ public class PriorityQueueMethod extends Planner
 				//				break;
 				return false;
 			}
+			this.possibleRestriction = false;
+
 			
 		}
 
@@ -125,6 +133,88 @@ public class PriorityQueueMethod extends Planner
 			this.printOutSolution();
 			return true;
 		}
+		return true;
+	}
+	
+	public boolean resolveWithRestriction()
+	{
+		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
+		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
+				"	ActionID is "+precondition.getStepID());
+					
+		
+		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
+								
+		if (precondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
+			System.out.println("here");
+
+		//search for an effect in the initial state to satisfy it (if there is)
+		if(binding.isBounded(precondition.getOpenPrecondtion()))
+		{
+			boolean isFoundInIntialState = this.searchEffectInInitialState(precondition); // true
+			System.out.println("In Initial State?	"+isFoundInIntialState);
+			
+			//boolean isFoundInActionDomain = this.searchEffectsInActionDomain(precondition);
+
+			if(!(isFoundInIntialState)) // || isFoundInActionDomain))
+			{
+				if(!( this.searchInEffects(precondition)))
+				{
+					boolean isFoundinActionDomain = this.searchEffectsInActionDomain(precondition);
+					if(!(isFoundinActionDomain))
+					{
+						return false;
+					}
+
+				}
+			}
+		}
+
+		else
+		{
+			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
+			System.out.println("Similar In Initial State?	"+isFoundSimilarInInitialStat);
+			
+			if((isFoundSimilarInInitialStat))
+			{
+				System.out.println(precondition.getOpenPrecondtion());
+				Step currentStep = Actions.get(precondition.getStepID());
+				printStepDetails(currentStep);
+				System.out.println("/********** RETURNING TRUE -> IN resolveOpenPreconditions() 1st condition in the else PQM class");
+
+				return true;
+
+
+			}
+
+			else
+			{
+				/** never gets reached */
+				if((this.searchSimilarInEffects(precondition)))
+				{
+//					Step currentStep = Actions.get(precondition.getStepID());
+//					printStepDetails(currentStep);
+					System.out.println("/********** RETURNING TRUE -> IN resolveOpenPreconditions() 2nd condition in the else PQM class");
+
+					return true;
+				}
+				else
+				{
+					//search for an action in the action domain to satisfy the open precondition
+					//add the action to the plan
+					boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
+					/** here for last check before plan finally fails */
+					if(!(isFoundinActionDomain))
+					{
+						System.out.println("No Plan found -> resolveOpenPreconditions() in PQM class");
+						return false;
+					}
+					System.out.println("/*********** isFoundInActionDomain = true");
+					System.out.println("Action is ");
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -143,7 +233,7 @@ public class PriorityQueueMethod extends Planner
 		/* print blank line */
 //		System.out.println("");
 
-		OpenPrecondition precondition;
+//		OpenPrecondition precondition;
 
 		//get the first open precondition in the queue
 		
