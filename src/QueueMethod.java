@@ -9,6 +9,9 @@ import java.util.LinkedList;
 
 public class QueueMethod extends Planner
 {
+	OpenPrecondition precondition;
+
+	
 	public QueueMethod(ConflictParser p, long startTime) throws FileNotFoundException
 	{
 		super(p, startTime);
@@ -75,20 +78,47 @@ public class QueueMethod extends Planner
 			}
 			if(!(this.resolveOpenPrecondition()))
 			{
-				System.out.println("No Plan Found");
+				// if there are threats  that weren't resolved
+				if (!this.restrictionOpenPrecons.isEmpty())
+				{
+					// try adding restriction
+					if (!this.addingRestriction())
+							return false;
+				}
+				else {
+					System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
-				return false;
+					return false;
+			
+				}
 			}
-
+			
+			this.addRestriction = false;
 			this.updateCausalLinks();
 			System.out.println("\n\n");
 
 			if(!(this.CheckThreats()))
 			{
-				System.out.println("No Plan Found");
+				if (!this.restrictionOpenPrecons.isEmpty())
+				{
+					// if there are threats  that weren't resolved
+					if (!this.restrictionOpenPrecons.isEmpty())
+					{
+						// try adding restriction
+						if (!this.addingRestriction())
+								return false;
+						this.updateCausalLinks();
+					}
+
+				}
+				else {
+					System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
-				return false;
+					return false;			
+				}
+
 			}
+			this.possibleRestriction = false;
 		}
 
 		//to print out the solution if it exists
@@ -103,19 +133,53 @@ public class QueueMethod extends Planner
 
 	}
 
+	public boolean addingRestriction()
+	{
+		this.Links = new ArrayList<CausalLink>(this.RestrictionLinks);
+        this.openPrecon = (LinkedList)this.restrictionOpenPrecons.clone(); 
+		System.out.println("Old Graph: " + graph.neighbors.toString());
+		
+//    		System.out.println("Restriction Graph: " + graph.restrictionNeighbors.toString());
+    		graph.resetRestrictions();
+//		System.out.println("New Graph: " + graph.neighbors.toString());
 
-	public boolean resolveOpenPrecondition() throws FileNotFoundException
+		System.out.println("Trying Restriction");
+		addRestriction = true;
+		
+		if (!this.resolveOpenPrecondition())
+			return false;
+		else
+			return true;
+	}
+	
+	public boolean resolveOpenPrecondition() 
 	{
 
-
-
-		OpenPrecondition precondition;
+		for (int i = 0; i < this.openPrecon.size(); i++)
+		System.out.println("Open Preconditions left: " + this.openPrecon.get(i).getOpenPreconditionToString() + " action: "  + Actions.get(this.openPrecon.get(i).getStepID()).getStepName());
+	
+	/* added 12/12/18 - prints causal links created so far */
+	System.out.println("\nLinks Created so far: ");
+	for (int i = 0; i < this.Links.size(); i++)
+		System.out.println(this.Links.get(i));
+		
+		// makes temp copies
+		tempLinks = new ArrayList<CausalLink>(this.Links);
+		LinkedList <OpenPrecondition> temp = (LinkedList)this.openPrecon.clone();
+		graph.createTemp();
+		
 
 		//get the first open precondition in the queue
 		precondition = this.getOpenPrecondition();
 		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
 		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
 				"	ActionID is "+precondition.getStepID());
+
+		// add restriction
+		if (this.addRestriction)
+			precondition.getOpenPrecondtion().hasNegativeSign(true);
+		
+		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
 
 
 		//search for an effect in the initial state to satisfy it (if there is)
@@ -168,6 +232,15 @@ public class QueueMethod extends Planner
 				}
 			}
 		}
+		if (this.possibleRestriction)
+		{	
+			this.RestrictionLinks = new ArrayList<CausalLink>(this.Links);
+//			this.RestrictionLinks = new ArrayList<CausalLink>(this.tempLinks);
+	        this.restrictionOpenPrecons = (LinkedList)temp.clone(); 
+	        graph.copyRestrictions();
+//	        	System.out.println("Restriction Graph: " + graph.restrictionNeighbors.toString());
+		}
+		this.possibleRestriction = false;
 
 		return true;
 
