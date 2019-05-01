@@ -98,13 +98,13 @@ public class PriorityQueueMethod extends Planner
 				return false;
 			}
 			
-			if(!(this.resolveOpenPrecondition()))
+			if(!(this.resolveOpenPrecondition()) && this.restrictionPrecondition != null)
 			{
 				System.out.println("Possible Restriction");
-				System.out.println("Making precondition: " + this.precondition.getOpenPrecondtion() + " negative");
+				System.out.println("Making precondition: " + this.restrictionPrecondition.getOpenPrecondtion() + " negative");
 				this.precondition.getOpenPrecondtion().hasNegativeSign(true);
-				System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
-				if (!this.resolveOpenPrecondition())
+//				System.out.println(this.precondition.getOpenPrecondtion() + " is negative: " + this.precondition.getOpenPrecondtion().isNegative());
+				if (!(this.resolveWithRestriction()))
 				
 				//				System.out.println("No Plan Found -> !(this.resolvedOpenPrecondition()");
 				//				break;
@@ -138,29 +138,29 @@ public class PriorityQueueMethod extends Planner
 	
 	public boolean resolveWithRestriction()
 	{
-		System.out.println("The openPrecondition:	"+ precondition.getOpenPrecondtion());
-		System.out.println("Action is "+ Actions.get(precondition.getStepID()).getStepName()+
-				"	ActionID is "+precondition.getStepID());
+		System.out.println("The openPrecondition:	"+ this.restrictionPrecondition.getOpenPrecondtion());
+		System.out.println("Action is "+ Actions.get(restrictionPrecondition.getStepID()).getStepName()+
+				"	ActionID is "+restrictionPrecondition.getStepID());
 					
 		
-		System.out.println("Action is negative: " + precondition.getOpenPrecondtion().isNegative());
+		System.out.println("Action is negative: " + restrictionPrecondition.getOpenPrecondtion().isNegative());
 								
-		if (precondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
+		if (restrictionPrecondition.getOpenPrecondtion().toString().equals("has Briefcase ?paycheck"))
 			System.out.println("here");
 
 		//search for an effect in the initial state to satisfy it (if there is)
-		if(binding.isBounded(precondition.getOpenPrecondtion()))
+		if(binding.isBounded(restrictionPrecondition.getOpenPrecondtion()))
 		{
-			boolean isFoundInIntialState = this.searchEffectInInitialState(precondition); // true
+			boolean isFoundInIntialState = this.searchEffectInInitialState(restrictionPrecondition); // true
 			System.out.println("In Initial State?	"+isFoundInIntialState);
 			
 			//boolean isFoundInActionDomain = this.searchEffectsInActionDomain(precondition);
 
 			if(!(isFoundInIntialState)) // || isFoundInActionDomain))
 			{
-				if(!( this.searchInEffects(precondition)))
+				if(!( this.searchInEffects(restrictionPrecondition)))
 				{
-					boolean isFoundinActionDomain = this.searchEffectsInActionDomain(precondition);
+					boolean isFoundinActionDomain = this.searchEffectsInActionDomain(restrictionPrecondition);
 					if(!(isFoundinActionDomain))
 					{
 						return false;
@@ -172,13 +172,13 @@ public class PriorityQueueMethod extends Planner
 
 		else
 		{
-			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(precondition);
+			boolean isFoundSimilarInInitialStat = this.searchSimilarInInitialState(restrictionPrecondition);
 			System.out.println("Similar In Initial State?	"+isFoundSimilarInInitialStat);
 			
 			if((isFoundSimilarInInitialStat))
 			{
-				System.out.println(precondition.getOpenPrecondtion());
-				Step currentStep = Actions.get(precondition.getStepID());
+				System.out.println(restrictionPrecondition.getOpenPrecondtion());
+				Step currentStep = Actions.get(restrictionPrecondition.getStepID());
 				printStepDetails(currentStep);
 				System.out.println("/********** RETURNING TRUE -> IN resolveOpenPreconditions() 1st condition in the else PQM class");
 
@@ -190,7 +190,7 @@ public class PriorityQueueMethod extends Planner
 			else
 			{
 				/** never gets reached */
-				if((this.searchSimilarInEffects(precondition)))
+				if((this.searchSimilarInEffects(restrictionPrecondition)))
 				{
 //					Step currentStep = Actions.get(precondition.getStepID());
 //					printStepDetails(currentStep);
@@ -202,7 +202,7 @@ public class PriorityQueueMethod extends Planner
 				{
 					//search for an action in the action domain to satisfy the open precondition
 					//add the action to the plan
-					boolean isFoundinActionDomain =this.searchEffectsInActionDomain(precondition);
+					boolean isFoundinActionDomain =this.searchEffectsInActionDomain(restrictionPrecondition);
 					/** here for last check before plan finally fails */
 					if(!(isFoundinActionDomain))
 					{
@@ -227,8 +227,8 @@ public class PriorityQueueMethod extends Planner
 		
 		/* added 12/12/18 - prints causal links created so far */
 		System.out.println("\nLinks Created so far: ");
-		for (int i = 0; i < this.Links.size(); i++)
-			System.out.println(this.Links.get(i));
+//		for (int i = 0; i < this.Links.size(); i++)
+//			System.out.println(this.Links.get(i));
 			
 		/* print blank line */
 //		System.out.println("");
@@ -317,7 +317,12 @@ public class PriorityQueueMethod extends Planner
 				}
 			}
 		}
-
+		
+		if (this.possibleRestriction)
+		{			
+			this.restrictionPrecondition = this.precondition;
+		}
+		
 		return true;
 
 	}

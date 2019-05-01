@@ -55,6 +55,7 @@ public class Planner
 	
 	protected boolean restriction;
 	protected boolean possibleRestriction = false;
+	protected OpenPrecondition restrictionPrecondition;
 
 	/**
 	 * create a plan using a selected parser and start time
